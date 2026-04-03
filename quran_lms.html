@@ -2440,11 +2440,17 @@ function renderSidebar() {
     </div>
   `).join('');
 
-  // Profile name
-  const user = getCurrentUser();
-  if (user) {
-    document.getElementById('profileNameDisplay').textContent = user.firstName + ' ' + user.lastName;
-    document.getElementById('avatarCircle').textContent = user.avatar || '👤';
+  // Profile name — show admin name when in admin role
+  const role = getRole();
+  if (role === 'admin') {
+    document.getElementById('profileNameDisplay').textContent = 'Administrator';
+    document.getElementById('avatarCircle').textContent = '🛡️';
+  } else {
+    const user = getCurrentUser();
+    if (user) {
+      document.getElementById('profileNameDisplay').textContent = user.firstName + ' ' + user.lastName;
+      document.getElementById('avatarCircle').textContent = user.avatar || '👤';
+    }
   }
 }
 
