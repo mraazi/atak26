@@ -1059,6 +1059,27 @@ body.admin-mode .student-only { display: none; }
 .pending-badge { background: #fef3c7; color: #92400e; padding: 3px 10px; border-radius: 10px; font-size: 11px; font-weight: 700; }
 .payment-total { font-size: 16px; font-weight: 800; color: var(--orange); }
 
+/* ── PAYMENT MONITOR ── */
+.pay-alert-banner {
+  border-radius: 8px; padding: 11px 16px; margin-bottom: 12px;
+  font-size: 13px; font-weight: 600; display: flex; align-items: center; gap: 10px;
+}
+.pay-alert-overdue { background: #fee2e2; color: #991b1b; border-left: 4px solid #ef4444; }
+.pay-alert-soon    { background: #fef3c7; color: #92400e; border-left: 4px solid #f59e0b; }
+.row-overdue td { background: #fff5f5 !important; }
+.row-due-soon td { background: #fffbeb !important; }
+.days-overdue { color: #ef4444; font-weight: 700; font-size: 12px; white-space: nowrap; }
+.days-due-soon { color: #f59e0b; font-weight: 700; font-size: 12px; white-space: nowrap; }
+.days-upcoming { color: var(--text-muted); font-size: 12px; white-space: nowrap; }
+.days-paid { color: #166534; font-weight: 700; font-size: 12px; }
+.payment-progress-wrap { background: #e5e7eb; border-radius: 20px; height: 10px; overflow: hidden; margin: 6px 0 2px; }
+.payment-progress-bar { height: 10px; border-radius: 20px; background: linear-gradient(90deg, #22c55e, #16a34a); transition: width 0.4s; }
+.progress-label { font-size: 11.5px; color: var(--text-muted); text-align: right; }
+.stat-card.red { border-top: 3px solid #ef4444; }
+.stat-card.red .stat-value { color: #ef4444; }
+.stat-card.amber { border-top: 3px solid #f59e0b; }
+.stat-card.amber .stat-value { color: #f59e0b; }
+
 /* ── BILLPLZ INTEGRATION ── */
 .btn-billplz {
   background: #0070BA; color: #fff; border: none; border-radius: 6px;
@@ -2264,7 +2285,7 @@ function navigate(pageId) {
   if (pageId === 'student-attendance') renderStudentAttendance();
   if (pageId === 'student-assignments') loadStudentAssignments();
   if (pageId === 'student-results') renderStudentResults();
-  if (pageId === 'student-payment') renderStudentPayment();
+  if (pageId === 'student-payment') { checkPaymentReminders(getCurrentUserId()); renderStudentPayment(); }
   if (pageId === 'admin-assignments') renderAdminAssignments();
   if (pageId === 'admin-centre') renderAdminCentre();
 }
@@ -3169,6 +3190,8 @@ function enterApp(role, userId) {
   applyRole();
   renderSidebar();
   renderNotifications();
+  requestNotifPermission();
+  if (role === 'student') checkPaymentReminders(userId);
   navigate(role === 'admin' ? 'admin-dashboard' : 'student-home');
 }
 
@@ -4233,69 +4256,208 @@ function renderStudentResults() {
 }
 
 // ════════════════════════════════
+//  PAYMENT REMINDERS
+// ════════════════════════════════
+function requestNotifPermission() {
+  if ('Notification' in window && Notification.permission === 'default') {
+    Notification.requestPermission();
+  }
+}
+
+function checkPaymentReminders(uid) {
+  if (!uid) return;
+  const today = new Date(); today.setHours(0,0,0,0);
+  const todayStr = today.toISOString().slice(0, 10);
+
+  const payments = getPayments().filter(p => p.studentId === uid && p.status !== 'Paid');
+  const notifications = getNotifications();
+  let added = false;
+
+  payments.forEach(p => {
+    if (!p.dueDate) return;
+    const throttleKey = 'bp_notif_' + p.id;
+    if (DB.get(throttleKey) === todayStr) return; // already notified today
+
+    const due = new Date(p.dueDate); due.setHours(0,0,0,0);
+    const diff = Math.round((due - today) / 86400000);
+    const c = courseById(p.courseId);
+    const courseName = c ? c.name.slice(0, 30) : p.courseId;
+
+    let title = '', body = '';
+    if (diff < 0) {
+      title = `⚠ Payment Overdue — ${courseName}`;
+      body  = `${p.semester} — ${p.amount} ${p.currency} was due ${Math.abs(diff)} day${Math.abs(diff) !== 1 ? 's' : ''} ago.`;
+    } else if (diff <= 7) {
+      title = `⏰ Payment Due Soon — ${courseName}`;
+      body  = diff === 0
+        ? `${p.semester} — ${p.amount} ${p.currency} is due TODAY.`
+        : `${p.semester} — ${p.amount} ${p.currency} due in ${diff} day${diff !== 1 ? 's' : ''}.`;
+    } else {
+      return; // not yet urgent
+    }
+
+    // Push to in-app notification panel
+    notifications.unshift({
+      id: 'pay_' + p.id + '_' + todayStr,
+      title,
+      body,
+      time: 'Just now',
+      read: false,
+    });
+
+    // Browser push notification
+    if ('Notification' in window && Notification.permission === 'granted') {
+      new Notification(title, { body, icon: '' });
+    }
+
+    DB.set(throttleKey, todayStr);
+    added = true;
+  });
+
+  if (added) {
+    DB.set('notifications', notifications);
+    renderNotifications();
+  }
+}
+
+// ════════════════════════════════
 //  STUDENT PAYMENT STATUS
 // ════════════════════════════════
 function renderStudentPayment() {
   const uid = getCurrentUserId();
   const payments = getPayments().filter(p => p.studentId === uid);
   const el = document.getElementById('paymentBody');
+  if (!el) return;
 
-  // Summary totals
-  const paid = payments.filter(p => p.status === 'Paid').reduce((s,p) => s + p.amount, 0);
-  const outstanding = payments.filter(p => p.status !== 'Paid').reduce((s,p) => s + p.amount, 0);
+  const today = new Date(); today.setHours(0,0,0,0);
 
-  const summaryHtml = `<div class="stats-grid mb-16" style="grid-template-columns:repeat(3,1fr)">
-    <div class="stat-card green"><div class="stat-value">${payments.filter(p=>p.status==='Paid').length}</div><div class="stat-label">Paid</div></div>
-    <div class="stat-card"><div class="stat-value">${payments.filter(p=>p.status!=='Paid').length}</div><div class="stat-label">Outstanding</div></div>
-    <div class="stat-card gold"><div class="stat-value">${outstanding > 0 ? outstanding : '0'}</div><div class="stat-label">Amount Due</div></div>
-  </div>`;
+  function daysDiff(dueDate) {
+    const d = new Date(dueDate); d.setHours(0,0,0,0);
+    return Math.round((d - today) / 86400000);
+  }
 
-  if (!payments.length) { el.innerHTML = summaryHtml + '<p class="text-muted" style="padding:10px">No payment records found.</p>'; return; }
+  const paidList     = payments.filter(p => p.status === 'Paid');
+  const unpaidList   = payments.filter(p => p.status !== 'Paid');
+  const overdueList  = unpaidList.filter(p => p.dueDate && daysDiff(p.dueDate) < 0);
+  const dueSoonList  = unpaidList.filter(p => p.dueDate && daysDiff(p.dueDate) >= 0 && daysDiff(p.dueDate) <= 7);
+  const totalAmt     = payments.reduce((s,p) => s + p.amount, 0);
+  const paidAmt      = paidList.reduce((s,p) => s + p.amount, 0);
+  const outstandingAmt = unpaidList.reduce((s,p) => s + p.amount, 0);
+  const pct          = totalAmt > 0 ? Math.round((paidAmt / totalAmt) * 100) : 0;
 
-  // Group by course
-  const byCourse = {};
-  payments.forEach(p => { if (!byCourse[p.courseId]) byCourse[p.courseId] = []; byCourse[p.courseId].push(p); });
-
-  const cardsHtml = Object.entries(byCourse).map(([cid, pmts]) => {
-    const c = courseById(cid);
-    return `<div class="payment-status-card">
-      <div class="payment-status-header">
-        <div class="course-lbl">${c ? c.name.slice(0,50) : cid} ${levelBadge(c && c.level)}</div>
-        <div>${c ? typeBadge(c.type) : ''}</div>
+  // ── Summary cards ──
+  const summaryHtml = `
+    <div class="stats-grid mb-16" style="grid-template-columns:repeat(4,1fr)">
+      <div class="stat-card green">
+        <div class="stat-value">${paidList.length}</div>
+        <div class="stat-label">Paid</div>
       </div>
-      <div class="payment-body">
-        ${pmts.map(p => {
-          const badge = p.status === 'Paid' ? `<span class="paid-badge">✓ Paid</span>` :
-                        p.status === 'Pending' ? `<span class="pending-badge">⏳ Pending</span>` :
-                        `<span class="unpaid-badge">✗ Unpaid</span>`;
-          const instalmentLabel = p.instalment ? `<span class="instalment-label">Instalment ${p.instalment}</span>` : '';
-          const payActions = p.status !== 'Paid' ? `
-            <div style="display:flex;gap:6px;margin-top:6px;flex-wrap:wrap">
-              ${p.billplzUrl
-                ? `<a href="${p.billplzUrl}" target="_blank" class="btn-billplz">💳 Pay via Billplz</a>`
-                : `<span style="font-size:11px;color:var(--text-muted);font-style:italic">Awaiting payment link</span>`
-              }
-              ${p.billplzBillId ? `<button class="btn-check-status" onclick="checkBillplzStatus('${p.id}')">🔄 Check Status</button>` : ''}
-            </div>` : '';
-          return `<div class="payment-row" style="flex-direction:column;align-items:flex-start">
-            <div style="display:flex;justify-content:space-between;align-items:center;width:100%">
-              <div>
-                <div style="font-weight:600">${p.semester} ${instalmentLabel}</div>
-                <div style="font-size:11.5px;color:var(--text-muted)">Due: ${fmtDate(p.dueDate)} ${p.paidDate ? '· Paid: '+fmtDate(p.paidDate) : ''}</div>
-              </div>
-              <div style="display:flex;align-items:center;gap:12px">
-                <span class="payment-total">${p.amount} ${p.currency}</span>
-                ${badge}
-              </div>
-            </div>
-            ${payActions}
-          </div>`;
-        }).join('')}
+      <div class="stat-card red">
+        <div class="stat-value">${overdueList.length}</div>
+        <div class="stat-label">Overdue</div>
       </div>
+      <div class="stat-card amber">
+        <div class="stat-value">${dueSoonList.length}</div>
+        <div class="stat-label">Due Soon</div>
+      </div>
+      <div class="stat-card gold">
+        <div class="stat-value" style="font-size:15px">${outstandingAmt > 0 ? outstandingAmt.toFixed(2) : '0'}</div>
+        <div class="stat-label">Outstanding</div>
+      </div>
+    </div>
+    <div style="margin-bottom:16px">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px">
+        <span style="font-size:12.5px;font-weight:600;color:var(--navy)">Overall Payment Progress</span>
+        <span style="font-size:12px;color:var(--text-muted)">${paidAmt.toFixed(2)} of ${totalAmt.toFixed(2)} paid</span>
+      </div>
+      <div class="payment-progress-wrap">
+        <div class="payment-progress-bar" style="width:${pct}%"></div>
+      </div>
+      <div class="progress-label">${pct}% complete</div>
     </div>`;
+
+  // ── Alert banners ──
+  let alertHtml = '';
+  if (overdueList.length) {
+    alertHtml += `<div class="pay-alert-banner pay-alert-overdue">⚠ ${overdueList.length} payment${overdueList.length > 1 ? 's are' : ' is'} overdue — please settle as soon as possible.</div>`;
+  }
+  if (dueSoonList.length) {
+    alertHtml += `<div class="pay-alert-banner pay-alert-soon">⏰ ${dueSoonList.length} payment${dueSoonList.length > 1 ? 's are' : ' is'} due within the next 7 days.</div>`;
+  }
+
+  if (!payments.length) {
+    el.innerHTML = summaryHtml + '<p class="text-muted" style="padding:10px">No payment records found.</p>';
+    return;
+  }
+
+  // ── Timeline table (sorted by due date ascending) ──
+  const sorted = [...payments].sort((a, b) => new Date(a.dueDate) - new Date(b.dueDate));
+
+  const rows = sorted.map((p, i) => {
+    const c = courseById(p.courseId);
+    const diff = p.dueDate ? daysDiff(p.dueDate) : null;
+    const isPaid = p.status === 'Paid';
+
+    let rowClass = '';
+    let daysHtml = '';
+    if (isPaid) {
+      daysHtml = `<span class="days-paid">✓ Paid ${p.paidDate ? fmtDate(p.paidDate) : ''}</span>`;
+    } else if (diff === null) {
+      daysHtml = `<span class="days-upcoming">No due date</span>`;
+    } else if (diff < 0) {
+      rowClass = 'row-overdue';
+      daysHtml = `<span class="days-overdue">⚠ ${Math.abs(diff)} day${Math.abs(diff) !== 1 ? 's' : ''} overdue</span>`;
+    } else if (diff <= 7) {
+      rowClass = 'row-due-soon';
+      daysHtml = diff === 0
+        ? `<span class="days-due-soon">⏰ Due today!</span>`
+        : `<span class="days-due-soon">⏰ Due in ${diff} day${diff !== 1 ? 's' : ''}</span>`;
+    } else {
+      daysHtml = `<span class="days-upcoming">Due in ${diff} days</span>`;
+    }
+
+    const badge = isPaid
+      ? `<span class="paid-badge">✓ Paid</span>`
+      : p.status === 'Pending'
+        ? `<span class="pending-badge">⏳ Pending</span>`
+        : `<span class="unpaid-badge">✗ Unpaid</span>`;
+
+    const actionHtml = !isPaid ? `
+      <div style="display:flex;gap:5px;flex-wrap:wrap;align-items:center">
+        ${p.billplzUrl
+          ? `<a href="${p.billplzUrl}" target="_blank" class="btn-billplz" style="font-size:11px;padding:4px 9px">💳 Pay</a>`
+          : `<span style="font-size:11px;color:var(--text-muted);font-style:italic">Awaiting link</span>`}
+        ${p.billplzBillId ? `<button class="btn-check-status" style="font-size:11px;padding:3px 8px" onclick="checkBillplzStatus('${p.id}')">🔄</button>` : ''}
+      </div>` : `<span style="font-size:12px;color:var(--text-muted)">—</span>`;
+
+    const instalmentTag = p.instalment ? `<br><span class="instalment-label">Instalment ${p.instalment}</span>` : '';
+
+    return `<tr class="${rowClass}">
+      <td style="font-size:12px;color:var(--text-muted)">${i + 1}</td>
+      <td style="font-size:12px;max-width:130px">${c ? c.name.slice(0,28) + (c.name.length > 28 ? '…' : '') : p.courseId} ${levelBadge(c && c.level)}</td>
+      <td style="font-size:12px">${p.semester}${instalmentTag}</td>
+      <td style="font-weight:700;color:var(--orange);white-space:nowrap">${p.amount} ${p.currency}</td>
+      <td style="font-size:12px;white-space:nowrap">${fmtDate(p.dueDate)}</td>
+      <td>${daysHtml}</td>
+      <td>${badge}</td>
+      <td>${actionHtml}</td>
+    </tr>`;
   }).join('');
 
-  el.innerHTML = summaryHtml + cardsHtml;
+  const tableHtml = `
+    <div style="overflow-x:auto">
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>#</th><th>Course</th><th>Label</th>
+            <th>Amount</th><th>Due Date</th><th>Status</th><th></th><th>Action</th>
+          </tr>
+        </thead>
+        <tbody>${rows}</tbody>
+      </table>
+    </div>`;
+
+  el.innerHTML = summaryHtml + alertHtml + tableHtml;
 }
 
 // ════════════════════════════════
