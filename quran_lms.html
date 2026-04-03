@@ -1066,8 +1066,6 @@ body.admin-mode .student-only { display: none; }
 }
 .pay-alert-overdue { background: #fee2e2; color: #991b1b; border-left: 4px solid #ef4444; }
 .pay-alert-soon    { background: #fef3c7; color: #92400e; border-left: 4px solid #f59e0b; }
-.row-overdue td { background: #fff5f5 !important; }
-.row-due-soon td { background: #fffbeb !important; }
 .days-overdue { color: #ef4444; font-weight: 700; font-size: 12px; white-space: nowrap; }
 .days-due-soon { color: #f59e0b; font-weight: 700; font-size: 12px; white-space: nowrap; }
 .days-upcoming { color: var(--text-muted); font-size: 12px; white-space: nowrap; }
@@ -1079,6 +1077,49 @@ body.admin-mode .student-only { display: none; }
 .stat-card.red .stat-value { color: #ef4444; }
 .stat-card.amber { border-top: 3px solid #f59e0b; }
 .stat-card.amber .stat-value { color: #f59e0b; }
+
+/* ── PAYMENT CARD (mobile-style list) ── */
+.pay-card {
+  background: #fff; border-radius: 10px; border: 1px solid #e5e7eb;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.08); margin-bottom: 12px; overflow: hidden;
+}
+.pay-card-header {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 10px 14px 6px;
+}
+.pay-card-org { display: flex; align-items: center; gap: 10px; }
+.pay-card-logo {
+  width: 38px; height: 38px; border-radius: 50%; background: var(--light-gray);
+  border: 1.5px solid #d1d5db; display: flex; align-items: center; justify-content: center;
+  font-size: 18px; flex-shrink: 0;
+}
+.pay-card-org-name { font-size: 12.5px; font-weight: 700; color: var(--text-dark); }
+.pay-card-org-date { font-size: 11.5px; color: var(--text-muted); margin-top: 1px; }
+.pay-badge-overdue  { background: #ef4444; color: #fff; font-size: 11px; font-weight: 700; padding: 3px 11px; border-radius: 20px; white-space: nowrap; }
+.pay-badge-done     { background: #22c55e; color: #fff; font-size: 11px; font-weight: 700; padding: 3px 11px; border-radius: 20px; white-space: nowrap; }
+.pay-badge-soon     { background: #f59e0b; color: #fff; font-size: 11px; font-weight: 700; padding: 3px 11px; border-radius: 20px; white-space: nowrap; }
+.pay-badge-today    { background: #f97316; color: #fff; font-size: 11px; font-weight: 700; padding: 3px 11px; border-radius: 20px; white-space: nowrap; }
+.pay-badge-upcoming { background: #6b7280; color: #fff; font-size: 11px; font-weight: 700; padding: 3px 11px; border-radius: 20px; white-space: nowrap; }
+.pay-card-body { padding: 4px 14px 12px; }
+.pay-card-title {
+  font-size: 15px; font-weight: 800; color: var(--text-dark);
+  margin-bottom: 7px; line-height: 1.35;
+}
+.pay-card-meta { display: flex; align-items: center; gap: 6px; font-size: 12.5px; color: #4b5563; margin-bottom: 4px; }
+.pay-card-meta svg { flex-shrink: 0; }
+.pay-card-footer {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 8px 14px 10px; border-top: 1px solid #f3f4f6; margin-top: 4px;
+}
+.pay-card-amount { font-size: 14px; font-weight: 800; color: var(--orange); }
+.pay-card-days { font-size: 11.5px; }
+.btn-pay-card {
+  background: #16a34a; border: none; border-radius: 8px; color: #fff;
+  width: 40px; height: 40px; font-size: 20px; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 2px 6px rgba(22,163,74,0.35); flex-shrink: 0;
+}
+.btn-pay-card:hover { background: #15803d; }
 
 /* ── BILLPLZ INTEGRATION ── */
 .btn-billplz {
@@ -4325,49 +4366,39 @@ function checkPaymentReminders(uid) {
 // ════════════════════════════════
 function renderStudentPayment() {
   const uid = getCurrentUserId();
+  const student = getStudents().find(s => s.id === uid);
   const payments = getPayments().filter(p => p.studentId === uid);
   const el = document.getElementById('paymentBody');
   if (!el) return;
 
   const today = new Date(); today.setHours(0,0,0,0);
+  const todayStr = fmtDate(today.toISOString().slice(0,10));
 
   function daysDiff(dueDate) {
     const d = new Date(dueDate); d.setHours(0,0,0,0);
     return Math.round((d - today) / 86400000);
   }
 
-  const paidList     = payments.filter(p => p.status === 'Paid');
-  const unpaidList   = payments.filter(p => p.status !== 'Paid');
-  const overdueList  = unpaidList.filter(p => p.dueDate && daysDiff(p.dueDate) < 0);
-  const dueSoonList  = unpaidList.filter(p => p.dueDate && daysDiff(p.dueDate) >= 0 && daysDiff(p.dueDate) <= 7);
-  const totalAmt     = payments.reduce((s,p) => s + p.amount, 0);
-  const paidAmt      = paidList.reduce((s,p) => s + p.amount, 0);
+  const paidList       = payments.filter(p => p.status === 'Paid');
+  const unpaidList     = payments.filter(p => p.status !== 'Paid');
+  const overdueList    = unpaidList.filter(p => p.dueDate && daysDiff(p.dueDate) < 0);
+  const dueSoonList    = unpaidList.filter(p => p.dueDate && daysDiff(p.dueDate) >= 0 && daysDiff(p.dueDate) <= 7);
+  const totalAmt       = payments.reduce((s,p) => s + p.amount, 0);
+  const paidAmt        = paidList.reduce((s,p) => s + p.amount, 0);
   const outstandingAmt = unpaidList.reduce((s,p) => s + p.amount, 0);
-  const pct          = totalAmt > 0 ? Math.round((paidAmt / totalAmt) * 100) : 0;
+  const pct            = totalAmt > 0 ? Math.round((paidAmt / totalAmt) * 100) : 0;
 
-  // ── Summary cards ──
+  // ── Summary bar ──
   const summaryHtml = `
     <div class="stats-grid mb-16" style="grid-template-columns:repeat(4,1fr)">
-      <div class="stat-card green">
-        <div class="stat-value">${paidList.length}</div>
-        <div class="stat-label">Paid</div>
-      </div>
-      <div class="stat-card red">
-        <div class="stat-value">${overdueList.length}</div>
-        <div class="stat-label">Overdue</div>
-      </div>
-      <div class="stat-card amber">
-        <div class="stat-value">${dueSoonList.length}</div>
-        <div class="stat-label">Due Soon</div>
-      </div>
-      <div class="stat-card gold">
-        <div class="stat-value" style="font-size:15px">${outstandingAmt > 0 ? outstandingAmt.toFixed(2) : '0'}</div>
-        <div class="stat-label">Outstanding</div>
-      </div>
+      <div class="stat-card green"><div class="stat-value">${paidList.length}</div><div class="stat-label">Paid</div></div>
+      <div class="stat-card red"><div class="stat-value">${overdueList.length}</div><div class="stat-label">Overdue</div></div>
+      <div class="stat-card amber"><div class="stat-value">${dueSoonList.length}</div><div class="stat-label">Due Soon</div></div>
+      <div class="stat-card gold"><div class="stat-value" style="font-size:15px">${outstandingAmt.toFixed(2)}</div><div class="stat-label">Outstanding</div></div>
     </div>
     <div style="margin-bottom:16px">
       <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px">
-        <span style="font-size:12.5px;font-weight:600;color:var(--navy)">Overall Payment Progress</span>
+        <span style="font-size:12.5px;font-weight:600;color:var(--navy)">Overall Progress</span>
         <span style="font-size:12px;color:var(--text-muted)">${paidAmt.toFixed(2)} of ${totalAmt.toFixed(2)} paid</span>
       </div>
       <div class="payment-progress-wrap">
@@ -4378,86 +4409,108 @@ function renderStudentPayment() {
 
   // ── Alert banners ──
   let alertHtml = '';
-  if (overdueList.length) {
+  if (overdueList.length)
     alertHtml += `<div class="pay-alert-banner pay-alert-overdue">⚠ ${overdueList.length} payment${overdueList.length > 1 ? 's are' : ' is'} overdue — please settle as soon as possible.</div>`;
-  }
-  if (dueSoonList.length) {
+  if (dueSoonList.length)
     alertHtml += `<div class="pay-alert-banner pay-alert-soon">⏰ ${dueSoonList.length} payment${dueSoonList.length > 1 ? 's are' : ' is'} due within the next 7 days.</div>`;
-  }
 
   if (!payments.length) {
     el.innerHTML = summaryHtml + '<p class="text-muted" style="padding:10px">No payment records found.</p>';
     return;
   }
 
-  // ── Timeline table (sorted by due date ascending) ──
-  const sorted = [...payments].sort((a, b) => new Date(a.dueDate) - new Date(b.dueDate));
+  // Sort: overdue first, then due-soon, then upcoming, then paid — within each group by dueDate desc
+  const priority = p => {
+    if (p.status !== 'Paid' && p.dueDate && daysDiff(p.dueDate) < 0) return 0;
+    if (p.status !== 'Paid' && p.dueDate && daysDiff(p.dueDate) <= 7) return 1;
+    if (p.status !== 'Paid') return 2;
+    return 3;
+  };
+  const sorted = [...payments].sort((a, b) => {
+    const pd = priority(a) - priority(b);
+    if (pd !== 0) return pd;
+    return new Date(b.dueDate || 0) - new Date(a.dueDate || 0);
+  });
 
-  const rows = sorted.map((p, i) => {
+  const studentName = student ? student.firstName + ' ' + student.lastName : 'Student';
+
+  const cardsHtml = sorted.map(p => {
     const c = courseById(p.courseId);
-    const diff = p.dueDate ? daysDiff(p.dueDate) : null;
     const isPaid = p.status === 'Paid';
+    const diff = p.dueDate ? daysDiff(p.dueDate) : null;
 
-    let rowClass = '';
-    let daysHtml = '';
+    // Header date: paidDate if paid, else today
+    const headerDate = isPaid && p.paidDate ? fmtDate(p.paidDate) : todayStr;
+
+    // Status badge
+    let badge = '';
+    let daysNote = '';
     if (isPaid) {
-      daysHtml = `<span class="days-paid">✓ Paid ${p.paidDate ? fmtDate(p.paidDate) : ''}</span>`;
+      badge = `<span class="pay-badge-done">Done</span>`;
     } else if (diff === null) {
-      daysHtml = `<span class="days-upcoming">No due date</span>`;
+      badge = `<span class="pay-badge-upcoming">Unpaid</span>`;
     } else if (diff < 0) {
-      rowClass = 'row-overdue';
-      daysHtml = `<span class="days-overdue">⚠ ${Math.abs(diff)} day${Math.abs(diff) !== 1 ? 's' : ''} overdue</span>`;
+      badge = `<span class="pay-badge-overdue">Overdue</span>`;
+      daysNote = `<span class="days-overdue">${Math.abs(diff)} day${Math.abs(diff) !== 1 ? 's' : ''} overdue</span>`;
+    } else if (diff === 0) {
+      badge = `<span class="pay-badge-today">Due Today</span>`;
+      daysNote = `<span class="days-due-soon">Act now!</span>`;
     } else if (diff <= 7) {
-      rowClass = 'row-due-soon';
-      daysHtml = diff === 0
-        ? `<span class="days-due-soon">⏰ Due today!</span>`
-        : `<span class="days-due-soon">⏰ Due in ${diff} day${diff !== 1 ? 's' : ''}</span>`;
+      badge = `<span class="pay-badge-soon">Due Soon</span>`;
+      daysNote = `<span class="days-due-soon">In ${diff} day${diff !== 1 ? 's' : ''}</span>`;
     } else {
-      daysHtml = `<span class="days-upcoming">Due in ${diff} days</span>`;
+      badge = `<span class="pay-badge-upcoming">Upcoming</span>`;
+      daysNote = `<span class="days-upcoming">In ${diff} days</span>`;
     }
 
-    const badge = isPaid
-      ? `<span class="paid-badge">✓ Paid</span>`
-      : p.status === 'Pending'
-        ? `<span class="pending-badge">⏳ Pending</span>`
-        : `<span class="unpaid-badge">✗ Unpaid</span>`;
+    // Course label: add instalment tag if monthly
+    const titleLabel = p.instalment ? `${p.semester}` : p.semester;
 
-    const actionHtml = !isPaid ? `
-      <div style="display:flex;gap:5px;flex-wrap:wrap;align-items:center">
+    // Org/location from course
+    const orgName = c ? (c.location || 'Al-Qaida Al-Nooraniyah') : 'Al-Qaida Al-Nooraniyah';
+
+    // Pay button (bottom-right, only for unpaid)
+    const payBtn = !isPaid ? `
+      <div style="display:flex;align-items:center;gap:8px">
+        ${p.billplzBillId ? `<button class="btn-check-status" style="font-size:11px;padding:3px 10px" onclick="checkBillplzStatus('${p.id}')">🔄 Verify</button>` : ''}
         ${p.billplzUrl
-          ? `<a href="${p.billplzUrl}" target="_blank" class="btn-billplz" style="font-size:11px;padding:4px 9px">💳 Pay</a>`
-          : `<span style="font-size:11px;color:var(--text-muted);font-style:italic">Awaiting link</span>`}
-        ${p.billplzBillId ? `<button class="btn-check-status" style="font-size:11px;padding:3px 8px" onclick="checkBillplzStatus('${p.id}')">🔄</button>` : ''}
-      </div>` : `<span style="font-size:12px;color:var(--text-muted)">—</span>`;
+          ? `<a href="${p.billplzUrl}" target="_blank" class="btn-pay-card" title="Pay via Billplz">💳</a>`
+          : `<div class="btn-pay-card" style="background:#d1d5db;box-shadow:none;cursor:default" title="No payment link yet">💳</div>`}
+      </div>` : '';
 
-    const instalmentTag = p.instalment ? `<br><span class="instalment-label">Instalment ${p.instalment}</span>` : '';
-
-    return `<tr class="${rowClass}">
-      <td style="font-size:12px;color:var(--text-muted)">${i + 1}</td>
-      <td style="font-size:12px;max-width:130px">${c ? c.name.slice(0,28) + (c.name.length > 28 ? '…' : '') : p.courseId} ${levelBadge(c && c.level)}</td>
-      <td style="font-size:12px">${p.semester}${instalmentTag}</td>
-      <td style="font-weight:700;color:var(--orange);white-space:nowrap">${p.amount} ${p.currency}</td>
-      <td style="font-size:12px;white-space:nowrap">${fmtDate(p.dueDate)}</td>
-      <td>${daysHtml}</td>
-      <td>${badge}</td>
-      <td>${actionHtml}</td>
-    </tr>`;
+    return `<div class="pay-card">
+      <div class="pay-card-header">
+        <div class="pay-card-org">
+          <div class="pay-card-logo">🕌</div>
+          <div>
+            <div class="pay-card-org-name">${orgName}</div>
+            <div class="pay-card-org-date">${headerDate}</div>
+          </div>
+        </div>
+        ${badge}
+      </div>
+      <div class="pay-card-body">
+        <div class="pay-card-title">⭐ ${titleLabel}</div>
+        <div class="pay-card-meta">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+          ${studentName}
+        </div>
+        <div class="pay-card-meta">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+          Due: ${fmtDate(p.dueDate)}
+        </div>
+      </div>
+      <div class="pay-card-footer">
+        <div>
+          <div class="pay-card-amount">${p.amount} ${p.currency}</div>
+          <div class="pay-card-days">${daysNote}</div>
+        </div>
+        ${payBtn}
+      </div>
+    </div>`;
   }).join('');
 
-  const tableHtml = `
-    <div style="overflow-x:auto">
-      <table class="data-table">
-        <thead>
-          <tr>
-            <th>#</th><th>Course</th><th>Label</th>
-            <th>Amount</th><th>Due Date</th><th>Status</th><th></th><th>Action</th>
-          </tr>
-        </thead>
-        <tbody>${rows}</tbody>
-      </table>
-    </div>`;
-
-  el.innerHTML = summaryHtml + alertHtml + tableHtml;
+  el.innerHTML = summaryHtml + alertHtml + cardsHtml;
 }
 
 // ════════════════════════════════
