@@ -2009,9 +2009,9 @@ body.admin-mode .student-only { display: none; }
           <div style="display:flex;gap:6px">
             <input type="number" id="mFeeAmount" placeholder="e.g. 150" style="flex:1">
             <select id="mFeeCurrency" style="width:80px;border:1px solid #d1d5db;border-radius:5px;padding:8px 6px;font-size:13px">
+              <option selected>MYR</option>
               <option>EUR</option>
               <option>USD</option>
-              <option>MYR</option>
               <option>GBP</option>
             </select>
           </div>
@@ -2072,6 +2072,17 @@ body.admin-mode .student-only { display: none; }
   </div>
 </div>
 
+<!-- STUDENT PAY MODAL -->
+<div class="modal-overlay" id="studentPayModal">
+  <div class="modal-box" style="max-width:400px">
+    <div class="modal-header">
+      <span>💳 Make Payment</span>
+      <button class="modal-close" onclick="document.getElementById('studentPayModal').classList.remove('open')">✕</button>
+    </div>
+    <div class="modal-body" id="studentPayModalBody"></div>
+  </div>
+</div>
+
 <!-- BILLPLZ SETTINGS MODAL -->
 <div class="modal-overlay" id="billplzSettingsModal">
   <div class="modal-box" style="max-width:420px">
@@ -2129,10 +2140,10 @@ function initData() {
   if (DB.get('initialized')) return;
 
   const courses = [
-    { id: 'c1', level: 1, name: 'Level 1 – Al-Qaida Al-Nooraniyah (Foundation)', coach: 'Mohammed Farouk Al-Ra\'i', type: 'Online', classification: 'Hafs', location: 'Online (Global)', maxStudents: 30, startDate: '2025-01-15', nextSession: nextSessionDate(14, 7, 30), description: 'Foundation level covering Arabic alphabet recognition, basic letter forms, and introductory Tajweed rules. Suitable for complete beginners.', active: true, courseNo: 3930, totalSessions: 20, feeAmount: 120, feeCurrency: 'EUR' },
-    { id: 'c2', level: 2, name: 'Level 2 – Noorani Qaida (Elementary)', coach: 'Mohammed Farouk Al-Ra\'i', type: 'In-Person', classification: 'Hafs', location: 'Singel, Brussels, Belgium', maxStudents: 15, startDate: '2025-02-01', nextSession: nextSessionDate(2, 10, 0), description: 'Elementary level focusing on letter joining, short/long vowels, and basic Tajweed application. Students begin reading simple Quranic words.', active: true, courseNo: 3927, totalSessions: 24, feeAmount: 150, feeCurrency: 'EUR' },
+    { id: 'c1', level: 1, name: 'Level 1 – Al-Qaida Al-Nooraniyah (Foundation)', coach: 'Mohammed Farouk Al-Ra\'i', type: 'Online', classification: 'Hafs', location: 'Online (Global)', maxStudents: 30, startDate: '2025-01-15', nextSession: nextSessionDate(14, 7, 30), description: 'Foundation level covering Arabic alphabet recognition, basic letter forms, and introductory Tajweed rules. Suitable for complete beginners.', active: true, courseNo: 3930, totalSessions: 20, feeAmount: 120, feeCurrency: 'MYR' },
+    { id: 'c2', level: 2, name: 'Level 2 – Noorani Qaida (Elementary)', coach: 'Mohammed Farouk Al-Ra\'i', type: 'In-Person', classification: 'Hafs', location: 'Singel, Brussels, Belgium', maxStudents: 15, startDate: '2025-02-01', nextSession: nextSessionDate(2, 10, 0), description: 'Elementary level focusing on letter joining, short/long vowels, and basic Tajweed application. Students begin reading simple Quranic words.', active: true, courseNo: 3927, totalSessions: 24, feeAmount: 150, feeCurrency: 'MYR' },
     { id: 'c3', level: 3, name: 'Level 3 – Quranic Recitation (Intermediate)', coach: 'Mohammed Farouk Al-Ra\'i', type: 'Online', classification: 'Warsh', location: 'Surabaya, Indonesia', maxStudents: 25, startDate: '2025-01-20', nextSession: nextSessionDate(7, 16, 0), description: 'Intermediate level with full Tajweed rules, Makharij Al-Huruf (articulation points), and fluent Quran reading. Warsh narration focus.', active: true, courseNo: 3926, totalSessions: 28, feeAmount: 180, feeCurrency: 'USD' },
-    { id: 'c4', level: 4, name: 'Level 4 – Teacher Certification (Advanced)', coach: 'Mohammed Farouk Al-Ra\'i', type: 'In-Person', classification: 'Qaloon', location: 'Luxembourg City, Luxembourg', maxStudents: 12, startDate: '2025-03-01', nextSession: nextSessionDate(4, 9, 0), description: 'Advanced certification program for aspiring Quran teachers. Covers advanced Tajweed, Ijazah preparation, and teaching methodology.', active: true, courseNo: 3925, totalSessions: 32, feeAmount: 220, feeCurrency: 'EUR' },
+    { id: 'c4', level: 4, name: 'Level 4 – Teacher Certification (Advanced)', coach: 'Mohammed Farouk Al-Ra\'i', type: 'In-Person', classification: 'Qaloon', location: 'Luxembourg City, Luxembourg', maxStudents: 12, startDate: '2025-03-01', nextSession: nextSessionDate(4, 9, 0), description: 'Advanced certification program for aspiring Quran teachers. Covers advanced Tajweed, Ijazah preparation, and teaching methodology.', active: true, courseNo: 3925, totalSessions: 32, feeAmount: 220, feeCurrency: 'MYR' },
   ];
 
   const students = [
@@ -2159,11 +2170,11 @@ function initData() {
   ];
 
   const transactions = [
-    { id: 'tr1', studentId: 's1', description: 'Enrollment – Course No. 3930', amount: 120, currency: 'EUR', date: '2025-01-14', status: 'Paid' },
-    { id: 'tr2', studentId: 's1', description: 'Enrollment – Course No. 3927', amount: 80, currency: 'EUR', date: '2025-01-31', status: 'Paid' },
-    { id: 'tr3', studentId: 's2', description: 'Enrollment – Course No. 3926', amount: 60, currency: 'USD', date: '2025-01-19', status: 'Paid' },
-    { id: 'tr4', studentId: 's2', description: 'Enrollment – Course No. 3930', amount: 120, currency: 'USD', date: '2025-01-14', status: 'Paid' },
-    { id: 'tr5', studentId: 's3', description: 'Enrollment – Course No. 3925', amount: 90, currency: 'EUR', date: '2025-02-28', status: 'Paid' },
+    { id: 'tr1', studentId: 's1', description: 'Enrollment – Course No. 3930', amount: 120, currency: 'MYR', date: '2025-01-14', status: 'Paid' },
+    { id: 'tr2', studentId: 's1', description: 'Enrollment – Course No. 3927', amount: 80, currency: 'MYR', date: '2025-01-31', status: 'Paid' },
+    { id: 'tr3', studentId: 's2', description: 'Enrollment – Course No. 3926', amount: 60, currency: 'MYR', date: '2025-01-19', status: 'Paid' },
+    { id: 'tr4', studentId: 's2', description: 'Enrollment – Course No. 3930', amount: 120, currency: 'MYR', date: '2025-01-14', status: 'Paid' },
+    { id: 'tr5', studentId: 's3', description: 'Enrollment – Course No. 3925', amount: 90, currency: 'MYR', date: '2025-02-28', status: 'Paid' },
   ];
 
   const testRequests = [
@@ -2192,12 +2203,12 @@ function initData() {
   ];
 
   const payments = [
-    { id: 'pay1', studentId: 's1', courseId: 'c1', semester: 'Semester 1 2025', amount: 120, currency: 'EUR', dueDate: '2025-01-10', paidDate: '2025-01-09', status: 'Paid' },
-    { id: 'pay2', studentId: 's1', courseId: 'c1', semester: 'Semester 2 2025', amount: 120, currency: 'EUR', dueDate: '2025-06-10', paidDate: null, status: 'Pending' },
-    { id: 'pay3', studentId: 's1', courseId: 'c2', semester: 'Semester 1 2025', amount: 150, currency: 'EUR', dueDate: '2025-02-01', paidDate: '2025-01-31', status: 'Paid' },
-    { id: 'pay4', studentId: 's2', courseId: 'c3', semester: 'Semester 1 2025', amount: 180, currency: 'USD', dueDate: '2025-01-20', paidDate: '2025-01-19', status: 'Paid' },
-    { id: 'pay5', studentId: 's2', courseId: 'c3', semester: 'Semester 2 2025', amount: 180, currency: 'USD', dueDate: '2025-07-20', paidDate: null, status: 'Unpaid' },
-    { id: 'pay6', studentId: 's3', courseId: 'c4', semester: 'Semester 1 2025', amount: 220, currency: 'EUR', dueDate: '2025-03-01', paidDate: '2025-02-28', status: 'Paid' },
+    { id: 'pay1', studentId: 's1', courseId: 'c1', semester: 'Semester 1 2025', amount: 120, currency: 'MYR', dueDate: '2025-01-10', paidDate: '2025-01-09', status: 'Paid' },
+    { id: 'pay2', studentId: 's1', courseId: 'c1', semester: 'Semester 2 2025', amount: 120, currency: 'MYR', dueDate: '2025-06-10', paidDate: null, status: 'Pending' },
+    { id: 'pay3', studentId: 's1', courseId: 'c2', semester: 'Semester 1 2025', amount: 150, currency: 'MYR', dueDate: '2025-02-01', paidDate: '2025-01-31', status: 'Paid' },
+    { id: 'pay4', studentId: 's2', courseId: 'c3', semester: 'Semester 1 2025', amount: 180, currency: 'MYR', dueDate: '2025-01-20', paidDate: '2025-01-19', status: 'Paid' },
+    { id: 'pay5', studentId: 's2', courseId: 'c3', semester: 'Semester 2 2025', amount: 180, currency: 'MYR', dueDate: '2025-07-20', paidDate: null, status: 'Unpaid' },
+    { id: 'pay6', studentId: 's3', courseId: 'c4', semester: 'Semester 1 2025', amount: 220, currency: 'MYR', dueDate: '2025-03-01', paidDate: '2025-02-28', status: 'Paid' },
   ];
 
   DB.set('courses', courses);
@@ -2227,33 +2238,33 @@ function seedPaymentDemo() {
   const demo = [
     // ── Student s1 (Ahmed) ──
     // Paid — historical
-    { id: 'dp1',  studentId: 's1', courseId: 'c1', semester: 'Level 1 — Term 1 2025', amount: 120, currency: 'EUR', dueDate: relDate(-450), paidDate: relDate(-452), status: 'Paid', paymentPlan: 'lump_sum', instalment: null, billplzBillId: null, billplzUrl: null },
-    { id: 'dp2',  studentId: 's1', courseId: 'c1', semester: 'Level 1 — Term 2 2025', amount: 120, currency: 'EUR', dueDate: relDate(-270), paidDate: relDate(-271), status: 'Paid', paymentPlan: 'lump_sum', instalment: null, billplzBillId: null, billplzUrl: null },
-    { id: 'dp3',  studentId: 's1', courseId: 'c2', semester: 'Level 2 — Term 1 2025', amount: 150, currency: 'EUR', dueDate: relDate(-390), paidDate: relDate(-392), status: 'Paid', paymentPlan: 'lump_sum', instalment: null, billplzBillId: null, billplzUrl: null },
-    { id: 'dp4',  studentId: 's1', courseId: 'c2', semester: 'Level 2 — Term 2 2025', amount: 150, currency: 'EUR', dueDate: relDate(-180), paidDate: relDate(-181), status: 'Paid', paymentPlan: 'lump_sum', instalment: null, billplzBillId: null, billplzUrl: null },
+    { id: 'dp1',  studentId: 's1', courseId: 'c1', semester: 'Level 1 — Term 1 2025', amount: 120, currency: 'MYR', dueDate: relDate(-450), paidDate: relDate(-452), status: 'Paid', paymentPlan: 'lump_sum', instalment: null, billplzBillId: null, billplzUrl: null },
+    { id: 'dp2',  studentId: 's1', courseId: 'c1', semester: 'Level 1 — Term 2 2025', amount: 120, currency: 'MYR', dueDate: relDate(-270), paidDate: relDate(-271), status: 'Paid', paymentPlan: 'lump_sum', instalment: null, billplzBillId: null, billplzUrl: null },
+    { id: 'dp3',  studentId: 's1', courseId: 'c2', semester: 'Level 2 — Term 1 2025', amount: 150, currency: 'MYR', dueDate: relDate(-390), paidDate: relDate(-392), status: 'Paid', paymentPlan: 'lump_sum', instalment: null, billplzBillId: null, billplzUrl: null },
+    { id: 'dp4',  studentId: 's1', courseId: 'c2', semester: 'Level 2 — Term 2 2025', amount: 150, currency: 'MYR', dueDate: relDate(-180), paidDate: relDate(-181), status: 'Paid', paymentPlan: 'lump_sum', instalment: null, billplzBillId: null, billplzUrl: null },
     // Overdue — missed payments
-    { id: 'dp5',  studentId: 's1', courseId: 'c1', semester: 'Level 1 — Term 1 2026', amount: 120, currency: 'EUR', dueDate: relDate(-60),  paidDate: null, status: 'Unpaid', paymentPlan: 'lump_sum', instalment: null, billplzBillId: null, billplzUrl: null },
-    { id: 'dp6',  studentId: 's1', courseId: 'c2', semester: 'Level 2 — Term 1 2026', amount: 150, currency: 'EUR', dueDate: relDate(-30),  paidDate: null, status: 'Unpaid', paymentPlan: 'lump_sum', instalment: null, billplzBillId: null, billplzUrl: null },
+    { id: 'dp5',  studentId: 's1', courseId: 'c1', semester: 'Level 1 — Term 1 2026', amount: 120, currency: 'MYR', dueDate: relDate(-60),  paidDate: null, status: 'Unpaid', paymentPlan: 'lump_sum', instalment: null, billplzBillId: null, billplzUrl: null },
+    { id: 'dp6',  studentId: 's1', courseId: 'c2', semester: 'Level 2 — Term 1 2026', amount: 150, currency: 'MYR', dueDate: relDate(-30),  paidDate: null, status: 'Unpaid', paymentPlan: 'lump_sum', instalment: null, billplzBillId: null, billplzUrl: null },
     // Due soon (within 7 days)
-    { id: 'dp7',  studentId: 's1', courseId: 'c3', semester: 'Level 3 — Term 1 2026', amount: 180, currency: 'EUR', dueDate: relDate(3),   paidDate: null, status: 'Unpaid', paymentPlan: 'lump_sum', instalment: null, billplzBillId: null, billplzUrl: null },
-    { id: 'dp8',  studentId: 's1', courseId: 'c2', semester: 'Level 2 — Term 2 2026 — Instalment 1/3', amount: 50, currency: 'EUR', dueDate: relDate(6), paidDate: null, status: 'Pending', paymentPlan: 'monthly', instalment: '1/3', billplzBillId: null, billplzUrl: null },
+    { id: 'dp7',  studentId: 's1', courseId: 'c3', semester: 'Level 3 — Term 1 2026', amount: 180, currency: 'MYR', dueDate: relDate(3),   paidDate: null, status: 'Unpaid', paymentPlan: 'lump_sum', instalment: null, billplzBillId: null, billplzUrl: null },
+    { id: 'dp8',  studentId: 's1', courseId: 'c2', semester: 'Level 2 — Term 2 2026 — Instalment 1/3', amount: 50, currency: 'MYR', dueDate: relDate(6), paidDate: null, status: 'Pending', paymentPlan: 'monthly', instalment: '1/3', billplzBillId: null, billplzUrl: null },
     // Upcoming
-    { id: 'dp9',  studentId: 's1', courseId: 'c2', semester: 'Level 2 — Term 2 2026 — Instalment 2/3', amount: 50, currency: 'EUR', dueDate: relDate(37),  paidDate: null, status: 'Unpaid', paymentPlan: 'monthly', instalment: '2/3', billplzBillId: null, billplzUrl: null },
-    { id: 'dp10', studentId: 's1', courseId: 'c2', semester: 'Level 2 — Term 2 2026 — Instalment 3/3', amount: 50, currency: 'EUR', dueDate: relDate(67),  paidDate: null, status: 'Unpaid', paymentPlan: 'monthly', instalment: '3/3', billplzBillId: null, billplzUrl: null },
-    { id: 'dp11', studentId: 's1', courseId: 'c4', semester: 'Level 4 — Term 1 2026', amount: 220, currency: 'EUR', dueDate: relDate(90),  paidDate: null, status: 'Unpaid', paymentPlan: 'lump_sum', instalment: null, billplzBillId: null, billplzUrl: null },
+    { id: 'dp9',  studentId: 's1', courseId: 'c2', semester: 'Level 2 — Term 2 2026 — Instalment 2/3', amount: 50, currency: 'MYR', dueDate: relDate(37),  paidDate: null, status: 'Unpaid', paymentPlan: 'monthly', instalment: '2/3', billplzBillId: null, billplzUrl: null },
+    { id: 'dp10', studentId: 's1', courseId: 'c2', semester: 'Level 2 — Term 2 2026 — Instalment 3/3', amount: 50, currency: 'MYR', dueDate: relDate(67),  paidDate: null, status: 'Unpaid', paymentPlan: 'monthly', instalment: '3/3', billplzBillId: null, billplzUrl: null },
+    { id: 'dp11', studentId: 's1', courseId: 'c4', semester: 'Level 4 — Term 1 2026', amount: 220, currency: 'MYR', dueDate: relDate(90),  paidDate: null, status: 'Unpaid', paymentPlan: 'lump_sum', instalment: null, billplzBillId: null, billplzUrl: null },
 
     // ── Student s2 (Fatima) ──
-    { id: 'dp12', studentId: 's2', courseId: 'c3', semester: 'Level 3 — Term 1 2025', amount: 180, currency: 'USD', dueDate: relDate(-360), paidDate: relDate(-362), status: 'Paid', paymentPlan: 'lump_sum', instalment: null, billplzBillId: null, billplzUrl: null },
-    { id: 'dp13', studentId: 's2', courseId: 'c3', semester: 'Level 3 — Term 2 2025', amount: 180, currency: 'USD', dueDate: relDate(-180), paidDate: relDate(-182), status: 'Paid', paymentPlan: 'lump_sum', instalment: null, billplzBillId: null, billplzUrl: null },
-    { id: 'dp14', studentId: 's2', courseId: 'c3', semester: 'Level 3 — Term 1 2026', amount: 180, currency: 'USD', dueDate: relDate(-45),  paidDate: null, status: 'Unpaid', paymentPlan: 'lump_sum', instalment: null, billplzBillId: null, billplzUrl: null },
-    { id: 'dp15', studentId: 's2', courseId: 'c1', semester: 'Level 1 — Term 1 2026', amount: 120, currency: 'USD', dueDate: relDate(5),   paidDate: null, status: 'Unpaid', paymentPlan: 'lump_sum', instalment: null, billplzBillId: null, billplzUrl: null },
-    { id: 'dp16', studentId: 's2', courseId: 'c1', semester: 'Level 1 — Term 2 2026', amount: 120, currency: 'USD', dueDate: relDate(120),  paidDate: null, status: 'Unpaid', paymentPlan: 'lump_sum', instalment: null, billplzBillId: null, billplzUrl: null },
+    { id: 'dp12', studentId: 's2', courseId: 'c3', semester: 'Level 3 — Term 1 2025', amount: 180, currency: 'MYR', dueDate: relDate(-360), paidDate: relDate(-362), status: 'Paid', paymentPlan: 'lump_sum', instalment: null, billplzBillId: null, billplzUrl: null },
+    { id: 'dp13', studentId: 's2', courseId: 'c3', semester: 'Level 3 — Term 2 2025', amount: 180, currency: 'MYR', dueDate: relDate(-180), paidDate: relDate(-182), status: 'Paid', paymentPlan: 'lump_sum', instalment: null, billplzBillId: null, billplzUrl: null },
+    { id: 'dp14', studentId: 's2', courseId: 'c3', semester: 'Level 3 — Term 1 2026', amount: 180, currency: 'MYR', dueDate: relDate(-45),  paidDate: null, status: 'Unpaid', paymentPlan: 'lump_sum', instalment: null, billplzBillId: null, billplzUrl: null },
+    { id: 'dp15', studentId: 's2', courseId: 'c1', semester: 'Level 1 — Term 1 2026', amount: 120, currency: 'MYR', dueDate: relDate(5),   paidDate: null, status: 'Unpaid', paymentPlan: 'lump_sum', instalment: null, billplzBillId: null, billplzUrl: null },
+    { id: 'dp16', studentId: 's2', courseId: 'c1', semester: 'Level 1 — Term 2 2026', amount: 120, currency: 'MYR', dueDate: relDate(120),  paidDate: null, status: 'Unpaid', paymentPlan: 'lump_sum', instalment: null, billplzBillId: null, billplzUrl: null },
 
     // ── Student s3 (Yusuf) ──
-    { id: 'dp17', studentId: 's3', courseId: 'c4', semester: 'Level 4 — Term 1 2025', amount: 220, currency: 'EUR', dueDate: relDate(-330), paidDate: relDate(-331), status: 'Paid', paymentPlan: 'lump_sum', instalment: null, billplzBillId: null, billplzUrl: null },
-    { id: 'dp18', studentId: 's3', courseId: 'c4', semester: 'Level 4 — Term 2 2025', amount: 220, currency: 'EUR', dueDate: relDate(-150), paidDate: relDate(-151), status: 'Paid', paymentPlan: 'lump_sum', instalment: null, billplzBillId: null, billplzUrl: null },
-    { id: 'dp19', studentId: 's3', courseId: 'c4', semester: 'Level 4 — Term 1 2026', amount: 220, currency: 'EUR', dueDate: relDate(-15),  paidDate: null, status: 'Unpaid', paymentPlan: 'lump_sum', instalment: null, billplzBillId: null, billplzUrl: null },
-    { id: 'dp20', studentId: 's3', courseId: 'c4', semester: 'Level 4 — Term 2 2026', amount: 220, currency: 'EUR', dueDate: relDate(75),   paidDate: null, status: 'Unpaid', paymentPlan: 'lump_sum', instalment: null, billplzBillId: null, billplzUrl: null },
+    { id: 'dp17', studentId: 's3', courseId: 'c4', semester: 'Level 4 — Term 1 2025', amount: 220, currency: 'MYR', dueDate: relDate(-330), paidDate: relDate(-331), status: 'Paid', paymentPlan: 'lump_sum', instalment: null, billplzBillId: null, billplzUrl: null },
+    { id: 'dp18', studentId: 's3', courseId: 'c4', semester: 'Level 4 — Term 2 2025', amount: 220, currency: 'MYR', dueDate: relDate(-150), paidDate: relDate(-151), status: 'Paid', paymentPlan: 'lump_sum', instalment: null, billplzBillId: null, billplzUrl: null },
+    { id: 'dp19', studentId: 's3', courseId: 'c4', semester: 'Level 4 — Term 1 2026', amount: 220, currency: 'MYR', dueDate: relDate(-15),  paidDate: null, status: 'Unpaid', paymentPlan: 'lump_sum', instalment: null, billplzBillId: null, billplzUrl: null },
+    { id: 'dp20', studentId: 's3', courseId: 'c4', semester: 'Level 4 — Term 2 2026', amount: 220, currency: 'MYR', dueDate: relDate(75),   paidDate: null, status: 'Unpaid', paymentPlan: 'lump_sum', instalment: null, billplzBillId: null, billplzUrl: null },
   ];
 
   // Merge with any existing payments (preserve admin-added records)
@@ -2293,6 +2304,22 @@ function migrateData() {
   if (!DB.get('assignments')) DB.set('assignments', []);
   if (!DB.get('submissions')) DB.set('submissions', []);
   if (!DB.get('payments')) DB.set('payments', []);
+
+  // Migrate all payment and transaction currencies to MYR
+  const payments = DB.get('payments') || [];
+  let pChanged = false;
+  payments.forEach(p => { if (p.currency !== 'MYR') { p.currency = 'MYR'; pChanged = true; } });
+  if (pChanged) DB.set('payments', payments);
+
+  const transactions = DB.get('transactions') || [];
+  let tChanged = false;
+  transactions.forEach(t => { if (t.currency !== 'MYR') { t.currency = 'MYR'; tChanged = true; } });
+  if (tChanged) DB.set('transactions', transactions);
+
+  const courses = DB.get('courses') || [];
+  let cChanged = false;
+  courses.forEach(c => { if (c.feeCurrency && c.feeCurrency !== 'MYR') { c.feeCurrency = 'MYR'; cChanged = true; } });
+  if (cChanged) DB.set('courses', courses);
 }
 
 // ════════════════════════════════
@@ -2871,7 +2898,7 @@ function openCourseModal(courseId) {
     document.getElementById('mMaxStudents').value = c.maxStudents;
     document.getElementById('mTotalSessions').value = c.totalSessions || 20;
     document.getElementById('mFeeAmount').value = c.feeAmount || '';
-    document.getElementById('mFeeCurrency').value = c.feeCurrency || 'EUR';
+    document.getElementById('mFeeCurrency').value = c.feeCurrency || 'MYR';
     document.getElementById('mStartDate').value = c.startDate;
     document.getElementById('mNextSession').value = c.nextSession ? c.nextSession.slice(0,16) : '';
     document.getElementById('mDescription').value = c.description || '';
@@ -3969,9 +3996,9 @@ function openPaymentModal(payId) {
       <div class="form-group">
         <label>Currency</label>
         <select id="pCurrency" style="width:100%;border:1px solid #d1d5db;border-radius:5px;padding:8px 11px;font-size:13px">
+          <option ${(!p||p.currency==='MYR')?'selected':''}>MYR</option>
           <option ${p&&p.currency==='EUR'?'selected':''}>EUR</option>
           <option ${p&&p.currency==='USD'?'selected':''}>USD</option>
-          <option ${p&&p.currency==='MYR'?'selected':''}>MYR</option>
           <option ${p&&p.currency==='GBP'?'selected':''}>GBP</option>
         </select>
       </div>
@@ -4104,6 +4131,83 @@ async function createBillplzBill(payRec, student, bpSettings) {
     console.warn('Billplz API error:', e);
     return null;
   }
+}
+
+async function handleStudentPay(payId) {
+  const payments = getPayments();
+  const p = payments.find(x => x.id === payId);
+  if (!p) return;
+
+  const c = courseById(p.courseId);
+  const student = getStudents().find(s => s.id === p.studentId);
+  const bpSettings = getBillplzSettings();
+  const modal = document.getElementById('studentPayModal');
+  const body  = document.getElementById('studentPayModalBody');
+
+  // Case 1: bill URL already exists → open directly
+  if (p.billplzUrl) {
+    window.open(p.billplzUrl, '_blank');
+    return;
+  }
+
+  // Case 2: Billplz configured → generate bill now then redirect
+  if (bpSettings.apiKey && bpSettings.collectionId) {
+    body.innerHTML = `<div style="text-align:center;padding:20px 0">
+      <div style="font-size:30px;margin-bottom:10px">⏳</div>
+      <div style="font-weight:600;color:var(--navy)">Generating your payment link…</div>
+      <div style="font-size:12.5px;color:var(--text-muted);margin-top:6px">Please wait</div>
+    </div>`;
+    modal.classList.add('open');
+
+    const bill = await createBillplzBill(p, student, bpSettings);
+    if (bill) {
+      const idx = payments.findIndex(x => x.id === payId);
+      payments[idx].billplzBillId = bill.id;
+      payments[idx].billplzUrl    = bill.url;
+      DB.set('payments', payments);
+      modal.classList.remove('open');
+      window.open(bill.url, '_blank');
+      renderStudentPayment();
+    } else {
+      body.innerHTML = `<div style="text-align:center;padding:16px 0">
+        <div style="font-size:28px;margin-bottom:8px">⚠</div>
+        <div style="font-weight:600;color:#991b1b;margin-bottom:8px">Could not generate payment link</div>
+        <div style="font-size:12.5px;color:var(--text-muted);margin-bottom:16px">Check your Billplz API key / Collection ID in settings.</div>
+        <button class="btn-orange" onclick="document.getElementById('studentPayModal').classList.remove('open')">Close</button>
+      </div>`;
+    }
+    return;
+  }
+
+  // Case 3: No Billplz configured → show manual payment instructions
+  const admin = DB.get('admin');
+  body.innerHTML = `
+    <div style="text-align:center;margin-bottom:16px">
+      <div style="font-size:36px">🕌</div>
+      <div style="font-weight:700;font-size:15px;color:var(--navy);margin-top:6px">${p.semester}</div>
+      <div style="font-size:13px;color:var(--text-muted)">${c ? c.name.slice(0,50) : ''}</div>
+    </div>
+    <div style="background:var(--light-gray);border-radius:8px;padding:14px 16px;margin-bottom:14px">
+      <div style="display:flex;justify-content:space-between;margin-bottom:8px;font-size:13px">
+        <span style="color:var(--text-muted)">Amount Due</span>
+        <span style="font-weight:800;color:var(--orange);font-size:16px">${p.amount} ${p.currency}</span>
+      </div>
+      <div style="display:flex;justify-content:space-between;font-size:13px">
+        <span style="color:var(--text-muted)">Due Date</span>
+        <span style="font-weight:600">${fmtDate(p.dueDate)}</span>
+      </div>
+    </div>
+    <div style="font-size:12.5px;color:var(--text-muted);margin-bottom:14px;line-height:1.7">
+      To complete your payment, please contact your course administrator or make a bank transfer using the details provided by your institute. Quote your name and course when making payment.
+    </div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap">
+      <a href="mailto:admin@alqaida-nooraniyah.com?subject=Payment%20for%20${encodeURIComponent(p.semester)}&body=Assalamualaikum%2C%0A%0APlease%20find%20my%20payment%20details%3A%0AName%3A%20${encodeURIComponent(student ? student.firstName+' '+student.lastName : '')}%0ACourse%3A%20${encodeURIComponent(c ? c.name : '')}%0ATerm%3A%20${encodeURIComponent(p.semester)}%0AAmount%3A%20${p.amount}%20${p.currency}%0A%0AJazakallah%20khair."
+        class="btn-orange" style="font-size:13px;padding:8px 14px;text-decoration:none">
+        ✉ Email Admin
+      </a>
+      <button class="btn-primary" style="font-size:13px" onclick="document.getElementById('studentPayModal').classList.remove('open')">Close</button>
+    </div>`;
+  modal.classList.add('open');
 }
 
 async function checkBillplzStatus(payId) {
@@ -4523,9 +4627,7 @@ function renderStudentPayment() {
     const payBtn = !isPaid ? `
       <div style="display:flex;align-items:center;gap:8px">
         ${p.billplzBillId ? `<button class="btn-check-status" style="font-size:11px;padding:3px 10px" onclick="checkBillplzStatus('${p.id}')">🔄 Verify</button>` : ''}
-        ${p.billplzUrl
-          ? `<a href="${p.billplzUrl}" target="_blank" class="btn-pay-card" title="Pay via Billplz">💳</a>`
-          : `<div class="btn-pay-card" style="background:#d1d5db;box-shadow:none;cursor:default" title="No payment link yet">💳</div>`}
+        <button class="btn-pay-card" onclick="handleStudentPay('${p.id}')" title="Pay Now">💳</button>
       </div>` : '';
 
     return `<div class="pay-card">
