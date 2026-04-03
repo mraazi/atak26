@@ -951,6 +951,123 @@ body.admin-mode .student-only { display: none; }
 .progress-input { width: 60px; border: 1px solid #d1d5db; border-radius: 4px; padding: 3px 6px; font-size: 12px; }
 .btn-save-progress { background: var(--orange); color: #fff; border: none; padding: 3px 9px; border-radius: 4px; font-size: 11px; cursor: pointer; font-weight: 600; }
 
+/* ── LEVEL BADGE ── */
+.level-badge {
+  display: inline-block; padding: 3px 10px; border-radius: 12px;
+  font-size: 11px; font-weight: 700; letter-spacing: 0.3px;
+}
+.level-1 { background: #dbeafe; color: #1e40af; }
+.level-2 { background: #d1fae5; color: #065f46; }
+.level-3 { background: #fef3c7; color: #92400e; }
+.level-4 { background: #ede9fe; color: #5b21b6; }
+
+/* ── SEMESTER MARK CARD ── */
+.mark-card {
+  background: #fff; border-radius: 10px; box-shadow: var(--card-shadow);
+  overflow: hidden; margin-bottom: 16px;
+}
+.mark-card-header {
+  background: var(--navy); color: #fff; padding: 12px 18px;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.mark-card-header .course-name { font-weight: 700; font-size: 13px; }
+.mark-card-header .total-mark {
+  font-size: 22px; font-weight: 900; color: var(--gold);
+}
+.mark-card-body { padding: 14px 18px; }
+.mark-row {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 8px 0; border-bottom: 1px solid #f0f0f0; font-size: 13px;
+}
+.mark-row:last-child { border-bottom: none; }
+.mark-component { color: var(--text-muted); }
+.mark-score { font-weight: 700; color: var(--navy); }
+.mark-weighted { font-size: 11px; color: var(--text-muted); margin-left: 6px; }
+.mark-bar-wrap { flex: 1; margin: 0 14px; }
+.grade-pill {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 38px; height: 38px; border-radius: 50%; font-weight: 900;
+  font-size: 15px; flex-shrink: 0;
+}
+.grade-A { background: #dcfce7; color: #166534; }
+.grade-B { background: #dbeafe; color: #1e40af; }
+.grade-C { background: #fef3c7; color: #92400e; }
+.grade-D { background: #fee2e2; color: #991b1b; }
+.grade-F { background: #f3f4f6; color: #6b7280; }
+
+/* ── ASSIGNMENT CARDS ── */
+.assignment-card {
+  background: #fff; border-radius: 10px; box-shadow: var(--card-shadow);
+  margin-bottom: 12px; overflow: hidden;
+}
+.assignment-card-header {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 12px 16px; background: #f9fafb; border-bottom: 1px solid #f0f0f0;
+}
+.assignment-title { font-weight: 700; font-size: 13.5px; color: var(--navy); }
+.assignment-due { font-size: 11.5px; color: var(--text-muted); margin-top: 2px; }
+.assignment-body { padding: 12px 16px; font-size: 13px; color: var(--text-dark); line-height: 1.6; }
+.assignment-submit-area { padding: 10px 16px 14px; border-top: 1px solid #f0f0f0; }
+.status-submitted { color: #166534; font-weight: 700; font-size: 12px; }
+.status-pending-sub { color: #92400e; font-weight: 700; font-size: 12px; }
+.status-graded { color: var(--light-blue); font-weight: 700; font-size: 12px; }
+.file-upload-label {
+  display: inline-block; background: #f0f2f8; border: 1.5px dashed #d1d5db;
+  border-radius: 6px; padding: 8px 16px; cursor: pointer; font-size: 12.5px;
+  color: var(--text-muted); transition: border-color 0.15s;
+}
+.file-upload-label:hover { border-color: var(--orange); color: var(--orange); }
+
+/* ── ATTENDANCE VIEW (student) ── */
+.att-summary-grid {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 12px; margin-bottom: 18px;
+}
+.att-summary-card {
+  background: #fff; border-radius: 10px; padding: 14px 16px;
+  box-shadow: var(--card-shadow); border-left: 4px solid var(--orange);
+}
+.att-summary-card.good { border-left-color: var(--success); }
+.att-summary-card.warn { border-left-color: #f59e0b; }
+.att-summary-card.bad { border-left-color: var(--danger); }
+.att-rate { font-size: 26px; font-weight: 900; color: var(--navy); }
+.att-label { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
+.att-dots { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 8px; }
+.att-dot {
+  width: 18px; height: 18px; border-radius: 50%; font-size: 10px;
+  display: flex; align-items: center; justify-content: center; color: #fff;
+  font-weight: 700;
+}
+.att-dot.present { background: var(--success); }
+.att-dot.absent { background: var(--danger); }
+
+/* ── PAYMENT STATUS ── */
+.payment-status-card {
+  background: #fff; border-radius: 10px; box-shadow: var(--card-shadow);
+  overflow: hidden; margin-bottom: 14px;
+}
+.payment-status-header {
+  background: var(--navy); color: #fff; padding: 12px 16px;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.payment-status-header .course-lbl { font-weight: 700; font-size: 13px; }
+.payment-body { padding: 14px 16px; }
+.payment-row { display: flex; justify-content: space-between; align-items: center; padding: 6px 0; font-size: 13px; border-bottom: 1px solid #f5f5f5; }
+.payment-row:last-child { border-bottom: none; }
+.paid-badge { background: #dcfce7; color: #166534; padding: 3px 10px; border-radius: 10px; font-size: 11px; font-weight: 700; }
+.unpaid-badge { background: #fee2e2; color: #991b1b; padding: 3px 10px; border-radius: 10px; font-size: 11px; font-weight: 700; }
+.pending-badge { background: #fef3c7; color: #92400e; padding: 3px 10px; border-radius: 10px; font-size: 11px; font-weight: 700; }
+.payment-total { font-size: 16px; font-weight: 800; color: var(--orange); }
+
+/* ── ADMIN ASSIGNMENT REVIEW ── */
+.submission-card {
+  background: #fff; border-radius: 8px; box-shadow: var(--card-shadow);
+  padding: 14px 16px; margin-bottom: 10px;
+  display: flex; align-items: flex-start; gap: 14px;
+}
+.submission-info { flex: 1; }
+.submission-file { font-size: 12px; color: var(--light-blue); font-style: italic; }
+
 /* ── USER SWITCHER BANNER (admin) ── */
 .student-switcher { display: flex; gap: 8px; margin-bottom: 14px; flex-wrap: wrap; }
 .student-pill {
@@ -1135,6 +1252,7 @@ body.admin-mode .student-only { display: none; }
       <a href="#" onclick="navigate('admin-students')"><span class="icon">👥</span> Students</a>
       <a href="#" onclick="navigate('admin-attendance')"><span class="icon">✅</span> Attendance</a>
       <a href="#" onclick="navigate('admin-tests')"><span class="icon">📝</span> Tests & Scores</a>
+      <a href="#" onclick="navigate('admin-assignments')"><span class="icon">📎</span> Assignments</a>
       <a href="#" onclick="navigate('admin-accreditation')"><span class="icon">🎓</span> Accreditation</a>
       <a href="#" onclick="navigate('admin-progress')"><span class="icon">📈</span> Progress Editor</a>
       <a href="#" onclick="navigate('calendar')"><span class="icon">📅</span> Calendar</a>
@@ -1471,6 +1589,78 @@ body.admin-mode .student-only { display: none; }
       </div>
     </div>
 
+    <!-- ===== STUDENT ATTENDANCE ===== -->
+    <div class="page" id="page-student-attendance">
+      <div class="action-bar">✅ My Attendance</div>
+      <div class="section-header">Attendance Record</div>
+      <div class="page-body">
+        <div class="att-summary-grid" id="attSummaryGrid"></div>
+        <div id="attDetailList"></div>
+      </div>
+    </div>
+
+    <!-- ===== STUDENT ASSIGNMENTS ===== -->
+    <div class="page" id="page-student-assignments">
+      <div class="action-bar">📎 Assignments</div>
+      <div class="section-header">My Assignments</div>
+      <div class="page-body">
+        <div class="form-group mb-16" style="max-width:320px">
+          <label>Filter by Course</label>
+          <select id="assignCourseFilter" onchange="renderStudentAssignments()">
+            <option value="">All Courses</option>
+          </select>
+        </div>
+        <div id="assignmentsList"></div>
+      </div>
+    </div>
+
+    <!-- ===== STUDENT RESULTS ===== -->
+    <div class="page" id="page-student-results">
+      <div class="action-bar">📊 Exam Results & Semester Marks</div>
+      <div class="section-header">Academic Results</div>
+      <div class="page-body" id="resultsBody"></div>
+    </div>
+
+    <!-- ===== STUDENT PAYMENT STATUS ===== -->
+    <div class="page" id="page-student-payment">
+      <div class="action-bar">💳 Payment Status</div>
+      <div class="section-header">Fee & Payment Records</div>
+      <div class="page-body" id="paymentBody"></div>
+    </div>
+
+    <!-- ===== ADMIN ASSIGNMENTS ===== -->
+    <div class="page" id="page-admin-assignments">
+      <div class="action-bar">📎 Assignment Management</div>
+      <div class="section-header">Review & Grade Submissions</div>
+      <div class="page-body">
+        <div class="form-group mb-16" style="max-width:320px">
+          <label>Filter by Course</label>
+          <select id="adminAssignCourseFilter" onchange="renderAdminAssignments()">
+            <option value="">All Courses</option>
+          </select>
+        </div>
+        <div id="adminAssignmentsList"></div>
+        <!-- Grade modal inline -->
+        <div id="gradeFormWrap" style="display:none" class="form-card mt-10">
+          <div class="form-title">Grade Submission</div>
+          <input type="hidden" id="gradeSubId">
+          <div id="gradeSubInfo" style="font-size:13px;margin-bottom:12px;color:var(--text-muted)"></div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Score (0–100)</label>
+              <input type="number" id="gradeScore" min="0" max="100">
+            </div>
+            <div class="form-group">
+              <label>Feedback</label>
+              <input type="text" id="gradeFeedback" placeholder="Comments for student...">
+            </div>
+          </div>
+          <button class="btn-orange" onclick="saveGrade()">Save Grade</button>
+          <button class="btn-primary" style="margin-left:8px" onclick="document.getElementById('gradeFormWrap').style.display='none'">Cancel</button>
+        </div>
+      </div>
+    </div>
+
     <!-- ===== STUDENT REVIEWS ===== -->
     <div class="page" id="page-student-reviews">
       <div class="action-bar">⭐ Course Reviews</div>
@@ -1544,22 +1734,25 @@ body.admin-mode .student-only { display: none; }
     </div>
     <nav class="right-nav student-only" id="rightNavStudent">
       <a href="#" onclick="navigate('student-home')" class="active"><span class="nav-icon">🏠</span> Home</a>
-      <a href="#" onclick="navigate('student-profile')"><span class="nav-icon">✏️</span> Edit Profile</a>
-      <a href="#" onclick="navigate('admin-accreditation')"><span class="nav-icon">🎓</span> Accreditation Services</a>
-      <a href="#" onclick="navigate('student-tests')"><span class="nav-icon">📝</span> My Tests</a>
-      <a href="#" onclick="navigate('student-purchases')"><span class="nav-icon">💰</span> My Purchases</a>
-      <a href="#" onclick="navigate('student-transactions')"><span class="nav-icon">📋</span> My Transactions</a>
+      <a href="#" onclick="navigate('student-profile')"><span class="nav-icon">👤</span> My Profile</a>
       <div class="sep"></div>
+      <a href="#" onclick="navigate('student-attendance')"><span class="nav-icon">✅</span> Attendance</a>
+      <a href="#" onclick="navigate('student-assignments')"><span class="nav-icon">📎</span> Assignments</a>
+      <a href="#" onclick="navigate('student-results')"><span class="nav-icon">📊</span> Results & Marks</a>
+      <a href="#" onclick="navigate('student-payment')"><span class="nav-icon">💳</span> Payment Status</a>
+      <div class="sep"></div>
+      <a href="#" onclick="navigate('calendar')"><span class="nav-icon">📅</span> Calendar</a>
       <a href="#" onclick="navigate('student-reviews')"><span class="nav-icon">⭐</span> Reviews</a>
-      <a href="#" onclick="navigate('student-request-test')"><span class="nav-icon">📤</span> Request Nooraniyah Test</a>
-      <a href="#" onclick="navigate('calendar')"><span class="nav-icon">📅</span> Session Calendar</a>
+      <a href="#" onclick="navigate('student-request-test')"><span class="nav-icon">📤</span> Request Test</a>
+      <a href="#" onclick="navigate('admin-accreditation')"><span class="nav-icon">🎓</span> Accreditation</a>
     </nav>
     <nav class="right-nav admin-only" id="rightNavAdmin">
       <a href="#" onclick="navigate('admin-dashboard')" class="active"><span class="nav-icon">📊</span> Dashboard</a>
       <a href="#" onclick="navigate('admin-courses')"><span class="nav-icon">📚</span> Courses</a>
       <a href="#" onclick="navigate('admin-students')"><span class="nav-icon">👥</span> Students</a>
       <a href="#" onclick="navigate('admin-attendance')"><span class="nav-icon">✅</span> Attendance</a>
-      <a href="#" onclick="navigate('admin-tests')"><span class="nav-icon">📝</span> Tests</a>
+      <a href="#" onclick="navigate('admin-tests')"><span class="nav-icon">📝</span> Exams</a>
+      <a href="#" onclick="navigate('admin-assignments')"><span class="nav-icon">📎</span> Assignments</a>
       <a href="#" onclick="navigate('admin-accreditation')"><span class="nav-icon">🎓</span> Accreditation</a>
       <a href="#" onclick="navigate('admin-progress')"><span class="nav-icon">📈</span> Progress Editor</a>
       <a href="#" onclick="navigate('calendar')"><span class="nav-icon">📅</span> Calendar</a>
@@ -1698,10 +1891,10 @@ function initData() {
   if (DB.get('initialized')) return;
 
   const courses = [
-    { id: 'c1', name: 'Al-Qaida Al-Nooraniyah Course – Online – For Teacher Preparation No. 3930', coach: 'Mohammed Farouk Al-Ra\'i', type: 'Online', classification: 'Hafs', location: 'Online (Global)', maxStudents: 30, startDate: '2025-01-15', nextSession: nextSessionDate(14, 7, 30), description: 'A comprehensive teacher preparation course based on the Nooraniyah method. Students learn correct Quranic pronunciation and teaching techniques under the guidance of certified coaches.', active: true, courseNo: 3930 },
-    { id: 'c2', name: 'Noorani Qaida Course In Brussels, Number 3927', coach: 'Mohammed Farouk Al-Ra\'i', type: 'In-Person', classification: 'Hafs', location: 'Singel, Brussels, Belgium', maxStudents: 15, startDate: '2025-02-01', nextSession: nextSessionDate(2, 10, 0), description: 'In-person Noorani Qaida classes in Brussels, Belgium. Suitable for all ages. Focus on correct Arabic letter pronunciation using the Hafs narration.', active: true, courseNo: 3927 },
-    { id: 'c3', name: 'Noorani Qaida Course In Indonesia, Number 3926', coach: 'Mohammed Farouk Al-Ra\'i', type: 'Online', classification: 'Warsh', location: 'Surabaya, Indonesia', maxStudents: 25, startDate: '2025-01-20', nextSession: nextSessionDate(7, 16, 0), description: 'Online Noorani Qaida classes connecting students in Indonesia with certified Quran teachers. Warsh narration focus.', active: true, courseNo: 3926 },
-    { id: 'c4', name: 'Al-Qaida Al-Nooraniyah Course In Luxembourg, Number 3925', coach: 'Mohammed Farouk Al-Ra\'i', type: 'In-Person', classification: 'Qaloon', location: 'Luxembourg City, Luxembourg', maxStudents: 12, startDate: '2025-03-01', nextSession: nextSessionDate(4, 9, 0), description: 'In-person Quranic reading course in Luxembourg City using Qaloon narration. Ideal for beginners and intermediate learners.', active: true, courseNo: 3925 },
+    { id: 'c1', level: 1, name: 'Level 1 – Al-Qaida Al-Nooraniyah (Foundation)', coach: 'Mohammed Farouk Al-Ra\'i', type: 'Online', classification: 'Hafs', location: 'Online (Global)', maxStudents: 30, startDate: '2025-01-15', nextSession: nextSessionDate(14, 7, 30), description: 'Foundation level covering Arabic alphabet recognition, basic letter forms, and introductory Tajweed rules. Suitable for complete beginners.', active: true, courseNo: 3930, totalSessions: 20, feeAmount: 120, feeCurrency: 'EUR' },
+    { id: 'c2', level: 2, name: 'Level 2 – Noorani Qaida (Elementary)', coach: 'Mohammed Farouk Al-Ra\'i', type: 'In-Person', classification: 'Hafs', location: 'Singel, Brussels, Belgium', maxStudents: 15, startDate: '2025-02-01', nextSession: nextSessionDate(2, 10, 0), description: 'Elementary level focusing on letter joining, short/long vowels, and basic Tajweed application. Students begin reading simple Quranic words.', active: true, courseNo: 3927, totalSessions: 24, feeAmount: 150, feeCurrency: 'EUR' },
+    { id: 'c3', level: 3, name: 'Level 3 – Quranic Recitation (Intermediate)', coach: 'Mohammed Farouk Al-Ra\'i', type: 'Online', classification: 'Warsh', location: 'Surabaya, Indonesia', maxStudents: 25, startDate: '2025-01-20', nextSession: nextSessionDate(7, 16, 0), description: 'Intermediate level with full Tajweed rules, Makharij Al-Huruf (articulation points), and fluent Quran reading. Warsh narration focus.', active: true, courseNo: 3926, totalSessions: 28, feeAmount: 180, feeCurrency: 'USD' },
+    { id: 'c4', level: 4, name: 'Level 4 – Teacher Certification (Advanced)', coach: 'Mohammed Farouk Al-Ra\'i', type: 'In-Person', classification: 'Qaloon', location: 'Luxembourg City, Luxembourg', maxStudents: 12, startDate: '2025-03-01', nextSession: nextSessionDate(4, 9, 0), description: 'Advanced certification program for aspiring Quran teachers. Covers advanced Tajweed, Ijazah preparation, and teaching methodology.', active: true, courseNo: 3925, totalSessions: 32, feeAmount: 220, feeCurrency: 'EUR' },
   ];
 
   const students = [
@@ -1740,12 +1933,44 @@ function initData() {
     { id: 'req2', studentId: 's2', courseId: 'c3', requestedDate: '2025-04-05', level: 'Level 3 - Advanced', notes: 'Ready for certification', status: 'Approved' },
   ];
 
+  const assignments = [
+    { id: 'a1', courseId: 'c1', title: 'Arabic Alphabet Practice Sheet', description: 'Write each Arabic letter 10 times in its isolated, initial, medial, and final forms. Submit a scanned or photographed copy of your handwritten work.', dueDate: '2025-02-10', maxScore: 100 },
+    { id: 'a2', courseId: 'c1', title: 'Tajweed Rules Summary', description: 'Write a one-page summary of the 5 Tajweed rules covered in Sessions 1–5. Include examples from the Quran for each rule.', dueDate: '2025-03-01', maxScore: 100 },
+    { id: 'a3', courseId: 'c2', title: 'Letter Joining Exercise', description: 'Complete the provided worksheet on connecting letters. Write 20 two-letter and 20 three-letter combinations correctly.', dueDate: '2025-02-20', maxScore: 100 },
+    { id: 'a4', courseId: 'c2', title: 'Surah Al-Fatiha Recitation Notes', description: 'Record notes on the Tajweed rules applied in Surah Al-Fatiha. Highlight each rule with the relevant word from the Surah.', dueDate: '2025-03-15', maxScore: 100 },
+    { id: 'a5', courseId: 'c3', title: 'Makharij Al-Huruf Diagram', description: 'Draw and label a diagram of the articulation points (Makharij) for all Arabic letters. Include the name of each Makhraj group.', dueDate: '2025-02-28', maxScore: 100 },
+    { id: 'a6', courseId: 'c3', title: 'Surah Recitation Recording', description: 'Record yourself reciting Surah Al-Baqarah (verses 1–10) applying all Tajweed rules. Submit the audio file link or upload.', dueDate: '2025-03-20', maxScore: 100 },
+    { id: 'a7', courseId: 'c4', title: 'Lesson Plan – Beginner Session', description: 'Prepare a complete 45-minute lesson plan for teaching Arabic alphabet to a complete beginner. Include objectives, activities, and assessment methods.', dueDate: '2025-03-10', maxScore: 100 },
+    { id: 'a8', courseId: 'c4', title: 'Teaching Reflection Journal', description: 'After conducting a practice teaching session, write a 500-word reflection on what went well, challenges faced, and improvements for next time.', dueDate: '2025-04-01', maxScore: 100 },
+  ];
+
+  const submissions = [
+    { id: 'sub1', assignmentId: 'a1', studentId: 's1', submittedDate: '2025-02-08', fileName: 'ahmed_alphabet_practice.pdf', score: 85, feedback: 'Good effort! Letter forms are mostly correct. Work on the medial form of ع and غ.', status: 'Graded' },
+    { id: 'sub2', assignmentId: 'a2', studentId: 's1', submittedDate: '2025-02-28', fileName: 'ahmed_tajweed_summary.pdf', score: 90, feedback: 'Excellent summary with clear examples. Well structured.', status: 'Graded' },
+    { id: 'sub3', assignmentId: 'a3', studentId: 's1', submittedDate: '2025-02-18', fileName: 'ahmed_letter_joining.pdf', score: 78, feedback: 'Mostly correct. Review the joining rules for ا and و which do not connect to following letters.', status: 'Graded' },
+    { id: 'sub4', assignmentId: 'a5', studentId: 's2', submittedDate: '2025-02-25', fileName: 'fatima_makharij_diagram.pdf', score: 92, feedback: 'Excellent diagram! Clear labelling and accurate groupings.', status: 'Graded' },
+    { id: 'sub5', assignmentId: 'a6', studentId: 's2', submittedDate: '2025-03-18', fileName: 'fatima_recitation.mp3', score: null, feedback: '', status: 'Submitted' },
+    { id: 'sub6', assignmentId: 'a7', studentId: 's3', submittedDate: '2025-03-08', fileName: 'yusuf_lesson_plan.docx', score: 88, feedback: 'Solid lesson plan. Consider adding more interactive activities for young learners.', status: 'Graded' },
+  ];
+
+  const payments = [
+    { id: 'pay1', studentId: 's1', courseId: 'c1', semester: 'Semester 1 2025', amount: 120, currency: 'EUR', dueDate: '2025-01-10', paidDate: '2025-01-09', status: 'Paid' },
+    { id: 'pay2', studentId: 's1', courseId: 'c1', semester: 'Semester 2 2025', amount: 120, currency: 'EUR', dueDate: '2025-06-10', paidDate: null, status: 'Pending' },
+    { id: 'pay3', studentId: 's1', courseId: 'c2', semester: 'Semester 1 2025', amount: 150, currency: 'EUR', dueDate: '2025-02-01', paidDate: '2025-01-31', status: 'Paid' },
+    { id: 'pay4', studentId: 's2', courseId: 'c3', semester: 'Semester 1 2025', amount: 180, currency: 'USD', dueDate: '2025-01-20', paidDate: '2025-01-19', status: 'Paid' },
+    { id: 'pay5', studentId: 's2', courseId: 'c3', semester: 'Semester 2 2025', amount: 180, currency: 'USD', dueDate: '2025-07-20', paidDate: null, status: 'Unpaid' },
+    { id: 'pay6', studentId: 's3', courseId: 'c4', semester: 'Semester 1 2025', amount: 220, currency: 'EUR', dueDate: '2025-03-01', paidDate: '2025-02-28', status: 'Paid' },
+  ];
+
   DB.set('courses', courses);
   DB.set('students', students);
   DB.set('enrollments', enrollments);
   DB.set('tests', tests);
   DB.set('transactions', transactions);
   DB.set('testRequests', testRequests);
+  DB.set('assignments', assignments);
+  DB.set('submissions', submissions);
+  DB.set('payments', payments);
   DB.set('role', 'student');
   DB.set('currentUserId', 's1');
   DB.set('initialized', true);
@@ -1776,6 +2001,10 @@ function migrateData() {
   if (!DB.get('admin')) {
     DB.set('admin', { username: 'admin', passwordHash: hashPassword('admin', 'admin123') });
   }
+  // Ensure new data keys exist for old sessions
+  if (!DB.get('assignments')) DB.set('assignments', []);
+  if (!DB.get('submissions')) DB.set('submissions', []);
+  if (!DB.get('payments')) DB.set('payments', []);
 }
 
 // ════════════════════════════════
@@ -1856,6 +2085,11 @@ function navigate(pageId) {
   if (pageId === 'student-reviews') loadReviewsPage();
   if (pageId === 'calendar') loadCalendar();
   if (pageId === 'admin-progress') loadProgressEditor();
+  if (pageId === 'student-attendance') renderStudentAttendance();
+  if (pageId === 'student-assignments') loadStudentAssignments();
+  if (pageId === 'student-results') renderStudentResults();
+  if (pageId === 'student-payment') renderStudentPayment();
+  if (pageId === 'admin-assignments') renderAdminAssignments();
 }
 
 // ════════════════════════════════
@@ -2039,10 +2273,11 @@ function renderCourseGrid() {
       <div class="course-card">
         <div class="course-card-header">${c.name}</div>
         <div class="course-card-body">
+          <div class="course-meta" style="margin-bottom:6px">${levelBadge(c.level)} ${typeBadge(c.type)}</div>
           <div class="course-meta"><strong>Coach:</strong> ${c.coach}</div>
           <div class="course-meta"><strong>Location:</strong> ${c.location}</div>
           <div class="course-meta"><strong>Start Date:</strong> ${fmtDate(c.startDate)}</div>
-          <div class="course-meta">${classTag(c.classification)} ${typeBadge(c.type)}</div>
+          <div class="course-meta">${classTag(c.classification)}</div>
           ${isEnrolled && enroll ? `<div style="margin-top:8px"><div style="font-size:11px;color:var(--text-muted);margin-bottom:3px">Progress: ${enroll.progress}%</div><div class="progress-bar-wrap"><div class="progress-bar-fill" style="width:${enroll.progress}%"></div></div></div>` : ''}
         </div>
         <div class="course-card-footer">
@@ -3090,6 +3325,347 @@ function exportStudentData() {
   a.download = 'student_data_' + new Date().toISOString().slice(0,10) + '.csv';
   a.click();
   showToast('CSV exported!');
+}
+
+// ════════════════════════════════
+//  HELPER GETTERS (new data)
+// ════════════════════════════════
+function getAssignments() { return DB.get('assignments') || []; }
+function getSubmissions() { return DB.get('submissions') || []; }
+function getPayments() { return DB.get('payments') || []; }
+
+function levelBadge(level) {
+  const map = { 1:'level-1', 2:'level-2', 3:'level-3', 4:'level-4' };
+  return level ? `<span class="level-badge ${map[level]||'level-1'}">Level ${level}</span>` : '';
+}
+
+function gradeLetter(pct) {
+  if (pct >= 90) return 'A';
+  if (pct >= 80) return 'B';
+  if (pct >= 70) return 'C';
+  if (pct >= 60) return 'D';
+  return 'F';
+}
+
+// ════════════════════════════════
+//  STUDENT ATTENDANCE VIEW
+// ════════════════════════════════
+function renderStudentAttendance() {
+  const uid = getCurrentUserId();
+  const enrollments = getEnrollments().filter(e => e.studentId === uid);
+  const grid = document.getElementById('attSummaryGrid');
+  const detail = document.getElementById('attDetailList');
+
+  if (!enrollments.length) {
+    grid.innerHTML = ''; detail.innerHTML = '<p class="text-muted" style="padding:20px">No enrolled courses.</p>'; return;
+  }
+
+  grid.innerHTML = enrollments.map(e => {
+    const c = courseById(e.courseId);
+    const att = e.attendance || [];
+    const present = att.filter(Boolean).length;
+    const total = att.length;
+    const rate = total ? Math.round((present / total) * 100) : 0;
+    const cls = rate >= 80 ? 'good' : rate >= 60 ? 'warn' : 'bad';
+    return `<div class="att-summary-card ${cls}">
+      <div style="font-size:12px;font-weight:700;color:var(--navy);margin-bottom:4px">${c ? c.name.slice(0,35)+'…' : e.courseId}</div>
+      ${levelBadge(c && c.level)}
+      <div class="att-rate">${rate}%</div>
+      <div class="att-label">${present} / ${total} sessions attended</div>
+    </div>`;
+  }).join('');
+
+  detail.innerHTML = enrollments.map(e => {
+    const c = courseById(e.courseId);
+    const att = e.attendance || [];
+    const dots = att.map((p, i) => `<div class="att-dot ${p?'present':'absent'}" title="Session ${i+1}">${p?'✓':'✗'}</div>`).join('');
+    return `<div class="form-card mb-16">
+      <div class="form-title" style="display:flex;align-items:center;gap:8px">${c ? c.name.slice(0,50) : e.courseId} ${levelBadge(c && c.level)}</div>
+      <div class="att-dots">${dots || '<span class="text-muted">No sessions recorded yet.</span>'}</div>
+      <div style="font-size:11px;color:var(--text-muted);margin-top:8px">● Present &nbsp; ✗ Absent</div>
+    </div>`;
+  }).join('');
+}
+
+// ════════════════════════════════
+//  STUDENT ASSIGNMENTS
+// ════════════════════════════════
+function loadStudentAssignments() {
+  const uid = getCurrentUserId();
+  const enrolledIds = getEnrollments().filter(e => e.studentId === uid).map(e => e.courseId);
+  const courses = getCourses().filter(c => enrolledIds.includes(c.id));
+  const sel = document.getElementById('assignCourseFilter');
+  const cur = sel.value;
+  sel.innerHTML = '<option value="">All Courses</option>' + courses.map(c => `<option value="${c.id}" ${c.id===cur?'selected':''}>${c.name.slice(0,55)}</option>`).join('');
+  renderStudentAssignments();
+}
+
+function renderStudentAssignments() {
+  const uid = getCurrentUserId();
+  const enrolledIds = getEnrollments().filter(e => e.studentId === uid).map(e => e.courseId);
+  const filterCourse = document.getElementById('assignCourseFilter').value;
+  const assignments = getAssignments().filter(a => {
+    if (!enrolledIds.includes(a.courseId)) return false;
+    if (filterCourse && a.courseId !== filterCourse) return false;
+    return true;
+  });
+  const submissions = getSubmissions();
+  const el = document.getElementById('assignmentsList');
+  if (!assignments.length) { el.innerHTML = '<p class="text-muted" style="padding:20px">No assignments yet.</p>'; return; }
+
+  el.innerHTML = assignments.map(a => {
+    const c = courseById(a.courseId);
+    const sub = submissions.find(s => s.assignmentId === a.id && s.studentId === uid);
+    const overdue = !sub && new Date(a.dueDate) < new Date();
+    let statusHtml = '';
+    let submitArea = '';
+    if (sub) {
+      if (sub.status === 'Graded') {
+        statusHtml = `<span class="status-graded">✓ Graded: ${sub.score}/100</span>`;
+        submitArea = `<div style="font-size:12.5px;background:#f0f4ff;padding:10px;border-radius:6px">
+          <strong>Score:</strong> ${sub.score}/100 &nbsp; <strong>Grade:</strong> ${gradeLetter(sub.score)}<br>
+          <strong>Feedback:</strong> ${sub.feedback || '—'}
+        </div>`;
+      } else {
+        statusHtml = `<span class="status-submitted">✓ Submitted – awaiting grade</span>`;
+        submitArea = `<div style="font-size:12px;color:var(--text-muted)">File: ${sub.fileName} · Submitted ${fmtDate(sub.submittedDate)}</div>`;
+      }
+    } else {
+      statusHtml = overdue ? `<span style="color:var(--danger);font-weight:700;font-size:12px">⚠ Overdue</span>` : `<span class="status-pending-sub">Pending submission</span>`;
+      submitArea = `<div>
+        <label class="file-upload-label" for="fileInput_${a.id}">📎 Choose File</label>
+        <input type="file" id="fileInput_${a.id}" style="display:none" onchange="submitAssignment('${a.id}',this)">
+        <span id="fileName_${a.id}" style="font-size:12px;color:var(--text-muted);margin-left:8px"></span>
+        <button class="btn-orange btn-sm" style="margin-left:8px" onclick="confirmSubmit('${a.id}')">Submit</button>
+      </div>`;
+    }
+    return `<div class="assignment-card">
+      <div class="assignment-card-header">
+        <div>
+          <div class="assignment-title">${a.title}</div>
+          <div class="assignment-due">Due: ${fmtDate(a.dueDate)} · ${c ? c.name.slice(0,40) : ''} ${levelBadge(c && c.level)}</div>
+        </div>
+        <div>${statusHtml}</div>
+      </div>
+      <div class="assignment-body">${a.description}</div>
+      <div class="assignment-submit-area">${submitArea}</div>
+    </div>`;
+  }).join('');
+}
+
+function submitAssignment(assignmentId, input) {
+  const name = input.files[0] ? input.files[0].name : '';
+  const el = document.getElementById('fileName_' + assignmentId);
+  if (el) el.textContent = name;
+}
+
+function confirmSubmit(assignmentId) {
+  const uid = getCurrentUserId();
+  const fileInput = document.getElementById('fileInput_' + assignmentId);
+  const fileName = fileInput && fileInput.files[0] ? fileInput.files[0].name : 'submission_' + assignmentId + '.pdf';
+  const subs = getSubmissions();
+  if (subs.find(s => s.assignmentId === assignmentId && s.studentId === uid)) { showToast('Already submitted'); return; }
+  subs.push({ id: 'sub' + Date.now(), assignmentId, studentId: uid, submittedDate: new Date().toISOString().slice(0,10), fileName, score: null, feedback: '', status: 'Submitted' });
+  DB.set('submissions', subs);
+  showToast('Assignment submitted successfully!');
+  renderStudentAssignments();
+}
+
+// ════════════════════════════════
+//  STUDENT RESULTS & SEMESTER MARKS
+// ════════════════════════════════
+function renderStudentResults() {
+  const uid = getCurrentUserId();
+  const enrollments = getEnrollments().filter(e => e.studentId === uid);
+  const el = document.getElementById('resultsBody');
+  if (!enrollments.length) { el.innerHTML = '<p class="text-muted" style="padding:20px">No enrolled courses.</p>'; return; }
+
+  el.innerHTML = enrollments.map(e => {
+    const c = courseById(e.courseId);
+    if (!c) return '';
+
+    // Exam mark (average of all test scores for this course)
+    const tests = getTests().filter(t => t.studentId === uid && t.courseId === e.courseId);
+    const examAvg = tests.length ? Math.round(tests.reduce((s,t) => s + t.score, 0) / tests.length) : null;
+
+    // Attendance mark (% of sessions attended)
+    const att = e.attendance || [];
+    const attRate = att.length ? Math.round((att.filter(Boolean).length / att.length) * 100) : null;
+
+    // Assignment mark (average of graded submissions)
+    const assignments = getAssignments().filter(a => a.courseId === e.courseId);
+    const gradedSubs = getSubmissions().filter(s => s.studentId === uid && assignments.map(a=>a.id).includes(s.assignmentId) && s.status === 'Graded');
+    const assignAvg = gradedSubs.length ? Math.round(gradedSubs.reduce((s,x) => s + (x.score||0), 0) / gradedSubs.length) : null;
+
+    // Semester total: Exam 40% + Attendance 30% + Assignment 30%
+    const hasAll = examAvg !== null && attRate !== null && assignAvg !== null;
+    const total = hasAll ? Math.round(examAvg * 0.4 + attRate * 0.3 + assignAvg * 0.3) : null;
+    const grade = total !== null ? gradeLetter(total) : '—';
+    const gradeClass = { A:'grade-A', B:'grade-B', C:'grade-C', D:'grade-D', F:'grade-F' }[grade] || 'grade-F';
+
+    const rows = [
+      { label: '📝 Exam / Test', score: examAvg, weight: 40, weighted: examAvg !== null ? Math.round(examAvg * 0.4) : null },
+      { label: '✅ Attendance', score: attRate, weight: 30, weighted: attRate !== null ? Math.round(attRate * 0.3) : null },
+      { label: '📎 Assignments', score: assignAvg, weight: 30, weighted: assignAvg !== null ? Math.round(assignAvg * 0.3) : null },
+    ];
+
+    return `<div class="mark-card">
+      <div class="mark-card-header">
+        <div>
+          <div class="course-name">${c.name.slice(0,55)} ${levelBadge(c.level)}</div>
+          <div style="font-size:11px;color:rgba(255,255,255,0.6);margin-top:3px">${c.coach}</div>
+        </div>
+        <div style="text-align:right">
+          <div class="total-mark">${total !== null ? total + '%' : 'In Progress'}</div>
+          <div class="grade-pill ${gradeClass}" style="margin:4px 0 0 auto">${grade}</div>
+        </div>
+      </div>
+      <div class="mark-card-body">
+        ${rows.map(r => `
+          <div class="mark-row">
+            <span class="mark-component">${r.label} <span class="mark-weighted">(${r.weight}%)</span></span>
+            <div class="mark-bar-wrap">
+              <div class="progress-bar-wrap"><div class="progress-bar-fill" style="width:${r.score||0}%"></div></div>
+            </div>
+            <span class="mark-score">${r.score !== null ? r.score + '%' : '—'}</span>
+            <span class="mark-weighted" style="min-width:50px;text-align:right">→ ${r.weighted !== null ? r.weighted : '—'} pts</span>
+          </div>`).join('')}
+        <div style="margin-top:10px;font-size:12px;color:var(--text-muted);text-align:right">
+          Weighting: Exam 40% + Attendance 30% + Assignment 30%
+        </div>
+        ${tests.length ? `<div style="margin-top:10px"><div class="fw-700" style="font-size:12px;margin-bottom:6px;color:var(--navy)">Exam History</div>
+          <table class="data-table" style="font-size:12px">
+            <thead><tr><th>Date</th><th>Score</th><th>Grade</th></tr></thead>
+            <tbody>${tests.map(t => `<tr><td>${fmtDate(t.date)}</td><td>${t.score}%</td><td>${scoreBadge(t.score)}</td></tr>`).join('')}</tbody>
+          </table></div>` : ''}
+      </div>
+    </div>`;
+  }).join('');
+}
+
+// ════════════════════════════════
+//  STUDENT PAYMENT STATUS
+// ════════════════════════════════
+function renderStudentPayment() {
+  const uid = getCurrentUserId();
+  const payments = getPayments().filter(p => p.studentId === uid);
+  const el = document.getElementById('paymentBody');
+
+  // Summary totals
+  const paid = payments.filter(p => p.status === 'Paid').reduce((s,p) => s + p.amount, 0);
+  const outstanding = payments.filter(p => p.status !== 'Paid').reduce((s,p) => s + p.amount, 0);
+
+  const summaryHtml = `<div class="stats-grid mb-16" style="grid-template-columns:repeat(3,1fr)">
+    <div class="stat-card green"><div class="stat-value">${payments.filter(p=>p.status==='Paid').length}</div><div class="stat-label">Paid</div></div>
+    <div class="stat-card"><div class="stat-value">${payments.filter(p=>p.status!=='Paid').length}</div><div class="stat-label">Outstanding</div></div>
+    <div class="stat-card gold"><div class="stat-value">${outstanding > 0 ? outstanding : '0'}</div><div class="stat-label">Amount Due</div></div>
+  </div>`;
+
+  if (!payments.length) { el.innerHTML = summaryHtml + '<p class="text-muted" style="padding:10px">No payment records found.</p>'; return; }
+
+  // Group by course
+  const byCourse = {};
+  payments.forEach(p => { if (!byCourse[p.courseId]) byCourse[p.courseId] = []; byCourse[p.courseId].push(p); });
+
+  const cardsHtml = Object.entries(byCourse).map(([cid, pmts]) => {
+    const c = courseById(cid);
+    return `<div class="payment-status-card">
+      <div class="payment-status-header">
+        <div class="course-lbl">${c ? c.name.slice(0,50) : cid} ${levelBadge(c && c.level)}</div>
+        <div>${c ? typeBadge(c.type) : ''}</div>
+      </div>
+      <div class="payment-body">
+        ${pmts.map(p => {
+          const badge = p.status === 'Paid' ? `<span class="paid-badge">✓ Paid</span>` :
+                        p.status === 'Pending' ? `<span class="pending-badge">⏳ Pending</span>` :
+                        `<span class="unpaid-badge">✗ Unpaid</span>`;
+          return `<div class="payment-row">
+            <div>
+              <div style="font-weight:600">${p.semester}</div>
+              <div style="font-size:11.5px;color:var(--text-muted)">Due: ${fmtDate(p.dueDate)} ${p.paidDate ? '· Paid: '+fmtDate(p.paidDate) : ''}</div>
+            </div>
+            <div style="display:flex;align-items:center;gap:12px">
+              <span class="payment-total">${p.amount} ${p.currency}</span>
+              ${badge}
+            </div>
+          </div>`;
+        }).join('')}
+      </div>
+    </div>`;
+  }).join('');
+
+  el.innerHTML = summaryHtml + cardsHtml;
+}
+
+// ════════════════════════════════
+//  ADMIN ASSIGNMENTS
+// ════════════════════════════════
+function renderAdminAssignments() {
+  const courses = getCourses();
+  const filterSel = document.getElementById('adminAssignCourseFilter');
+  const cur = filterSel.value;
+  filterSel.innerHTML = '<option value="">All Courses</option>' + courses.map(c => `<option value="${c.id}" ${c.id===cur?'selected':''}>${c.name.slice(0,55)}</option>`).join('');
+
+  const assignments = getAssignments().filter(a => !cur || a.courseId === cur);
+  const submissions = getSubmissions();
+  const el = document.getElementById('adminAssignmentsList');
+  if (!assignments.length) { el.innerHTML = '<p class="text-muted" style="padding:20px">No assignments found.</p>'; return; }
+
+  el.innerHTML = assignments.map(a => {
+    const c = courseById(a.courseId);
+    const subs = submissions.filter(s => s.assignmentId === a.id);
+    const pendingCount = subs.filter(s => s.status === 'Submitted').length;
+    return `<div class="form-card mb-16">
+      <div class="flex-between mb-16">
+        <div>
+          <div style="font-weight:700;color:var(--navy);font-size:14px">${a.title}</div>
+          <div style="font-size:12px;color:var(--text-muted);margin-top:2px">${c ? c.name.slice(0,50) : ''} ${levelBadge(c && c.level)} · Due: ${fmtDate(a.dueDate)}</div>
+        </div>
+        ${pendingCount > 0 ? `<span class="score-badge score-pending">${pendingCount} to grade</span>` : '<span class="score-badge score-pass">All graded</span>'}
+      </div>
+      ${subs.length === 0 ? '<p class="text-muted" style="font-size:12.5px">No submissions yet.</p>' :
+        subs.map(sub => {
+          const s = studentById(sub.studentId);
+          return `<div class="submission-card">
+            <div style="font-size:22px">${s ? s.avatar : '👤'}</div>
+            <div class="submission-info">
+              <div style="font-weight:600;font-size:13px">${s ? s.firstName+' '+s.lastName : sub.studentId}</div>
+              <div class="submission-file">📎 ${sub.fileName} · Submitted ${fmtDate(sub.submittedDate)}</div>
+              ${sub.status === 'Graded' ? `<div style="font-size:12px;color:var(--success);margin-top:3px">✓ Graded: ${sub.score}/100 — ${sub.feedback}</div>` : ''}
+            </div>
+            <div>
+              ${sub.status === 'Submitted'
+                ? `<button class="btn-edit btn-sm" onclick="openGradeForm('${sub.id}','${a.title}','${s ? s.firstName+' '+s.lastName : sub.studentId}')">Grade</button>`
+                : `<span class="score-badge ${sub.score >= 70 ? 'score-pass' : 'score-fail'}">${sub.score}/100</span>`}
+            </div>
+          </div>`;
+        }).join('')}
+    </div>`;
+  }).join('');
+}
+
+function openGradeForm(subId, assignTitle, studentName) {
+  document.getElementById('gradeFormWrap').style.display = '';
+  document.getElementById('gradeSubId').value = subId;
+  document.getElementById('gradeSubInfo').textContent = `Grading: "${assignTitle}" — submitted by ${studentName}`;
+  document.getElementById('gradeScore').value = '';
+  document.getElementById('gradeFeedback').value = '';
+  document.getElementById('gradeFormWrap').scrollIntoView({ behavior: 'smooth' });
+}
+
+function saveGrade() {
+  const subId = document.getElementById('gradeSubId').value;
+  const score = parseInt(document.getElementById('gradeScore').value);
+  const feedback = document.getElementById('gradeFeedback').value.trim();
+  if (isNaN(score) || score < 0 || score > 100) { showToast('Enter a valid score (0–100)'); return; }
+  const subs = getSubmissions();
+  const sub = subs.find(s => s.id === subId);
+  if (!sub) return;
+  sub.score = score; sub.feedback = feedback; sub.status = 'Graded';
+  DB.set('submissions', subs);
+  document.getElementById('gradeFormWrap').style.display = 'none';
+  renderAdminAssignments();
+  showToast('Grade saved!');
 }
 
 // ════════════════════════════════
