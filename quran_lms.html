@@ -2092,23 +2092,20 @@ body.admin-mode .student-only { display: none; }
     </div>
     <div class="modal-body">
       <p style="font-size:12.5px;color:var(--text-muted);margin-bottom:14px;line-height:1.6">
-        Enter your Cloudflare Worker URL and Billplz Collection ID.<br>
-        <strong style="color:#166534">✅ API key is stored securely in the Worker — never exposed in the browser.</strong>
+        Create bills manually in your Billplz dashboard, then paste each bill URL into the payment record.
+        No API key required.
       </p>
       <div class="form-group">
-        <label>Worker URL</label>
-        <input type="text" id="bpApiKey" placeholder="e.g. https://billplz-proxy.yourname.workers.dev" style="width:100%;border:1px solid #d1d5db;border-radius:5px;padding:8px 11px;font-size:13px">
-        <div style="font-size:11px;color:var(--text-muted);margin-top:4px">Deploy <code>billplz-worker.js</code> to Cloudflare Workers and paste the URL here.</div>
+        <label>Your Billplz Dashboard URL</label>
+        <a href="https://www.billplz.com/bills" target="_blank" class="btn-orange" style="display:inline-block;font-size:13px;padding:7px 14px;text-decoration:none;margin-bottom:6px">🔗 Open Billplz Dashboard</a>
+        <div style="font-size:11.5px;color:var(--text-muted);line-height:1.6;margin-top:4px">
+          1. Log in to Billplz → Create a bill for the student<br>
+          2. Copy the bill URL (e.g. https://www.billplz.com/bills/abc123)<br>
+          3. Edit the payment record in LMS and paste the URL into <strong>Bill URL</strong>
+        </div>
       </div>
-      <div class="form-group">
-        <label>Collection ID</label>
-        <input type="text" id="bpCollectionId" placeholder="e.g. abc123" style="width:100%;border:1px solid #d1d5db;border-radius:5px;padding:8px 11px;font-size:13px">
-      </div>
-      <div id="bpTestResult" style="display:none;border-radius:6px;padding:9px 12px;font-size:12.5px;margin-top:10px"></div>
-      <div style="display:flex;gap:10px;margin-top:10px;flex-wrap:wrap">
-        <button class="btn-orange" onclick="saveBillplzSettings()">Save Settings</button>
-        <button class="btn-primary" onclick="testBillplzConnection()">🔍 Test Connection</button>
-        <button class="btn-primary" onclick="document.getElementById('billplzSettingsModal').classList.remove('open')">Cancel</button>
+      <div style="display:flex;gap:10px;margin-top:10px">
+        <button class="btn-primary" onclick="document.getElementById('billplzSettingsModal').classList.remove('open')">Close</button>
       </div>
     </div>
   </div>
@@ -4055,9 +4052,18 @@ function openPaymentModal(payId) {
         <option ${p&&p.status==='Pending'?'selected':''}>Pending</option>
         <option ${p&&p.status==='Paid'?'selected':''}>Paid</option>
       </select>
+    </div>
+    <div class="form-group">
+      <label>Bill URL <span style="font-weight:400;color:var(--text-muted)">(from Billplz dashboard)</span></label>
+      <input type="url" id="pBillUrl" value="${p&&p.billplzUrl ? p.billplzUrl : ''}"
+        placeholder="https://www.billplz.com/bills/xxxxxxxx"
+        style="width:100%;border:1px solid #d1d5db;border-radius:5px;padding:8px 11px;font-size:13px">
+      <div style="font-size:11px;color:var(--text-muted);margin-top:4px">
+        Create the bill in your <a href="https://www.billplz.com/bills" target="_blank" style="color:var(--navy)">Billplz dashboard</a>, copy the bill URL and paste here.
+      </div>
     </div>` : ''}
     <div style="display:flex;gap:10px;margin-top:6px">
-      <button class="btn-orange" onclick="savePayment()">Save &amp; Create Bill</button>
+      <button class="btn-orange" onclick="savePayment()">Save Payment</button>
       <button class="btn-primary" onclick="closeAdminModal()">Cancel</button>
     </div>`;
 }
@@ -4082,11 +4088,15 @@ async function savePayment() {
 
   if (isEdit) {
     const status = document.getElementById('pStatus').value;
+    const billUrl = document.getElementById('pBillUrl').value.trim();
+    const existing = payments.find(p => p.id === payId);
     const obj = {
-      ...payments.find(p => p.id === payId),
+      ...existing,
       studentId, courseId, semester: label, amount: totalAmount, currency, dueDate,
-      paidDate: status === 'Paid' ? (payments.find(p=>p.id===payId).paidDate || new Date().toISOString().slice(0,10)) : null,
+      paidDate: status === 'Paid' ? (existing.paidDate || new Date().toISOString().slice(0,10)) : null,
       status,
+      billplzUrl: billUrl || existing.billplzUrl || null,
+      billplzBillId: existing.billplzBillId || null,
     };
     const idx = payments.findIndex(p => p.id === payId);
     if (idx !== -1) payments[idx] = obj;
@@ -4100,9 +4110,6 @@ async function savePayment() {
   const plan = document.getElementById('pPlan').value;
   const months = plan === 'monthly' ? parseInt(document.getElementById('pMonths').value) || 6 : 1;
   const perInstalment = Math.round((totalAmount / months) * 100) / 100;
-  const student = getStudents().find(s => s.id === studentId);
-  const bpSettings = getBillplzSettings();
-  const hasBillplz = bpSettings.apiKey && bpSettings.collectionId;
 
   const newRecords = [];
   for (let i = 0; i < months; i++) {
@@ -4110,7 +4117,7 @@ async function savePayment() {
     due.setMonth(due.getMonth() + i);
     const dueDateStr = due.toISOString().slice(0, 10);
     const semesterLabel = months > 1 ? `${label} — Instalment ${i + 1} of ${months}` : label;
-    const rec = {
+    newRecords.push({
       id: 'pay' + Date.now() + '_' + i,
       studentId, courseId,
       semester: semesterLabel,
@@ -4123,19 +4130,13 @@ async function savePayment() {
       instalment: months > 1 ? `${i + 1}/${months}` : null,
       billplzBillId: null,
       billplzUrl: null,
-    };
-    if (hasBillplz && student) {
-      const bill = await createBillplzBill(rec, student, bpSettings);
-      if (bill) { rec.billplzBillId = bill.id; rec.billplzUrl = bill.url; }
-    }
-    newRecords.push(rec);
+    });
   }
 
   DB.set('payments', [...payments, ...newRecords]);
   closeAdminModal();
   renderCentrePayments();
-  const billMsg = hasBillplz ? ' Billplz bills created.' : ' (Configure Billplz to auto-create bills.)';
-  showToast(`${newRecords.length} payment record(s) added.` + billMsg);
+  showToast(`${newRecords.length} payment record(s) added. Edit each record to add the Billplz bill URL.`);
 }
 
 function deletePayment(payId) {
