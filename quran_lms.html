@@ -1059,6 +1059,22 @@ body.admin-mode .student-only { display: none; }
 .pending-badge { background: #fef3c7; color: #92400e; padding: 3px 10px; border-radius: 10px; font-size: 11px; font-weight: 700; }
 .payment-total { font-size: 16px; font-weight: 800; color: var(--orange); }
 
+/* ── BILLPLZ INTEGRATION ── */
+.btn-billplz {
+  background: #0070BA; color: #fff; border: none; border-radius: 6px;
+  padding: 5px 12px; font-size: 12px; font-weight: 700; cursor: pointer;
+  display: inline-flex; align-items: center; gap: 5px; text-decoration: none;
+}
+.btn-billplz:hover { background: #005a99; }
+.btn-check-status {
+  background: none; border: 1.5px solid var(--navy); color: var(--navy);
+  border-radius: 6px; padding: 4px 10px; font-size: 11.5px; font-weight: 600;
+  cursor: pointer;
+}
+.btn-check-status:hover { background: var(--navy); color: #fff; }
+.billplz-link-badge { color: #0070BA; font-size: 13px; cursor: pointer; }
+.instalment-label { font-size: 11px; color: var(--text-muted); font-weight: 600; }
+
 /* ── ADMIN ASSIGNMENT REVIEW ── */
 .submission-card {
   background: #fff; border-radius: 8px; box-shadow: var(--card-shadow);
@@ -1791,11 +1807,14 @@ body.admin-mode .student-only { display: none; }
                 <option value="">All Students</option>
               </select>
             </div>
-            <button class="btn-orange" onclick="openPaymentModal(null)">+ Add Payment</button>
+            <div style="display:flex;gap:8px">
+              <button class="btn-orange" onclick="openPaymentModal(null)">+ Add Payment</button>
+              <button class="btn-primary" onclick="openBillplzSettings()" title="Configure Billplz" style="font-size:12px;padding:6px 12px">⚙ Billplz</button>
+            </div>
           </div>
           <div style="overflow-x:auto">
             <table class="data-table">
-              <thead><tr><th>#</th><th>Student</th><th>Course</th><th>Semester</th><th>Amount</th><th>Due Date</th><th>Status</th><th>Actions</th></tr></thead>
+              <thead><tr><th>#</th><th>Student</th><th>Course</th><th>Semester</th><th>Amount</th><th>Due Date</th><th>Status</th><th>Bill</th><th>Actions</th></tr></thead>
               <tbody id="centrePaymentsBody"></tbody>
             </table>
           </div>
@@ -1986,6 +2005,34 @@ body.admin-mode .student-only { display: none; }
       <div style="text-align:center;margin:10px 0">
         <button class="btn-orange" onclick="window.print()">🖨 Print Certificate</button>
         <button class="btn-primary" style="margin-left:8px" onclick="document.getElementById('certModal').classList.remove('open')">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- BILLPLZ SETTINGS MODAL -->
+<div class="modal-overlay" id="billplzSettingsModal">
+  <div class="modal-box" style="max-width:420px">
+    <div class="modal-header">
+      <span>💳 Billplz Settings</span>
+      <button class="modal-close" onclick="document.getElementById('billplzSettingsModal').classList.remove('open')">✕</button>
+    </div>
+    <div class="modal-body">
+      <p style="font-size:12.5px;color:var(--text-muted);margin-bottom:14px;line-height:1.6">
+        Enter your Billplz API credentials. These are stored in your browser's local storage.<br>
+        <strong style="color:#991b1b">⚠ Keep this device secure — your API key is visible in browser storage.</strong>
+      </p>
+      <div class="form-group">
+        <label>API Key</label>
+        <input type="password" id="bpApiKey" placeholder="e.g. abc123_live_xxxxxxxx" style="width:100%;border:1px solid #d1d5db;border-radius:5px;padding:8px 11px;font-size:13px">
+      </div>
+      <div class="form-group">
+        <label>Collection ID</label>
+        <input type="text" id="bpCollectionId" placeholder="e.g. abc123" style="width:100%;border:1px solid #d1d5db;border-radius:5px;padding:8px 11px;font-size:13px">
+      </div>
+      <div style="display:flex;gap:10px;margin-top:6px">
+        <button class="btn-orange" onclick="saveBillplzSettings()">Save Settings</button>
+        <button class="btn-primary" onclick="document.getElementById('billplzSettingsModal').classList.remove('open')">Cancel</button>
       </div>
     </div>
   </div>
@@ -3475,6 +3522,23 @@ function exportStudentData() {
 function getAssignments() { return DB.get('assignments') || []; }
 function getSubmissions() { return DB.get('submissions') || []; }
 function getPayments() { return DB.get('payments') || []; }
+function getBillplzSettings() { return DB.get('billplzSettings') || { apiKey: '', collectionId: '' }; }
+
+function openBillplzSettings() {
+  const s = getBillplzSettings();
+  document.getElementById('bpApiKey').value = s.apiKey || '';
+  document.getElementById('bpCollectionId').value = s.collectionId || '';
+  document.getElementById('billplzSettingsModal').classList.add('open');
+}
+
+function saveBillplzSettings() {
+  const apiKey = document.getElementById('bpApiKey').value.trim();
+  const collectionId = document.getElementById('bpCollectionId').value.trim();
+  if (!apiKey || !collectionId) { showToast('Both API Key and Collection ID are required'); return; }
+  DB.set('billplzSettings', { apiKey, collectionId });
+  document.getElementById('billplzSettingsModal').classList.remove('open');
+  showToast('Billplz settings saved!');
+}
 
 // ════════════════════════════════
 //  ADMIN CENTRE — TAB SWITCHER
@@ -3708,11 +3772,14 @@ function renderCentrePayments() {
   const payments = getPayments().filter(p => !cur || p.studentId === cur);
   const tbody = document.getElementById('centrePaymentsBody');
   if (!tbody) return;
-  if (!payments.length) { tbody.innerHTML = '<tr><td colspan="8" class="text-center text-muted" style="padding:20px">No payment records yet.</td></tr>'; return; }
+  if (!payments.length) { tbody.innerHTML = '<tr><td colspan="9" class="text-center text-muted" style="padding:20px">No payment records yet.</td></tr>'; return; }
   tbody.innerHTML = payments.map((p, i) => {
     const s = studentById(p.studentId);
     const c = courseById(p.courseId);
     const badge = p.status==='Paid' ? '<span class="paid-badge">✓ Paid</span>' : p.status==='Pending' ? '<span class="pending-badge">⏳ Pending</span>' : '<span class="unpaid-badge">✗ Unpaid</span>';
+    const billCell = p.billplzUrl
+      ? `<a href="${p.billplzUrl}" target="_blank" class="billplz-link-badge" title="Open Billplz bill">🔗</a>`
+      : `<span style="color:#d1d5db;font-size:12px">—</span>`;
     return `<tr>
       <td>${i+1}</td>
       <td style="font-weight:600;font-size:13px">${s ? s.firstName+' '+s.lastName : p.studentId}</td>
@@ -3721,6 +3788,7 @@ function renderCentrePayments() {
       <td style="font-weight:700;color:var(--orange)">${p.amount} ${p.currency}</td>
       <td style="font-size:12px">${fmtDate(p.dueDate)}</td>
       <td>${badge}</td>
+      <td style="text-align:center">${billCell}</td>
       <td><div class="action-btns">
         <button class="btn-edit btn-sm" onclick="togglePaymentStatus('${p.id}')" title="Cycle status">🔄</button>
         <button class="btn-edit btn-sm" onclick="openPaymentModal('${p.id}')">✏️</button>
@@ -3766,12 +3834,24 @@ function openPaymentModal(payId) {
         </select>
       </div>
     </div>
+    ${!isEdit ? `
+    <div class="form-group">
+      <label>Payment Plan</label>
+      <select id="pPlan" onchange="toggleMonthlyInput()" style="width:100%;border:1px solid #d1d5db;border-radius:5px;padding:8px 11px;font-size:13px">
+        <option value="lump_sum">Lump Sum (Full amount, one bill)</option>
+        <option value="monthly">Monthly Instalments</option>
+      </select>
+    </div>
+    <div id="pMonthsRow" style="display:none" class="form-group">
+      <label>Number of Monthly Instalments</label>
+      <input type="number" id="pMonths" value="6" min="2" max="24" style="width:100%;border:1px solid #d1d5db;border-radius:5px;padding:8px 11px;font-size:13px">
+    </div>` : ''}
     <div class="form-row">
-      <div class="form-group"><label>Semester / Label</label><input type="text" id="pSemester" style="width:100%;border:1px solid #d1d5db;border-radius:5px;padding:8px 11px;font-size:13px" placeholder="e.g. Semester 1 2025" value="${p ? p.semester : ''}"></div>
-      <div class="form-group"><label>Due Date</label><input type="date" id="pDueDate" style="width:100%;border:1px solid #d1d5db;border-radius:5px;padding:8px 11px;font-size:13px" value="${p ? p.dueDate : ''}"></div>
+      <div class="form-group"><label>${isEdit ? 'Semester / Label' : 'Label / Prefix'}</label><input type="text" id="pSemester" style="width:100%;border:1px solid #d1d5db;border-radius:5px;padding:8px 11px;font-size:13px" placeholder="e.g. Semester 1 2025" value="${p ? p.semester : ''}"></div>
+      <div class="form-group"><label>First Due Date</label><input type="date" id="pDueDate" style="width:100%;border:1px solid #d1d5db;border-radius:5px;padding:8px 11px;font-size:13px" value="${p ? p.dueDate : ''}"></div>
     </div>
     <div class="form-row">
-      <div class="form-group"><label>Amount</label><input type="number" id="pAmount" style="width:100%;border:1px solid #d1d5db;border-radius:5px;padding:8px 11px;font-size:13px" value="${p ? p.amount : ''}" placeholder="0.00"></div>
+      <div class="form-group"><label>${isEdit ? 'Amount' : 'Total Amount'}</label><input type="number" id="pAmount" style="width:100%;border:1px solid #d1d5db;border-radius:5px;padding:8px 11px;font-size:13px" value="${p ? p.amount : ''}" placeholder="0.00"></div>
       <div class="form-group">
         <label>Currency</label>
         <select id="pCurrency" style="width:100%;border:1px solid #d1d5db;border-radius:5px;padding:8px 11px;font-size:13px">
@@ -3782,6 +3862,7 @@ function openPaymentModal(payId) {
         </select>
       </div>
     </div>
+    ${isEdit ? `
     <div class="form-group">
       <label>Status</label>
       <select id="pStatus" style="width:100%;border:1px solid #d1d5db;border-radius:5px;padding:8px 11px;font-size:13px">
@@ -3789,41 +3870,87 @@ function openPaymentModal(payId) {
         <option ${p&&p.status==='Pending'?'selected':''}>Pending</option>
         <option ${p&&p.status==='Paid'?'selected':''}>Paid</option>
       </select>
-    </div>
+    </div>` : ''}
     <div style="display:flex;gap:10px;margin-top:6px">
-      <button class="btn-orange" onclick="savePayment()">Save Payment</button>
+      <button class="btn-orange" onclick="savePayment()">Save &amp; Create Bill</button>
       <button class="btn-primary" onclick="closeAdminModal()">Cancel</button>
     </div>`;
 }
 
-function savePayment() {
+function toggleMonthlyInput() {
+  const plan = document.getElementById('pPlan').value;
+  document.getElementById('pMonthsRow').style.display = plan === 'monthly' ? '' : 'none';
+}
+
+async function savePayment() {
   const payId = document.getElementById('editPayId').value;
-  const amount = parseFloat(document.getElementById('pAmount').value);
-  const semester = document.getElementById('pSemester').value.trim();
-  if (!semester || isNaN(amount)) { showToast('Semester label and amount are required'); return; }
-  const status = document.getElementById('pStatus').value;
+  const totalAmount = parseFloat(document.getElementById('pAmount').value);
+  const label = document.getElementById('pSemester').value.trim();
+  if (!label || isNaN(totalAmount)) { showToast('Label and amount are required'); return; }
+
+  const isEdit = !!payId;
+  const currency = document.getElementById('pCurrency').value;
+  const dueDate = document.getElementById('pDueDate').value;
+  const studentId = document.getElementById('pStudent').value;
+  const courseId = document.getElementById('pCourse').value;
   const payments = getPayments();
-  const obj = {
-    id: payId || 'pay' + Date.now(),
-    studentId: document.getElementById('pStudent').value,
-    courseId: document.getElementById('pCourse').value,
-    semester,
-    amount,
-    currency: document.getElementById('pCurrency').value,
-    dueDate: document.getElementById('pDueDate').value,
-    paidDate: status === 'Paid' ? new Date().toISOString().slice(0,10) : null,
-    status,
-  };
-  if (payId) {
+
+  if (isEdit) {
+    const status = document.getElementById('pStatus').value;
+    const obj = {
+      ...payments.find(p => p.id === payId),
+      studentId, courseId, semester: label, amount: totalAmount, currency, dueDate,
+      paidDate: status === 'Paid' ? (payments.find(p=>p.id===payId).paidDate || new Date().toISOString().slice(0,10)) : null,
+      status,
+    };
     const idx = payments.findIndex(p => p.id === payId);
     if (idx !== -1) payments[idx] = obj;
-  } else {
-    payments.push(obj);
+    DB.set('payments', payments);
+    closeAdminModal();
+    renderCentrePayments();
+    showToast('Payment updated!');
+    return;
   }
-  DB.set('payments', payments);
+
+  const plan = document.getElementById('pPlan').value;
+  const months = plan === 'monthly' ? parseInt(document.getElementById('pMonths').value) || 6 : 1;
+  const perInstalment = Math.round((totalAmount / months) * 100) / 100;
+  const student = getStudents().find(s => s.id === studentId);
+  const bpSettings = getBillplzSettings();
+  const hasBillplz = bpSettings.apiKey && bpSettings.collectionId;
+
+  const newRecords = [];
+  for (let i = 0; i < months; i++) {
+    const due = new Date(dueDate || Date.now());
+    due.setMonth(due.getMonth() + i);
+    const dueDateStr = due.toISOString().slice(0, 10);
+    const semesterLabel = months > 1 ? `${label} — Instalment ${i + 1} of ${months}` : label;
+    const rec = {
+      id: 'pay' + Date.now() + '_' + i,
+      studentId, courseId,
+      semester: semesterLabel,
+      amount: perInstalment,
+      currency,
+      dueDate: dueDateStr,
+      paidDate: null,
+      status: 'Unpaid',
+      paymentPlan: plan,
+      instalment: months > 1 ? `${i + 1}/${months}` : null,
+      billplzBillId: null,
+      billplzUrl: null,
+    };
+    if (hasBillplz && student) {
+      const bill = await createBillplzBill(rec, student, bpSettings);
+      if (bill) { rec.billplzBillId = bill.id; rec.billplzUrl = bill.url; }
+    }
+    newRecords.push(rec);
+  }
+
+  DB.set('payments', [...payments, ...newRecords]);
   closeAdminModal();
   renderCentrePayments();
-  showToast(payId ? 'Payment updated!' : 'Payment added!');
+  const billMsg = hasBillplz ? ' Billplz bills created.' : ' (Configure Billplz to auto-create bills.)';
+  showToast(`${newRecords.length} payment record(s) added.` + billMsg);
 }
 
 function deletePayment(payId) {
@@ -3831,6 +3958,65 @@ function deletePayment(payId) {
   DB.set('payments', getPayments().filter(p => p.id !== payId));
   renderCentrePayments();
   showToast('Payment deleted.');
+}
+
+async function createBillplzBill(payRec, student, bpSettings) {
+  const amountCents = Math.round(payRec.amount * 100);
+  const body = new URLSearchParams({
+    collection_id: bpSettings.collectionId,
+    email: student.email || '',
+    mobile: student.phone || '',
+    name: (student.firstName + ' ' + student.lastName).trim(),
+    amount: amountCents,
+    description: payRec.semester.slice(0, 200),
+    redirect_url: window.location.href,
+    callback_url: window.location.href,
+    reference_1_label: 'Payment ID',
+    reference_1: payRec.id,
+  });
+  try {
+    const resp = await fetch('https://www.billplz.com/api/v3/bills', {
+      method: 'POST',
+      headers: {
+        'Authorization': 'Basic ' + btoa(bpSettings.apiKey + ':'),
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      body: body.toString(),
+    });
+    if (!resp.ok) { console.warn('Billplz bill creation failed:', await resp.text()); return null; }
+    const data = await resp.json();
+    return { id: data.id, url: data.url };
+  } catch (e) {
+    console.warn('Billplz API error:', e);
+    return null;
+  }
+}
+
+async function checkBillplzStatus(payId) {
+  const payments = getPayments();
+  const p = payments.find(x => x.id === payId);
+  if (!p || !p.billplzBillId) { showToast('No Billplz bill linked to this payment'); return; }
+  const bpSettings = getBillplzSettings();
+  if (!bpSettings.apiKey) { showToast('Billplz API key not configured'); return; }
+  try {
+    const resp = await fetch('https://www.billplz.com/api/v3/bills/' + p.billplzBillId, {
+      headers: { 'Authorization': 'Basic ' + btoa(bpSettings.apiKey + ':') },
+    });
+    if (!resp.ok) { showToast('Could not reach Billplz — check API key'); return; }
+    const data = await resp.json();
+    if (data.paid) {
+      p.status = 'Paid';
+      p.paidDate = (data.paid_at || new Date().toISOString()).slice(0, 10);
+      DB.set('payments', payments);
+      renderCentrePayments();
+      renderStudentPayment();
+      showToast('Payment confirmed as Paid ✓');
+    } else {
+      showToast('Not paid yet (Billplz status: ' + (data.state || 'pending') + ')');
+    }
+  } catch (e) {
+    showToast('Network error checking Billplz status');
+  }
 }
 
 function closeAdminModal() {
@@ -4082,15 +4268,27 @@ function renderStudentPayment() {
           const badge = p.status === 'Paid' ? `<span class="paid-badge">✓ Paid</span>` :
                         p.status === 'Pending' ? `<span class="pending-badge">⏳ Pending</span>` :
                         `<span class="unpaid-badge">✗ Unpaid</span>`;
-          return `<div class="payment-row">
-            <div>
-              <div style="font-weight:600">${p.semester}</div>
-              <div style="font-size:11.5px;color:var(--text-muted)">Due: ${fmtDate(p.dueDate)} ${p.paidDate ? '· Paid: '+fmtDate(p.paidDate) : ''}</div>
+          const instalmentLabel = p.instalment ? `<span class="instalment-label">Instalment ${p.instalment}</span>` : '';
+          const payActions = p.status !== 'Paid' ? `
+            <div style="display:flex;gap:6px;margin-top:6px;flex-wrap:wrap">
+              ${p.billplzUrl
+                ? `<a href="${p.billplzUrl}" target="_blank" class="btn-billplz">💳 Pay via Billplz</a>`
+                : `<span style="font-size:11px;color:var(--text-muted);font-style:italic">Awaiting payment link</span>`
+              }
+              ${p.billplzBillId ? `<button class="btn-check-status" onclick="checkBillplzStatus('${p.id}')">🔄 Check Status</button>` : ''}
+            </div>` : '';
+          return `<div class="payment-row" style="flex-direction:column;align-items:flex-start">
+            <div style="display:flex;justify-content:space-between;align-items:center;width:100%">
+              <div>
+                <div style="font-weight:600">${p.semester} ${instalmentLabel}</div>
+                <div style="font-size:11.5px;color:var(--text-muted)">Due: ${fmtDate(p.dueDate)} ${p.paidDate ? '· Paid: '+fmtDate(p.paidDate) : ''}</div>
+              </div>
+              <div style="display:flex;align-items:center;gap:12px">
+                <span class="payment-total">${p.amount} ${p.currency}</span>
+                ${badge}
+              </div>
             </div>
-            <div style="display:flex;align-items:center;gap:12px">
-              <span class="payment-total">${p.amount} ${p.currency}</span>
-              ${badge}
-            </div>
+            ${payActions}
           </div>`;
         }).join('')}
       </div>
