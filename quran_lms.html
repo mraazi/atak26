@@ -2092,12 +2092,13 @@ body.admin-mode .student-only { display: none; }
     </div>
     <div class="modal-body">
       <p style="font-size:12.5px;color:var(--text-muted);margin-bottom:14px;line-height:1.6">
-        Enter your Billplz API credentials. These are stored in your browser's local storage.<br>
-        <strong style="color:#991b1b">⚠ Keep this device secure — your API key is visible in browser storage.</strong>
+        Enter your Cloudflare Worker URL and Billplz Collection ID.<br>
+        <strong style="color:#166534">✅ API key is stored securely in the Worker — never exposed in the browser.</strong>
       </p>
       <div class="form-group">
-        <label>API Key</label>
-        <input type="password" id="bpApiKey" placeholder="e.g. abc123_live_xxxxxxxx" style="width:100%;border:1px solid #d1d5db;border-radius:5px;padding:8px 11px;font-size:13px">
+        <label>Worker URL</label>
+        <input type="text" id="bpApiKey" placeholder="e.g. https://billplz-proxy.yourname.workers.dev" style="width:100%;border:1px solid #d1d5db;border-radius:5px;padding:8px 11px;font-size:13px">
+        <div style="font-size:11px;color:var(--text-muted);margin-top:4px">Deploy <code>billplz-worker.js</code> to Cloudflare Workers and paste the URL here.</div>
       </div>
       <div class="form-group">
         <label>Collection ID</label>
@@ -3677,33 +3678,30 @@ function openBillplzSettings() {
 function saveBillplzSettings() {
   const apiKey = document.getElementById('bpApiKey').value.trim();
   const collectionId = document.getElementById('bpCollectionId').value.trim();
-  if (!apiKey || !collectionId) { showToast('Both API Key and Collection ID are required'); return; }
+  if (!apiKey || !collectionId) { showToast('Both Worker URL and Collection ID are required'); return; }
   DB.set('billplzSettings', { apiKey, collectionId });
   document.getElementById('billplzSettingsModal').classList.remove('open');
   showToast('Billplz settings saved!');
 }
 
 async function testBillplzConnection() {
-  const apiKey = document.getElementById('bpApiKey').value.trim();
+  const workerUrl = document.getElementById('bpApiKey').value.trim().replace(/\/$/, '');
   const collectionId = document.getElementById('bpCollectionId').value.trim();
   const resultEl = document.getElementById('bpTestResult');
 
-  if (!apiKey || !collectionId) {
+  if (!workerUrl || !collectionId) {
     resultEl.style.display = 'block';
     resultEl.style.background = '#fef3c7'; resultEl.style.color = '#92400e';
-    resultEl.textContent = '⚠ Please enter both API Key and Collection ID first.';
+    resultEl.textContent = '⚠ Please enter both Worker URL and Collection ID first.';
     return;
   }
 
   resultEl.style.display = 'block';
   resultEl.style.background = '#f0f2f8'; resultEl.style.color = '#1a237e';
-  resultEl.textContent = '⏳ Testing connection…';
+  resultEl.textContent = '⏳ Testing connection via Worker…';
 
   try {
-    // Test 1: Verify API key by fetching collection details
-    const resp = await fetch(`https://www.billplz.com/api/v3/collections/${collectionId}`, {
-      headers: { 'Authorization': 'Basic ' + btoa(apiKey + ':') }
-    });
+    const resp = await fetch(`${workerUrl}/collections/${collectionId}`);
     const data = await resp.json();
 
     if (resp.ok) {
@@ -3713,17 +3711,17 @@ async function testBillplzConnection() {
         Status: ${data.status || 'Active'} · Currency: ${data.primary_currency || 'MYR'}`;
     } else if (resp.status === 401) {
       resultEl.style.background = '#fee2e2'; resultEl.style.color = '#991b1b';
-      resultEl.textContent = '❌ Invalid API Key — authentication failed. Please check your key.';
+      resultEl.textContent = '❌ Invalid API Key in Worker — check BILLPLZ_API_KEY secret.';
     } else if (resp.status === 404) {
       resultEl.style.background = '#fee2e2'; resultEl.style.color = '#991b1b';
       resultEl.textContent = '❌ Collection ID not found. Please check your Collection ID.';
     } else {
       resultEl.style.background = '#fee2e2'; resultEl.style.color = '#991b1b';
-      resultEl.textContent = `❌ Error ${resp.status}: ${data.error && data.error.message ? data.error.message : 'Unknown error'}`;
+      resultEl.textContent = `❌ Error ${resp.status}: ${data.error ? JSON.stringify(data.error) : 'Unknown error'}`;
     }
   } catch (e) {
     resultEl.style.background = '#fef3c7'; resultEl.style.color = '#92400e';
-    resultEl.textContent = '⚠ Network error — could not reach Billplz. Check your internet connection.';
+    resultEl.textContent = '⚠ Could not reach Worker URL. Make sure it is deployed and the URL is correct.';
   }
 }
 
@@ -4162,12 +4160,10 @@ async function createBillplzBill(payRec, student, bpSettings) {
     reference_1: payRec.id,
   });
   try {
-    const resp = await fetch('https://www.billplz.com/api/v3/bills', {
+    const workerUrl = bpSettings.apiKey.replace(/\/$/, ''); // apiKey field now holds Worker URL
+    const resp = await fetch(workerUrl + '/bills', {
       method: 'POST',
-      headers: {
-        'Authorization': 'Basic ' + btoa(bpSettings.apiKey + ':'),
-        'Content-Type': 'application/x-www-form-urlencoded',
-      },
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
       body: body.toString(),
     });
     if (!resp.ok) { console.warn('Billplz bill creation failed:', await resp.text()); return null; }
@@ -4263,12 +4259,11 @@ async function checkBillplzStatus(payId) {
   const p = payments.find(x => x.id === payId);
   if (!p || !p.billplzBillId) { showToast('No Billplz bill linked to this payment'); return; }
   const bpSettings = getBillplzSettings();
-  if (!bpSettings.apiKey) { showToast('Billplz API key not configured'); return; }
+  if (!bpSettings.apiKey) { showToast('Worker URL not configured'); return; }
   try {
-    const resp = await fetch('https://www.billplz.com/api/v3/bills/' + p.billplzBillId, {
-      headers: { 'Authorization': 'Basic ' + btoa(bpSettings.apiKey + ':') },
-    });
-    if (!resp.ok) { showToast('Could not reach Billplz — check API key'); return; }
+    const workerUrl = bpSettings.apiKey.replace(/\/$/, '');
+    const resp = await fetch(workerUrl + '/bills/' + p.billplzBillId);
+    if (!resp.ok) { showToast('Could not reach Worker — check Worker URL'); return; }
     const data = await resp.json();
     if (data.paid) {
       p.status = 'Paid';
@@ -4281,7 +4276,7 @@ async function checkBillplzStatus(payId) {
       showToast('Not paid yet (Billplz status: ' + (data.state || 'pending') + ')');
     }
   } catch (e) {
-    showToast('Network error checking Billplz status');
+    showToast('Network error checking payment status');
   }
 }
 
