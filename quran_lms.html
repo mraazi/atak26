@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
+<html lang="ms" dir="ltr">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -1198,30 +1198,30 @@ body.admin-mode .student-only { display: none; }
   <div class="login-box" id="loginFormBox">
     <div class="login-logo">القاعدة النورانيّة</div>
     <div class="login-subtitle">Al-Qaida Al-Nooraniyah Learning Management System</div>
-    <div class="login-title" style="margin-top:18px">Welcome Back</div>
+    <div class="login-title" style="margin-top:18px">Selamat Datang</div>
 
     <div class="login-form-group">
-      <label>Username</label>
-      <input class="login-input" type="text" id="loginUsername" placeholder="Enter your username" autocomplete="username">
+      <label>Nama Pengguna</label>
+      <input class="login-input" type="text" id="loginUsername" placeholder="Masukkan nama pengguna anda" autocomplete="username">
     </div>
     <div class="login-form-group">
-      <label>Password</label>
+      <label>Kata Laluan</label>
       <div class="login-input-wrap">
-        <input class="login-input" type="password" id="loginPassword" placeholder="Enter your password" autocomplete="current-password" onkeydown="if(event.key==='Enter')doLogin()">
+        <input class="login-input" type="password" id="loginPassword" placeholder="Masukkan kata laluan anda" autocomplete="current-password" onkeydown="if(event.key==='Enter')doLogin()">
         <button class="toggle-pw" onclick="togglePw('loginPassword',this)" tabindex="-1">👁</button>
       </div>
     </div>
-    <div class="login-error" id="loginError">Incorrect username or password. Please try again.</div>
+    <div class="login-error" id="loginError">Nama pengguna atau kata laluan tidak betul. Sila cuba lagi.</div>
     <div class="remember-row">
       <input type="checkbox" id="rememberMe">
-      <label for="rememberMe">Remember me for 30 days</label>
+      <label for="rememberMe">Ingat saya selama 30 hari</label>
     </div>
-    <button class="btn-login" onclick="doLogin()">Sign In →</button>
+    <button class="btn-login" onclick="doLogin()">Log Masuk →</button>
 
-    <div class="login-switch">Don't have an account? <a onclick="showRegister()">Register Here</a></div>
+    <div class="login-switch">Belum mempunyai akaun? <a onclick="showRegister()">Daftar Di Sini</a></div>
 
     <details class="demo-creds">
-      <summary>Demo Credentials (click to expand)</summary>
+      <summary>Kelayakan Demo (klik untuk buka)</summary>
       <table>
         <tr><td>👤 Ahmed</td><td>ahmed</td><td>student123</td></tr>
         <tr><td>👩 Fatima</td><td>fatima</td><td>student123</td></tr>
@@ -1235,54 +1235,54 @@ body.admin-mode .student-only { display: none; }
   <div class="login-box" id="registerFormBox" style="display:none;max-width:460px">
     <div class="login-logo">القاعدة النورانيّة</div>
     <div class="login-subtitle">Al-Qaida Al-Nooraniyah Learning Management System</div>
-    <div class="login-title" style="margin-top:14px">Create Account</div>
+    <div class="login-title" style="margin-top:14px">Buat Akaun</div>
 
     <div class="login-form-row">
       <div class="login-form-group">
-        <label>First Name</label>
-        <input class="login-input" type="text" id="regFirstName" placeholder="First name">
+        <label>Nama Pertama</label>
+        <input class="login-input" type="text" id="regFirstName" placeholder="Nama pertama">
       </div>
       <div class="login-form-group">
-        <label>Last Name</label>
-        <input class="login-input" type="text" id="regLastName" placeholder="Last name">
+        <label>Nama Akhir</label>
+        <input class="login-input" type="text" id="regLastName" placeholder="Nama akhir">
       </div>
     </div>
     <div class="login-form-group">
-      <label>Username</label>
-      <input class="login-input" type="text" id="regUsername" placeholder="Choose a username (no spaces)">
+      <label>Nama Pengguna</label>
+      <input class="login-input" type="text" id="regUsername" placeholder="Pilih nama pengguna (tanpa ruang)">
     </div>
     <div class="login-form-group">
-      <label>Email Address</label>
-      <input class="login-input" type="email" id="regEmail" placeholder="your@email.com">
+      <label>Alamat E-mel</label>
+      <input class="login-input" type="email" id="regEmail" placeholder="anda@emel.com">
     </div>
     <div class="login-form-row">
       <div class="login-form-group">
-        <label>Password</label>
+        <label>Kata Laluan</label>
         <div class="login-input-wrap">
-          <input class="login-input" type="password" id="regPassword" placeholder="Min. 6 characters">
+          <input class="login-input" type="password" id="regPassword" placeholder="Min. 6 aksara">
           <button class="toggle-pw" onclick="togglePw('regPassword',this)" tabindex="-1">👁</button>
         </div>
       </div>
       <div class="login-form-group">
-        <label>Confirm Password</label>
+        <label>Sahkan Kata Laluan</label>
         <div class="login-input-wrap">
-          <input class="login-input" type="password" id="regConfirmPassword" placeholder="Repeat password">
+          <input class="login-input" type="password" id="regConfirmPassword" placeholder="Ulang kata laluan">
           <button class="toggle-pw" onclick="togglePw('regConfirmPassword',this)" tabindex="-1">👁</button>
         </div>
       </div>
     </div>
     <div class="login-form-row">
       <div class="login-form-group">
-        <label>Phone</label>
+        <label>Telefon</label>
         <input class="login-input" type="text" id="regPhone" placeholder="+60 12 345 6789">
       </div>
       <div class="login-form-group">
-        <label>City / Country</label>
-        <input class="login-input" type="text" id="regLocation" placeholder="e.g. Kuala Lumpur">
+        <label>Bandar / Negara</label>
+        <input class="login-input" type="text" id="regLocation" placeholder="cth. Kuala Lumpur">
       </div>
     </div>
     <div class="login-form-group">
-      <label>Preferred Classification</label>
+      <label>Klasifikasi Pilihan</label>
       <select class="login-input" id="regClassification">
         <option>Hafs On The Authority Of Asim</option>
         <option>Warsh On The Authority Of Nafi</option>
@@ -1290,8 +1290,8 @@ body.admin-mode .student-only { display: none; }
       </select>
     </div>
     <div class="login-error" id="registerError"></div>
-    <button class="btn-login" onclick="registerStudent()">Register Now →</button>
-    <div class="login-switch">Already have an account? <a onclick="showLogin()">Sign In</a></div>
+    <button class="btn-login" onclick="registerStudent()">Daftar Sekarang →</button>
+    <div class="login-switch">Sudah mempunyai akaun? <a onclick="showLogin()">Log Masuk</a></div>
   </div>
 
 </div>
@@ -1301,25 +1301,25 @@ body.admin-mode .student-only { display: none; }
   <div class="topnav-left">
     <div class="dropdown" id="accountDropdown">
       <button class="account-btn" onclick="toggleDropdown()">
-        <span>👤</span> My Account <span>▾</span>
+        <span>👤</span> Akaun Saya <span>▾</span>
       </button>
       <div class="dropdown-menu" id="accountMenu">
-        <a href="#" onclick="navigate('student-profile');closeDropdown()">👤 Profile</a>
-        <a href="#" onclick="navigate('student-profile');closeDropdown()">⚙️ Account Settings</a>
+        <a href="#" onclick="navigate('student-profile');closeDropdown()">👤 Profil</a>
+        <a href="#" onclick="navigate('student-profile');closeDropdown()">⚙️ Tetapan Akaun</a>
         <div class="sep"></div>
-        <a href="#" onclick="logout();closeDropdown()">🚪 Log Out</a>
+        <a href="#" onclick="logout();closeDropdown()">🚪 Log Keluar</a>
       </div>
     </div>
     <div class="notif-wrap" id="notifWrap">
-      <button class="nav-icon-btn" title="Notifications" onclick="toggleNotif(event)">🔔</button>
+      <button class="nav-icon-btn" title="Pemberitahuan" onclick="toggleNotif(event)">🔔</button>
       <div class="notif-badge" id="notifBadge">3</div>
       <div class="notif-panel" id="notifPanel">
-        <div class="notif-header"><span>Notifications</span><span style="cursor:pointer;font-size:11px;opacity:0.7" onclick="markAllRead()">Mark all read</span></div>
+        <div class="notif-header"><span>Pemberitahuan</span><span style="cursor:pointer;font-size:11px;opacity:0.7" onclick="markAllRead()">Tandai semua dibaca</span></div>
         <div id="notifList"></div>
       </div>
     </div>
-    <button class="nav-icon-btn" title="Language">🌐</button>
-    <button class="nav-icon-btn" title="Payments">💳</button>
+    <button class="nav-icon-btn" title="Bahasa">🌐</button>
+    <button class="nav-icon-btn" title="Pembayaran">💳</button>
     <span id="loggedInUsername" style="font-size:12px;color:rgba(255,255,255,0.6);padding:0 6px"></span>
   </div>
   <div class="topnav-right">
@@ -1334,25 +1334,25 @@ body.admin-mode .student-only { display: none; }
   <aside class="sidebar-left" id="sidebarLeft">
     <!-- Profile menu (student) -->
     <div class="sidebar-profile-menu student-only" id="profileMenuStudent">
-      <a href="#" onclick="navigate('student-profile')" class="active"><span class="icon">👤</span> Profile</a>
-      <a href="#" onclick="navigate('student-profile')"><span class="icon">⚙️</span> Account Settings</a>
-      <a href="#" onclick="logout()"><span class="icon">🚪</span> Log Out</a>
+      <a href="#" onclick="navigate('student-profile')" class="active"><span class="icon">👤</span> Profil</a>
+      <a href="#" onclick="navigate('student-profile')"><span class="icon">⚙️</span> Tetapan Akaun</a>
+      <a href="#" onclick="logout()"><span class="icon">🚪</span> Log Keluar</a>
     </div>
     <!-- Profile menu (admin) -->
     <div class="sidebar-profile-menu admin-only" id="profileMenuAdmin">
-      <a href="#" onclick="navigate('admin-dashboard')"><span class="icon">📊</span> Dashboard</a>
-      <a href="#" onclick="navigate('admin-courses')"><span class="icon">📚</span> Manage Courses</a>
-      <a href="#" onclick="navigate('admin-students')"><span class="icon">👥</span> Students</a>
-      <a href="#" onclick="navigate('admin-attendance')"><span class="icon">✅</span> Attendance</a>
-      <a href="#" onclick="navigate('admin-tests')"><span class="icon">📝</span> Tests & Scores</a>
-      <a href="#" onclick="navigate('admin-assignments')"><span class="icon">📎</span> Assignments</a>
-      <a href="#" onclick="navigate('admin-accreditation')"><span class="icon">🎓</span> Accreditation</a>
-      <a href="#" onclick="navigate('admin-progress')"><span class="icon">📈</span> Progress Editor</a>
-      <a href="#" onclick="navigate('admin-centre')"><span class="icon">⚙️</span> Admin Centre</a>
-      <a href="#" onclick="navigate('calendar')"><span class="icon">📅</span> Calendar</a>
+      <a href="#" onclick="navigate('admin-dashboard')"><span class="icon">📊</span> Papan Pemuka</a>
+      <a href="#" onclick="navigate('admin-courses')"><span class="icon">📚</span> Urus Kursus</a>
+      <a href="#" onclick="navigate('admin-students')"><span class="icon">👥</span> Pelajar</a>
+      <a href="#" onclick="navigate('admin-attendance')"><span class="icon">✅</span> Kehadiran</a>
+      <a href="#" onclick="navigate('admin-tests')"><span class="icon">📝</span> Ujian & Markah</a>
+      <a href="#" onclick="navigate('admin-assignments')"><span class="icon">📎</span> Tugasan</a>
+      <a href="#" onclick="navigate('admin-accreditation')"><span class="icon">🎓</span> Akreditasi</a>
+      <a href="#" onclick="navigate('admin-progress')"><span class="icon">📈</span> Editor Kemajuan</a>
+      <a href="#" onclick="navigate('admin-centre')"><span class="icon">⚙️</span> Pusat Pentadbir</a>
+      <a href="#" onclick="navigate('calendar')"><span class="icon">📅</span> Jadual</a>
     </div>
 
-    <div class="sidebar-section-title">Last Courses</div>
+    <div class="sidebar-section-title">Kursus Terkini</div>
     <div class="last-courses-list" id="lastCoursesList"></div>
   </aside>
 
@@ -1361,15 +1361,15 @@ body.admin-mode .student-only { display: none; }
 
     <!-- ===== STUDENT HOME ===== -->
     <div class="page active" id="page-student-home">
-      <div class="action-bar" onclick="navigate('student-courses')">🔍 Search Options</div>
-      <div class="section-header">List Of Courses</div>
+      <div class="action-bar" onclick="navigate('student-courses')">🔍 Pilihan Carian</div>
+      <div class="section-header">Senarai Kursus</div>
       <div class="page-body">
         <div id="homeCountdown"></div>
         <div id="homeActiveCourse"></div>
         <div class="mb-16">
           <div class="flex-between mb-16">
-            <span class="fw-700" style="font-size:14px;color:var(--navy)">My Enrolled Courses</span>
-            <button class="btn-orange btn-sm" onclick="navigate('student-courses')">Browse All Courses</button>
+            <span class="fw-700" style="font-size:14px;color:var(--navy)">Kursus Saya Yang Didaftarkan</span>
+            <button class="btn-orange btn-sm" onclick="navigate('student-courses')">Semak Semua Kursus</button>
           </div>
           <div id="enrolledCoursesList"></div>
         </div>
@@ -1378,26 +1378,26 @@ body.admin-mode .student-only { display: none; }
 
     <!-- ===== STUDENT COURSES ===== -->
     <div class="page" id="page-student-courses">
-      <div class="action-bar">🔍 Search Options</div>
-      <div class="section-header">List Of Courses</div>
+      <div class="action-bar">🔍 Pilihan Carian</div>
+      <div class="section-header">Senarai Kursus</div>
       <div class="page-body">
         <div class="filter-bar">
-          <input type="text" id="searchText" placeholder="Search course name or coach..." oninput="renderCourseGrid()">
+          <input type="text" id="searchText" placeholder="Cari nama kursus atau ustaz/ustazah..." oninput="renderCourseGrid()">
           <select id="filterType" onchange="renderCourseGrid()">
-            <option value="">All Types</option>
-            <option value="Online">Online</option>
-            <option value="In-Person">In-Person</option>
+            <option value="">Semua Jenis</option>
+            <option value="Online">Dalam Talian</option>
+            <option value="In-Person">Bersemuka</option>
           </select>
           <select id="filterClassification" onchange="renderCourseGrid()">
-            <option value="">All Classifications</option>
+            <option value="">Semua Klasifikasi</option>
             <option value="Hafs">Hafs</option>
             <option value="Warsh">Warsh</option>
             <option value="Qaloon">Qaloon</option>
           </select>
           <select id="filterLocation" onchange="renderCourseGrid()">
-            <option value="">All Locations</option>
+            <option value="">Semua Lokasi</option>
           </select>
-          <button class="btn-search" onclick="renderCourseGrid()">Search</button>
+          <button class="btn-search" onclick="renderCourseGrid()">Cari</button>
         </div>
         <div class="courses-grid" id="coursesGrid"></div>
       </div>
@@ -1405,20 +1405,20 @@ body.admin-mode .student-only { display: none; }
 
     <!-- ===== STUDENT COURSE DETAIL ===== -->
     <div class="page" id="page-student-course-detail">
-      <div class="action-bar">📖 Course Detail</div>
-      <div class="section-header" id="courseDetailHeader">Course Detail</div>
+      <div class="action-bar">📖 Butiran Kursus</div>
+      <div class="section-header" id="courseDetailHeader">Butiran Kursus</div>
       <div class="page-body" id="courseDetailBody"></div>
     </div>
 
     <!-- ===== STUDENT TESTS ===== -->
     <div class="page" id="page-student-tests">
-      <div class="action-bar">📝 My Tests</div>
-      <div class="section-header">Test Results</div>
+      <div class="action-bar">📝 Ujian Saya</div>
+      <div class="section-header">Keputusan Ujian</div>
       <div class="page-body">
         <table class="data-table">
           <thead>
             <tr>
-              <th>#</th><th>Course</th><th>Test Date</th><th>Score</th><th>Result</th>
+              <th>#</th><th>Kursus</th><th>Tarikh Ujian</th><th>Markah</th><th>Keputusan</th>
             </tr>
           </thead>
           <tbody id="testsTableBody"></tbody>
@@ -1428,19 +1428,19 @@ body.admin-mode .student-only { display: none; }
 
     <!-- ===== STUDENT PURCHASES ===== -->
     <div class="page" id="page-student-purchases">
-      <div class="action-bar">💳 My Purchases</div>
-      <div class="section-header">Purchase History</div>
+      <div class="action-bar">💳 Pembelian Saya</div>
+      <div class="section-header">Sejarah Pembelian</div>
       <div class="page-body" id="purchasesBody"></div>
     </div>
 
     <!-- ===== STUDENT TRANSACTIONS ===== -->
     <div class="page" id="page-student-transactions">
-      <div class="action-bar">📋 My Transactions</div>
-      <div class="section-header">Transaction Log</div>
+      <div class="action-bar">📋 Transaksi Saya</div>
+      <div class="section-header">Log Transaksi</div>
       <div class="page-body">
         <table class="data-table">
           <thead>
-            <tr><th>#</th><th>Date</th><th>Description</th><th>Amount</th><th>Status</th></tr>
+            <tr><th>#</th><th>Tarikh</th><th>Keterangan</th><th>Amaun</th><th>Status</th></tr>
           </thead>
           <tbody id="transactionsTableBody"></tbody>
         </table>
@@ -1449,38 +1449,38 @@ body.admin-mode .student-only { display: none; }
 
     <!-- ===== STUDENT PROFILE ===== -->
     <div class="page" id="page-student-profile">
-      <div class="action-bar">👤 My Profile</div>
-      <div class="section-header">Edit Profile</div>
+      <div class="action-bar">👤 Profil Saya</div>
+      <div class="section-header">Edit Profil</div>
       <div class="page-body">
         <div class="form-card">
-          <div class="form-title">Personal Information</div>
+          <div class="form-title">Maklumat Peribadi</div>
           <div class="form-row">
             <div class="form-group">
-              <label>First Name</label>
+              <label>Nama Pertama</label>
               <input type="text" id="profileFirstName">
             </div>
             <div class="form-group">
-              <label>Last Name</label>
+              <label>Nama Akhir</label>
               <input type="text" id="profileLastName">
             </div>
           </div>
           <div class="form-row">
             <div class="form-group">
-              <label>Email Address</label>
+              <label>Alamat E-mel</label>
               <input type="email" id="profileEmail">
             </div>
             <div class="form-group">
-              <label>Phone Number</label>
+              <label>Nombor Telefon</label>
               <input type="text" id="profilePhone">
             </div>
           </div>
           <div class="form-row">
             <div class="form-group">
-              <label>City / Country</label>
+              <label>Bandar / Negara</label>
               <input type="text" id="profileLocation">
             </div>
             <div class="form-group">
-              <label>Preferred Classification</label>
+              <label>Klasifikasi Pilihan</label>
               <select id="profileClassification">
                 <option>Hafs On The Authority Of Asim</option>
                 <option>Warsh On The Authority Of Nafi</option>
@@ -1488,38 +1488,38 @@ body.admin-mode .student-only { display: none; }
               </select>
             </div>
           </div>
-          <button class="btn-orange" onclick="saveProfile()">Save Changes</button>
+          <button class="btn-orange" onclick="saveProfile()">Simpan Perubahan</button>
         </div>
 
         <div class="form-card">
-          <div class="form-title">Account & Security</div>
+          <div class="form-title">Akaun & Keselamatan</div>
           <div class="form-group">
-            <label>Username</label>
+            <label>Nama Pengguna</label>
             <input type="text" id="profileUsername" readonly style="background:#f0f2f8;cursor:default;color:var(--text-muted)">
           </div>
           <div style="margin-top:6px;padding-top:14px;border-top:1px solid #f0f0f0">
-            <div style="font-size:13px;font-weight:700;color:var(--navy);margin-bottom:12px">Change Password</div>
+            <div style="font-size:13px;font-weight:700;color:var(--navy);margin-bottom:12px">Tukar Kata Laluan</div>
             <div class="form-row">
               <div class="form-group">
-                <label>Current Password</label>
+                <label>Kata Laluan Semasa</label>
                 <div class="login-input-wrap">
-                  <input type="password" id="pwCurrent" class="form-group input" style="width:100%;border:1px solid #d1d5db;border-radius:5px;padding:8px 36px 8px 11px;font-size:13px" placeholder="Current password">
+                  <input type="password" id="pwCurrent" class="form-group input" style="width:100%;border:1px solid #d1d5db;border-radius:5px;padding:8px 36px 8px 11px;font-size:13px" placeholder="Kata laluan semasa">
                   <button class="toggle-pw" onclick="togglePw('pwCurrent',this)" tabindex="-1" style="top:50%;transform:translateY(-50%)">👁</button>
                 </div>
               </div>
               <div class="form-group">
-                <label>New Password</label>
+                <label>Kata Laluan Baharu</label>
                 <div class="login-input-wrap">
-                  <input type="password" id="pwNew" style="width:100%;border:1px solid #d1d5db;border-radius:5px;padding:8px 36px 8px 11px;font-size:13px" placeholder="Min. 6 characters">
+                  <input type="password" id="pwNew" style="width:100%;border:1px solid #d1d5db;border-radius:5px;padding:8px 36px 8px 11px;font-size:13px" placeholder="Min. 6 aksara">
                   <button class="toggle-pw" onclick="togglePw('pwNew',this)" tabindex="-1" style="top:50%;transform:translateY(-50%)">👁</button>
                 </div>
               </div>
             </div>
             <div class="form-group" style="max-width:50%;padding-right:7px">
-              <label>Confirm New Password</label>
-              <input type="password" id="pwConfirm" style="width:100%;border:1px solid #d1d5db;border-radius:5px;padding:8px 11px;font-size:13px" placeholder="Repeat new password">
+              <label>Sahkan Kata Laluan Baharu</label>
+              <input type="password" id="pwConfirm" style="width:100%;border:1px solid #d1d5db;border-radius:5px;padding:8px 11px;font-size:13px" placeholder="Ulang kata laluan baharu">
             </div>
-            <button class="btn-primary" onclick="changePassword()">Update Password</button>
+            <button class="btn-primary" onclick="changePassword()">Kemaskini Kata Laluan</button>
           </div>
         </div>
       </div>
@@ -1527,53 +1527,53 @@ body.admin-mode .student-only { display: none; }
 
     <!-- ===== STUDENT REQUEST TEST ===== -->
     <div class="page" id="page-student-request-test">
-      <div class="action-bar">🎓 Request Nooraniyah Test</div>
-      <div class="section-header">Submit Test Request</div>
+      <div class="action-bar">🎓 Mohon Ujian Nooraniyah</div>
+      <div class="section-header">Hantar Permohonan Ujian</div>
       <div class="page-body">
         <div class="form-card">
-          <div class="form-title">Nooraniyah Accreditation Test Request</div>
+          <div class="form-title">Permohonan Ujian Akreditasi Nooraniyah</div>
           <div class="form-group">
-            <label>Select Course</label>
+            <label>Pilih Kursus</label>
             <select id="reqTestCourse"></select>
           </div>
           <div class="form-row">
             <div class="form-group">
-              <label>Preferred Date</label>
+              <label>Tarikh Pilihan</label>
               <input type="date" id="reqTestDate">
             </div>
             <div class="form-group">
-              <label>Level</label>
+              <label>Tahap</label>
               <select id="reqTestLevel">
-                <option>Level 1 - Basic</option>
-                <option>Level 2 - Intermediate</option>
-                <option>Level 3 - Advanced</option>
-                <option>Teacher Certification</option>
+                <option>Tahap 1 – Al-Asas</option>
+                <option>Tahap 2 – Ad-Dhoruri</option>
+                <option>Tahap 3 – Al-Mukammil</option>
+                <option>Tahap 4 – Al-Itqan</option>
               </select>
             </div>
           </div>
           <div class="form-group">
-            <label>Additional Notes</label>
-            <textarea id="reqTestNotes" rows="3" placeholder="Any special requests or notes..."></textarea>
+            <label>Nota Tambahan</label>
+            <textarea id="reqTestNotes" rows="3" placeholder="Sebarang permintaan atau nota khas..."></textarea>
           </div>
-          <button class="btn-orange" onclick="submitTestRequest()">Submit Request</button>
+          <button class="btn-orange" onclick="submitTestRequest()">Hantar Permohonan</button>
         </div>
       </div>
     </div>
 
     <!-- ===== ADMIN DASHBOARD ===== -->
     <div class="page" id="page-admin-dashboard">
-      <div class="action-bar">📊 Admin Dashboard</div>
-      <div class="section-header">Overview</div>
+      <div class="action-bar">📊 Papan Pemuka Pentadbir</div>
+      <div class="section-header">Ringkasan</div>
       <div class="page-body">
         <div class="stats-grid" id="adminStats"></div>
         <div class="flex-between mb-16">
-          <span class="fw-700" style="font-size:14px;color:var(--navy)">Recent Enrollments</span>
+          <span class="fw-700" style="font-size:14px;color:var(--navy)">Pendaftaran Terkini</span>
         </div>
         <table class="data-table mb-16">
-          <thead><tr><th>Student</th><th>Course</th><th>Date</th><th>Status</th></tr></thead>
+          <thead><tr><th>Pelajar</th><th>Kursus</th><th>Tarikh</th><th>Status</th></tr></thead>
           <tbody id="recentEnrollmentsBody"></tbody>
         </table>
-        <div class="fw-700 mb-16" style="font-size:14px;color:var(--navy)">Upcoming Sessions</div>
+        <div class="fw-700 mb-16" style="font-size:14px;color:var(--navy)">Sesi Akan Datang</div>
         <div id="upcomingSessionsList"></div>
       </div>
     </div>
@@ -1581,14 +1581,14 @@ body.admin-mode .student-only { display: none; }
     <!-- ===== ADMIN COURSES ===== -->
     <div class="page" id="page-admin-courses">
       <div class="action-bar flex-between">
-        <span>📚 Course Management</span>
-        <button class="btn-sm" style="background:#fff;color:var(--navy);font-weight:700;" onclick="openCourseModal(null)">+ New Course</button>
+        <span>📚 Pengurusan Kursus</span>
+        <button class="btn-sm" style="background:#fff;color:var(--navy);font-weight:700;" onclick="openCourseModal(null)">+ Kursus Baharu</button>
       </div>
-      <div class="section-header">All Courses</div>
+      <div class="section-header">Semua Kursus</div>
       <div class="page-body">
         <table class="data-table">
           <thead>
-            <tr><th>#</th><th>Course Name</th><th>Coach</th><th>Type</th><th>Location</th><th>Classification</th><th>Students</th><th>Actions</th></tr>
+            <tr><th>#</th><th>Nama Kursus</th><th>Ustaz/Ustazah</th><th>Jenis</th><th>Lokasi</th><th>Klasifikasi</th><th>Pelajar</th><th>Tindakan</th></tr>
           </thead>
           <tbody id="adminCoursesTableBody"></tbody>
         </table>
@@ -1597,13 +1597,13 @@ body.admin-mode .student-only { display: none; }
 
     <!-- ===== ADMIN STUDENTS ===== -->
     <div class="page" id="page-admin-students">
-      <div class="action-bar">👥 Student Management</div>
-      <div class="section-header">All Students & Progress</div>
+      <div class="action-bar">👥 Pengurusan Pelajar</div>
+      <div class="section-header">Semua Pelajar & Kemajuan</div>
       <div class="page-body">
         <div class="form-group mb-16" style="max-width:300px">
-          <label>Filter by Course</label>
+          <label>Tapis mengikut Kursus</label>
           <select id="adminStudentFilter" onchange="renderAdminStudents()">
-            <option value="">All Courses</option>
+            <option value="">Semua Kursus</option>
           </select>
         </div>
         <div id="adminStudentsList"></div>
@@ -1612,13 +1612,13 @@ body.admin-mode .student-only { display: none; }
 
     <!-- ===== ADMIN ATTENDANCE ===== -->
     <div class="page" id="page-admin-attendance">
-      <div class="action-bar">✅ Attendance Tracking</div>
-      <div class="section-header">Session Attendance</div>
+      <div class="action-bar">✅ Penjejakan Kehadiran</div>
+      <div class="section-header">Kehadiran Sesi</div>
       <div class="page-body">
         <div class="form-group mb-16" style="max-width:300px">
-          <label>Select Course</label>
+          <label>Pilih Kursus</label>
           <select id="attendanceCourseFilter" onchange="renderAttendance()">
-            <option value="">Select a course...</option>
+            <option value="">Pilih kursus...</option>
           </select>
         </div>
         <div class="attendance-grid-wrap">
@@ -1629,35 +1629,35 @@ body.admin-mode .student-only { display: none; }
 
     <!-- ===== ADMIN TESTS ===== -->
     <div class="page" id="page-admin-tests">
-      <div class="action-bar">📝 Test Management</div>
-      <div class="section-header">Record & View Test Scores</div>
+      <div class="action-bar">📝 Pengurusan Ujian</div>
+      <div class="section-header">Rekod & Lihat Markah Ujian</div>
       <div class="page-body">
         <div class="form-card mb-16">
-          <div class="form-title">Record New Score</div>
+          <div class="form-title">Rekod Markah Baharu</div>
           <div class="form-row">
             <div class="form-group">
-              <label>Student</label>
+              <label>Pelajar</label>
               <select id="testStudentSel"></select>
             </div>
             <div class="form-group">
-              <label>Course</label>
+              <label>Kursus</label>
               <select id="testCourseSel"></select>
             </div>
           </div>
           <div class="form-row">
             <div class="form-group">
-              <label>Score (%)</label>
+              <label>Markah (%)</label>
               <input type="number" id="testScore" min="0" max="100" placeholder="0-100">
             </div>
             <div class="form-group">
-              <label>Test Date</label>
+              <label>Tarikh Ujian</label>
               <input type="date" id="testDate">
             </div>
           </div>
-          <button class="btn-orange" onclick="recordTestScore()">Save Score</button>
+          <button class="btn-orange" onclick="recordTestScore()">Simpan Markah</button>
         </div>
         <table class="data-table">
-          <thead><tr><th>#</th><th>Student</th><th>Course</th><th>Date</th><th>Score</th><th>Result</th></tr></thead>
+          <thead><tr><th>#</th><th>Pelajar</th><th>Kursus</th><th>Tarikh</th><th>Markah</th><th>Keputusan</th></tr></thead>
           <tbody id="adminTestsBody"></tbody>
         </table>
       </div>
@@ -1665,18 +1665,18 @@ body.admin-mode .student-only { display: none; }
 
     <!-- ===== ADMIN ACCREDITATION ===== -->
     <div class="page" id="page-admin-accreditation">
-      <div class="action-bar">🎓 Accreditation Services</div>
-      <div class="section-header">Manage Accreditation</div>
+      <div class="action-bar">🎓 Perkhidmatan Akreditasi</div>
+      <div class="section-header">Urus Akreditasi</div>
       <div class="page-body">
         <div class="stats-grid" style="grid-template-columns:repeat(3,1fr)">
-          <div class="stat-card green"><div class="stat-value" id="accPassCount">0</div><div class="stat-label">Students Passed</div></div>
-          <div class="stat-card"><div class="stat-value" id="accPendingCount">0</div><div class="stat-label">Tests Pending</div></div>
-          <div class="stat-card gold"><div class="stat-value" id="accCertCount">0</div><div class="stat-label">Certificates Issued</div></div>
+          <div class="stat-card green"><div class="stat-value" id="accPassCount">0</div><div class="stat-label">Pelajar Lulus</div></div>
+          <div class="stat-card"><div class="stat-value" id="accPendingCount">0</div><div class="stat-label">Ujian Menunggu</div></div>
+          <div class="stat-card gold"><div class="stat-value" id="accCertCount">0</div><div class="stat-label">Sijil Dikeluarkan</div></div>
         </div>
         <div class="form-card mt-10">
-          <div class="form-title">Test Requests</div>
+          <div class="form-title">Permohonan Ujian</div>
           <table class="data-table">
-            <thead><tr><th>Student</th><th>Course</th><th>Requested Date</th><th>Level</th><th>Status</th><th>Action</th></tr></thead>
+            <thead><tr><th>Pelajar</th><th>Kursus</th><th>Tarikh Dimohon</th><th>Tahap</th><th>Status</th><th>Tindakan</th></tr></thead>
             <tbody id="accreditationBody"></tbody>
           </table>
         </div>
@@ -1685,8 +1685,8 @@ body.admin-mode .student-only { display: none; }
 
     <!-- ===== STUDENT ATTENDANCE ===== -->
     <div class="page" id="page-student-attendance">
-      <div class="action-bar">✅ My Attendance</div>
-      <div class="section-header">Attendance Record</div>
+      <div class="action-bar">✅ Kehadiran Saya</div>
+      <div class="section-header">Rekod Kehadiran</div>
       <div class="page-body">
         <div class="att-summary-grid" id="attSummaryGrid"></div>
         <div id="attDetailList"></div>
@@ -1695,13 +1695,13 @@ body.admin-mode .student-only { display: none; }
 
     <!-- ===== STUDENT ASSIGNMENTS ===== -->
     <div class="page" id="page-student-assignments">
-      <div class="action-bar">📎 Assignments</div>
-      <div class="section-header">My Assignments</div>
+      <div class="action-bar">📎 Tugasan</div>
+      <div class="section-header">Tugasan Saya</div>
       <div class="page-body">
         <div class="form-group mb-16" style="max-width:320px">
-          <label>Filter by Course</label>
+          <label>Tapis mengikut Kursus</label>
           <select id="assignCourseFilter" onchange="renderStudentAssignments()">
-            <option value="">All Courses</option>
+            <option value="">Semua Kursus</option>
           </select>
         </div>
         <div id="assignmentsList"></div>
@@ -1710,64 +1710,64 @@ body.admin-mode .student-only { display: none; }
 
     <!-- ===== STUDENT RESULTS ===== -->
     <div class="page" id="page-student-results">
-      <div class="action-bar">📊 Exam Results & Semester Marks</div>
-      <div class="section-header">Academic Results</div>
+      <div class="action-bar">📊 Keputusan Peperiksaan & Markah Semester</div>
+      <div class="section-header">Keputusan Akademik</div>
       <div class="page-body" id="resultsBody"></div>
     </div>
 
     <!-- ===== STUDENT PAYMENT STATUS ===== -->
     <div class="page" id="page-student-payment">
-      <div class="action-bar">💳 Payment Status</div>
-      <div class="section-header">Fee & Payment Records</div>
+      <div class="action-bar">💳 Status Pembayaran</div>
+      <div class="section-header">Rekod Yuran & Pembayaran</div>
       <div class="page-body" id="paymentBody"></div>
     </div>
 
     <!-- ===== ADMIN ASSIGNMENTS ===== -->
     <div class="page" id="page-admin-assignments">
-      <div class="action-bar">📎 Assignment Management</div>
-      <div class="section-header">Review & Grade Submissions</div>
+      <div class="action-bar">📎 Pengurusan Tugasan</div>
+      <div class="section-header">Semak & Nilai Penghantaran</div>
       <div class="page-body">
         <div class="form-group mb-16" style="max-width:320px">
-          <label>Filter by Course</label>
+          <label>Tapis mengikut Kursus</label>
           <select id="adminAssignCourseFilter" onchange="renderAdminAssignments()">
-            <option value="">All Courses</option>
+            <option value="">Semua Kursus</option>
           </select>
         </div>
         <div id="adminAssignmentsList"></div>
         <!-- Grade modal inline -->
         <div id="gradeFormWrap" style="display:none" class="form-card mt-10">
-          <div class="form-title">Grade Submission</div>
+          <div class="form-title">Nilai Penghantaran</div>
           <input type="hidden" id="gradeSubId">
           <div id="gradeSubInfo" style="font-size:13px;margin-bottom:12px;color:var(--text-muted)"></div>
           <div class="form-row">
             <div class="form-group">
-              <label>Score (0–100)</label>
+              <label>Markah (0–100)</label>
               <input type="number" id="gradeScore" min="0" max="100">
             </div>
             <div class="form-group">
-              <label>Feedback</label>
-              <input type="text" id="gradeFeedback" placeholder="Comments for student...">
+              <label>Maklum Balas</label>
+              <input type="text" id="gradeFeedback" placeholder="Komen untuk pelajar...">
             </div>
           </div>
-          <button class="btn-orange" onclick="saveGrade()">Save Grade</button>
-          <button class="btn-primary" style="margin-left:8px" onclick="document.getElementById('gradeFormWrap').style.display='none'">Cancel</button>
+          <button class="btn-orange" onclick="saveGrade()">Simpan Markah</button>
+          <button class="btn-primary" style="margin-left:8px" onclick="document.getElementById('gradeFormWrap').style.display='none'">Batal</button>
         </div>
       </div>
     </div>
 
     <!-- ===== STUDENT REVIEWS ===== -->
     <div class="page" id="page-student-reviews">
-      <div class="action-bar">⭐ Course Reviews</div>
-      <div class="section-header">Reviews & Ratings</div>
+      <div class="action-bar">⭐ Ulasan Kursus</div>
+      <div class="section-header">Ulasan & Penilaian</div>
       <div class="page-body">
         <div class="form-card mb-16">
-          <div class="form-title">Write a Review</div>
+          <div class="form-title">Tulis Ulasan</div>
           <div class="form-group">
-            <label>Course</label>
+            <label>Kursus</label>
             <select id="reviewCourseSel"></select>
           </div>
           <div class="form-group">
-            <label>Your Rating</label>
+            <label>Penilaian Anda</label>
             <div class="stars" id="reviewStars">
               <span class="star" data-v="1" onclick="setRating(1)">★</span>
               <span class="star" data-v="2" onclick="setRating(2)">★</span>
@@ -1777,23 +1777,23 @@ body.admin-mode .student-only { display: none; }
             </div>
           </div>
           <div class="form-group">
-            <label>Your Review</label>
-            <textarea id="reviewText" rows="3" placeholder="Share your experience with this course..."></textarea>
+            <label>Ulasan Anda</label>
+            <textarea id="reviewText" rows="3" placeholder="Kongsikan pengalaman anda dengan kursus ini..."></textarea>
           </div>
-          <button class="btn-orange" onclick="submitReview()">Submit Review</button>
+          <button class="btn-orange" onclick="submitReview()">Hantar Ulasan</button>
         </div>
-        <div class="fw-700 mb-16" style="font-size:14px;color:var(--navy)">All Reviews</div>
+        <div class="fw-700 mb-16" style="font-size:14px;color:var(--navy)">Semua Ulasan</div>
         <div class="reviews-list" id="reviewsList"></div>
       </div>
     </div>
 
     <!-- ===== CALENDAR ===== -->
     <div class="page" id="page-calendar">
-      <div class="action-bar">📅 Session Calendar</div>
-      <div class="section-header">Upcoming Sessions</div>
+      <div class="action-bar">📅 Jadual Sesi</div>
+      <div class="section-header">Sesi Akan Datang</div>
       <div class="page-body">
         <div class="calendar-wrap mb-16" id="calendarWrap"></div>
-        <div class="fw-700 mb-16" style="font-size:14px;color:var(--navy)">This Month's Sessions</div>
+        <div class="fw-700 mb-16" style="font-size:14px;color:var(--navy)">Sesi Bulan Ini</div>
         <div id="calendarEventList"></div>
       </div>
     </div>
@@ -1801,13 +1801,13 @@ body.admin-mode .student-only { display: none; }
     <!-- ===== ADMIN PROGRESS EDITOR ===== -->
     <div class="page" id="page-admin-progress">
       <div class="action-bar flex-between">
-        <span>📈 Progress Management</span>
-        <button class="btn-sm" style="background:#fff;color:var(--navy);font-weight:700" onclick="exportStudentData()">⬇ Export CSV</button>
+        <span>📈 Pengurusan Kemajuan</span>
+        <button class="btn-sm" style="background:#fff;color:var(--navy);font-weight:700" onclick="exportStudentData()">⬇ Eksport CSV</button>
       </div>
-      <div class="section-header">Edit Student Progress</div>
+      <div class="section-header">Edit Kemajuan Pelajar</div>
       <div class="page-body">
         <div class="mb-16">
-          <div class="fw-700" style="font-size:13px;color:var(--text-muted);margin-bottom:8px">Viewing as student:</div>
+          <div class="fw-700" style="font-size:13px;color:var(--text-muted);margin-bottom:8px">Melihat sebagai pelajar:</div>
           <div class="student-switcher" id="progressStudentSwitcher"></div>
         </div>
         <div id="progressEditorContent"></div>
@@ -1816,26 +1816,26 @@ body.admin-mode .student-only { display: none; }
 
     <!-- ===== ADMIN CENTRE ===== -->
     <div class="page" id="page-admin-centre">
-      <div class="action-bar">⚙️ Admin Management Centre</div>
-      <div class="section-header">Manage Students · Assignments · Payments</div>
+      <div class="action-bar">⚙️ Pusat Pengurusan Pentadbir</div>
+      <div class="section-header">Urus Pelajar · Tugasan · Pembayaran</div>
       <div class="page-body">
 
         <!-- Tab Bar -->
         <div class="admin-tabs">
-          <button class="admin-tab active" onclick="showAdminTab('students')">👥 Students</button>
-          <button class="admin-tab" onclick="showAdminTab('assignments')">📎 Assignments</button>
-          <button class="admin-tab" onclick="showAdminTab('payments')">💳 Payments</button>
+          <button class="admin-tab active" onclick="showAdminTab('students')">👥 Pelajar</button>
+          <button class="admin-tab" onclick="showAdminTab('assignments')">📎 Tugasan</button>
+          <button class="admin-tab" onclick="showAdminTab('payments')">💳 Pembayaran</button>
         </div>
 
         <!-- STUDENTS TAB -->
         <div class="admin-tab-panel active" id="tab-students">
           <div class="tab-toolbar">
-            <span class="tab-toolbar-title">All Students</span>
-            <button class="btn-orange" onclick="openStudentModal(null)">+ Add Student</button>
+            <span class="tab-toolbar-title">Semua Pelajar</span>
+            <button class="btn-orange" onclick="openStudentModal(null)">+ Tambah Pelajar</button>
           </div>
           <div style="overflow-x:auto">
             <table class="data-table" id="centreStudentsTable">
-              <thead><tr><th>#</th><th>Name</th><th>Username</th><th>Email</th><th>Phone</th><th>Location</th><th>Courses</th><th>Actions</th></tr></thead>
+              <thead><tr><th>#</th><th>Nama</th><th>Nama Pengguna</th><th>E-mel</th><th>Telefon</th><th>Lokasi</th><th>Kursus</th><th>Tindakan</th></tr></thead>
               <tbody id="centreStudentsBody"></tbody>
             </table>
           </div>
@@ -1845,16 +1845,16 @@ body.admin-mode .student-only { display: none; }
         <div class="admin-tab-panel" id="tab-assignments">
           <div class="tab-toolbar">
             <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
-              <span class="tab-toolbar-title">Assignments</span>
+              <span class="tab-toolbar-title">Tugasan</span>
               <select id="centreAssignCourseFilter" onchange="renderCentreAssignments()" style="border:1px solid #d1d5db;border-radius:5px;padding:6px 10px;font-size:13px">
-                <option value="">All Courses</option>
+                <option value="">Semua Kursus</option>
               </select>
             </div>
-            <button class="btn-orange" onclick="openAssignmentModal(null)">+ Add Assignment</button>
+            <button class="btn-orange" onclick="openAssignmentModal(null)">+ Tambah Tugasan</button>
           </div>
           <div style="overflow-x:auto">
             <table class="data-table">
-              <thead><tr><th>#</th><th>Title</th><th>Course</th><th>Due Date</th><th>Max Score</th><th>Submissions</th><th>Actions</th></tr></thead>
+              <thead><tr><th>#</th><th>Tajuk</th><th>Kursus</th><th>Tarikh Akhir</th><th>Markah Max</th><th>Penghantaran</th><th>Tindakan</th></tr></thead>
               <tbody id="centreAssignmentsBody"></tbody>
             </table>
           </div>
@@ -1864,19 +1864,19 @@ body.admin-mode .student-only { display: none; }
         <div class="admin-tab-panel" id="tab-payments">
           <div class="tab-toolbar">
             <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
-              <span class="tab-toolbar-title">Payment Records</span>
+              <span class="tab-toolbar-title">Rekod Pembayaran</span>
               <select id="centrePayStudentFilter" onchange="renderCentrePayments()" style="border:1px solid #d1d5db;border-radius:5px;padding:6px 10px;font-size:13px">
-                <option value="">All Students</option>
+                <option value="">Semua Pelajar</option>
               </select>
             </div>
             <div style="display:flex;gap:8px">
-              <button class="btn-orange" onclick="openPaymentModal(null)">+ Add Payment</button>
-              <button class="btn-primary" onclick="openBillplzSettings()" title="Configure Billplz" style="font-size:12px;padding:6px 12px">⚙ Billplz</button>
+              <button class="btn-orange" onclick="openPaymentModal(null)">+ Tambah Pembayaran</button>
+              <button class="btn-primary" onclick="openBillplzSettings()" title="Konfigurasi Billplz" style="font-size:12px;padding:6px 12px">⚙ Billplz</button>
             </div>
           </div>
           <div style="overflow-x:auto">
             <table class="data-table">
-              <thead><tr><th>#</th><th>Student</th><th>Course</th><th>Semester</th><th>Amount</th><th>Due Date</th><th>Status</th><th>Bill</th><th>Actions</th></tr></thead>
+              <thead><tr><th>#</th><th>Pelajar</th><th>Kursus</th><th>Semester</th><th>Amaun</th><th>Tarikh Akhir</th><th>Status</th><th>Bil</th><th>Tindakan</th></tr></thead>
               <tbody id="centrePaymentsBody"></tbody>
             </table>
           </div>
@@ -1902,37 +1902,37 @@ body.admin-mode .student-only { display: none; }
   <aside class="sidebar-right" id="sidebarRight">
     <div class="profile-card">
       <div class="avatar-circle" id="avatarCircle">👤</div>
-      <div class="profile-welcome">Welcome, Our Customer...</div>
+      <div class="profile-welcome">Selamat Datang, Pelanggan Kami...</div>
       <div class="profile-name" id="profileNameDisplay">Ahmed Al-Rashid</div>
       <div style="margin-top:8px">
-        <span class="enroll-status enroll-active">● Active</span>
+        <span class="enroll-status enroll-active">● Aktif</span>
       </div>
     </div>
     <nav class="right-nav student-only" id="rightNavStudent">
-      <a href="#" onclick="navigate('student-home')" class="active"><span class="nav-icon">🏠</span> Home</a>
-      <a href="#" onclick="navigate('student-profile')"><span class="nav-icon">👤</span> My Profile</a>
+      <a href="#" onclick="navigate('student-home')" class="active"><span class="nav-icon">🏠</span> Laman Utama</a>
+      <a href="#" onclick="navigate('student-profile')"><span class="nav-icon">👤</span> Profil Saya</a>
       <div class="sep"></div>
-      <a href="#" onclick="navigate('student-attendance')"><span class="nav-icon">✅</span> Attendance</a>
-      <a href="#" onclick="navigate('student-assignments')"><span class="nav-icon">📎</span> Assignments</a>
-      <a href="#" onclick="navigate('student-results')"><span class="nav-icon">📊</span> Results & Marks</a>
-      <a href="#" onclick="navigate('student-payment')"><span class="nav-icon">💳</span> Payment Status</a>
+      <a href="#" onclick="navigate('student-attendance')"><span class="nav-icon">✅</span> Kehadiran</a>
+      <a href="#" onclick="navigate('student-assignments')"><span class="nav-icon">📎</span> Tugasan</a>
+      <a href="#" onclick="navigate('student-results')"><span class="nav-icon">📊</span> Keputusan & Markah</a>
+      <a href="#" onclick="navigate('student-payment')"><span class="nav-icon">💳</span> Status Pembayaran</a>
       <div class="sep"></div>
-      <a href="#" onclick="navigate('calendar')"><span class="nav-icon">📅</span> Calendar</a>
-      <a href="#" onclick="navigate('student-reviews')"><span class="nav-icon">⭐</span> Reviews</a>
-      <a href="#" onclick="navigate('student-request-test')"><span class="nav-icon">📤</span> Request Test</a>
-      <a href="#" onclick="navigate('admin-accreditation')"><span class="nav-icon">🎓</span> Accreditation</a>
+      <a href="#" onclick="navigate('calendar')"><span class="nav-icon">📅</span> Jadual</a>
+      <a href="#" onclick="navigate('student-reviews')"><span class="nav-icon">⭐</span> Ulasan</a>
+      <a href="#" onclick="navigate('student-request-test')"><span class="nav-icon">📤</span> Mohon Ujian</a>
+      <a href="#" onclick="navigate('admin-accreditation')"><span class="nav-icon">🎓</span> Akreditasi</a>
     </nav>
     <nav class="right-nav admin-only" id="rightNavAdmin">
-      <a href="#" onclick="navigate('admin-dashboard')" class="active"><span class="nav-icon">📊</span> Dashboard</a>
-      <a href="#" onclick="navigate('admin-courses')"><span class="nav-icon">📚</span> Courses</a>
-      <a href="#" onclick="navigate('admin-students')"><span class="nav-icon">👥</span> Students</a>
-      <a href="#" onclick="navigate('admin-attendance')"><span class="nav-icon">✅</span> Attendance</a>
-      <a href="#" onclick="navigate('admin-tests')"><span class="nav-icon">📝</span> Exams</a>
-      <a href="#" onclick="navigate('admin-assignments')"><span class="nav-icon">📎</span> Assignments</a>
-      <a href="#" onclick="navigate('admin-accreditation')"><span class="nav-icon">🎓</span> Accreditation</a>
-      <a href="#" onclick="navigate('admin-progress')"><span class="nav-icon">📈</span> Progress Editor</a>
-      <a href="#" onclick="navigate('admin-centre')"><span class="nav-icon">⚙️</span> Admin Centre</a>
-      <a href="#" onclick="navigate('calendar')"><span class="nav-icon">📅</span> Calendar</a>
+      <a href="#" onclick="navigate('admin-dashboard')" class="active"><span class="nav-icon">📊</span> Papan Pemuka</a>
+      <a href="#" onclick="navigate('admin-courses')"><span class="nav-icon">📚</span> Kursus</a>
+      <a href="#" onclick="navigate('admin-students')"><span class="nav-icon">👥</span> Pelajar</a>
+      <a href="#" onclick="navigate('admin-attendance')"><span class="nav-icon">✅</span> Kehadiran</a>
+      <a href="#" onclick="navigate('admin-tests')"><span class="nav-icon">📝</span> Peperiksaan</a>
+      <a href="#" onclick="navigate('admin-assignments')"><span class="nav-icon">📎</span> Tugasan</a>
+      <a href="#" onclick="navigate('admin-accreditation')"><span class="nav-icon">🎓</span> Akreditasi</a>
+      <a href="#" onclick="navigate('admin-progress')"><span class="nav-icon">📈</span> Editor Kemajuan</a>
+      <a href="#" onclick="navigate('admin-centre')"><span class="nav-icon">⚙️</span> Pusat Pentadbir</a>
+      <a href="#" onclick="navigate('calendar')"><span class="nav-icon">📅</span> Jadual</a>
     </nav>
   </aside>
 
@@ -1942,46 +1942,46 @@ body.admin-mode .student-only { display: none; }
 <div class="modal-overlay" id="courseModal">
   <div class="modal-box">
     <div class="modal-header">
-      <span id="courseModalTitle">Create New Course</span>
+      <span id="courseModalTitle">Buat Kursus Baharu</span>
       <button class="modal-close" onclick="closeCourseModal()">✕</button>
     </div>
     <div class="modal-body">
       <input type="hidden" id="editCourseId">
       <div class="form-row">
         <div class="form-group">
-          <label>Course Name</label>
-          <input type="text" id="mCourseName" placeholder="e.g. Noorani Qaida Course">
+          <label>Nama Kursus</label>
+          <input type="text" id="mCourseName" placeholder="cth. Kursus Noorani Qaida">
         </div>
         <div class="form-group">
-          <label>Coach Name</label>
-          <input type="text" id="mCoachName" placeholder="e.g. Mohammed Farouk Al-Ra'i">
+          <label>Nama Ustaz/Ustazah</label>
+          <input type="text" id="mCoachName" placeholder="cth. Mohammed Farouk Al-Ra'i">
         </div>
       </div>
       <div class="form-row">
         <div class="form-group">
-          <label>Level</label>
+          <label>Tahap</label>
           <select id="mLevel">
-            <option value="1">Level 1 – Foundation</option>
-            <option value="2">Level 2 – Elementary</option>
-            <option value="3">Level 3 – Intermediate</option>
-            <option value="4">Level 4 – Advanced / Certification</option>
+            <option value="1">Tahap 1 – Al-Asas</option>
+            <option value="2">Tahap 2 – Ad-Dhoruri</option>
+            <option value="3">Tahap 3 – Al-Mukammil</option>
+            <option value="4">Tahap 4 – Al-Itqan</option>
           </select>
         </div>
         <div class="form-group">
-          <label>Course Number</label>
-          <input type="number" id="mCourseNo" placeholder="e.g. 3930">
+          <label>Nombor Kursus</label>
+          <input type="number" id="mCourseNo" placeholder="cth. 3930">
         </div>
       </div>
       <div class="form-row">
         <div class="form-group">
-          <label>Course Type</label>
+          <label>Jenis Kursus</label>
           <select id="mCourseType">
             <option>Online</option>
             <option>In-Person</option>
           </select>
         </div>
         <div class="form-group">
-          <label>Classification</label>
+          <label>Klasifikasi</label>
           <select id="mClassification">
             <option>Hafs</option>
             <option>Warsh</option>
@@ -1991,21 +1991,21 @@ body.admin-mode .student-only { display: none; }
       </div>
       <div class="form-row">
         <div class="form-group">
-          <label>Location / City</label>
-          <input type="text" id="mLocation" placeholder="e.g. Brussels, Belgium">
+          <label>Lokasi / Bandar</label>
+          <input type="text" id="mLocation" placeholder="cth. Brussels, Belgium">
         </div>
         <div class="form-group">
-          <label>Max Students</label>
+          <label>Maks Pelajar</label>
           <input type="number" id="mMaxStudents" value="20" min="1">
         </div>
       </div>
       <div class="form-row">
         <div class="form-group">
-          <label>Total Sessions</label>
+          <label>Jumlah Sesi</label>
           <input type="number" id="mTotalSessions" value="20" min="1">
         </div>
         <div class="form-group">
-          <label>Fee Amount</label>
+          <label>Amaun Yuran</label>
           <div style="display:flex;gap:6px">
             <input type="number" id="mFeeAmount" placeholder="e.g. 150" style="flex:1">
             <select id="mFeeCurrency" style="width:80px;border:1px solid #d1d5db;border-radius:5px;padding:8px 6px;font-size:13px">
@@ -2019,21 +2019,21 @@ body.admin-mode .student-only { display: none; }
       </div>
       <div class="form-row">
         <div class="form-group">
-          <label>Start Date</label>
+          <label>Tarikh Mula</label>
           <input type="date" id="mStartDate">
         </div>
         <div class="form-group">
-          <label>Next Session (Date & Time)</label>
+          <label>Sesi Seterusnya (Tarikh & Masa)</label>
           <input type="datetime-local" id="mNextSession">
         </div>
       </div>
       <div class="form-group">
-        <label>Course Description</label>
-        <textarea id="mDescription" rows="3" placeholder="Describe the course content..."></textarea>
+        <label>Keterangan Kursus</label>
+        <textarea id="mDescription" rows="3" placeholder="Huraikan kandungan kursus..."></textarea>
       </div>
       <div style="display:flex;gap:10px;margin-top:6px">
-        <button class="btn-orange" onclick="saveCourse()">Save Course</button>
-        <button class="btn-primary" onclick="closeCourseModal()">Cancel</button>
+        <button class="btn-orange" onclick="saveCourse()">Simpan Kursus</button>
+        <button class="btn-primary" onclick="closeCourseModal()">Batal</button>
       </div>
     </div>
   </div>
@@ -2043,7 +2043,7 @@ body.admin-mode .student-only { display: none; }
 <div class="modal-overlay" id="certModal">
   <div class="modal-box">
     <div class="modal-header">
-      <span>🎓 Certificate of Completion</span>
+      <span>🎓 Sijil Penyempurnaan</span>
       <button class="modal-close" onclick="document.getElementById('certModal').classList.remove('open')">✕</button>
     </div>
     <div class="modal-body" style="padding:6px">
@@ -2051,22 +2051,22 @@ body.admin-mode .student-only { display: none; }
         <div class="cert-border"></div>
         <div class="cert-logo">القاعدة النورانيّة</div>
         <div style="font-size:12px;color:var(--text-muted);margin-bottom:8px">Al-Qaida Al-Nooraniyah Institute</div>
-        <div class="cert-title">CERTIFICATE OF COMPLETION</div>
-        <div class="cert-subtitle">This is to certify that</div>
+        <div class="cert-title">SIJIL PENYEMPURNAAN</div>
+        <div class="cert-subtitle">Ini adalah untuk mengesahkan bahawa</div>
         <div class="cert-recipient" id="certStudentName">Ahmed Al-Rashid</div>
-        <div class="cert-body">has successfully completed the course</div>
+        <div class="cert-body">telah berjaya menamatkan kursus</div>
         <div class="cert-course" id="certCourseName">Noorani Qaida Course</div>
         <div class="cert-body" id="certDetails">with a passing score, demonstrating proficiency in Quranic recitation according to the Hafs narration method.</div>
         <div class="cert-footer">
-          <div class="cert-sig"><div class="cert-sig-line"></div><div class="cert-sig-name">Course Coach</div></div>
+          <div class="cert-sig"><div class="cert-sig-line"></div><div class="cert-sig-name">Ustaz/Ustazah Kursus</div></div>
           <div style="text-align:center;font-size:20px;color:var(--gold)">✦</div>
-          <div class="cert-sig"><div class="cert-sig-line"></div><div class="cert-sig-name">Institute Director</div></div>
+          <div class="cert-sig"><div class="cert-sig-line"></div><div class="cert-sig-name">Pengarah Institut</div></div>
         </div>
         <div style="font-size:10px;color:var(--text-muted);margin-top:14px" id="certDate"></div>
       </div>
       <div style="text-align:center;margin:10px 0">
-        <button class="btn-orange" onclick="window.print()">🖨 Print Certificate</button>
-        <button class="btn-primary" style="margin-left:8px" onclick="document.getElementById('certModal').classList.remove('open')">Close</button>
+        <button class="btn-orange" onclick="window.print()">🖨 Cetak Sijil</button>
+        <button class="btn-primary" style="margin-left:8px" onclick="document.getElementById('certModal').classList.remove('open')">Tutup</button>
       </div>
     </div>
   </div>
@@ -2076,7 +2076,7 @@ body.admin-mode .student-only { display: none; }
 <div class="modal-overlay" id="studentPayModal">
   <div class="modal-box" style="max-width:400px">
     <div class="modal-header">
-      <span>💳 Make Payment</span>
+      <span>💳 Buat Pembayaran</span>
       <button class="modal-close" onclick="document.getElementById('studentPayModal').classList.remove('open')">✕</button>
     </div>
     <div class="modal-body" id="studentPayModalBody"></div>
@@ -2087,25 +2087,25 @@ body.admin-mode .student-only { display: none; }
 <div class="modal-overlay" id="billplzSettingsModal">
   <div class="modal-box" style="max-width:420px">
     <div class="modal-header">
-      <span>💳 Billplz Settings</span>
+      <span>💳 Tetapan Billplz</span>
       <button class="modal-close" onclick="document.getElementById('billplzSettingsModal').classList.remove('open')">✕</button>
     </div>
     <div class="modal-body">
       <p style="font-size:12.5px;color:var(--text-muted);margin-bottom:14px;line-height:1.6">
-        Create bills manually in your Billplz dashboard, then paste each bill URL into the payment record.
-        No API key required.
+        Buat bil secara manual dalam papan pemuka Billplz anda, kemudian tampal setiap URL bil ke dalam rekod pembayaran.
+        Tiada kunci API diperlukan.
       </p>
       <div class="form-group">
-        <label>Your Billplz Dashboard URL</label>
-        <a href="https://www.billplz.com/bills" target="_blank" class="btn-orange" style="display:inline-block;font-size:13px;padding:7px 14px;text-decoration:none;margin-bottom:6px">🔗 Open Billplz Dashboard</a>
+        <label>URL Papan Pemuka Billplz Anda</label>
+        <a href="https://www.billplz.com/bills" target="_blank" class="btn-orange" style="display:inline-block;font-size:13px;padding:7px 14px;text-decoration:none;margin-bottom:6px">🔗 Buka Papan Pemuka Billplz</a>
         <div style="font-size:11.5px;color:var(--text-muted);line-height:1.6;margin-top:4px">
-          1. Log in to Billplz → Create a bill for the student<br>
-          2. Copy the bill URL (e.g. https://www.billplz.com/bills/abc123)<br>
-          3. Edit the payment record in LMS and paste the URL into <strong>Bill URL</strong>
+          1. Log masuk ke Billplz → Buat bil untuk pelajar<br>
+          2. Salin URL bil (cth. https://www.billplz.com/bills/abc123)<br>
+          3. Edit rekod pembayaran dalam LMS dan tampal URL ke dalam <strong>URL Bil</strong>
         </div>
       </div>
       <div style="display:flex;gap:10px;margin-top:10px">
-        <button class="btn-primary" onclick="document.getElementById('billplzSettingsModal').classList.remove('open')">Close</button>
+        <button class="btn-primary" onclick="document.getElementById('billplzSettingsModal').classList.remove('open')">Tutup</button>
       </div>
     </div>
   </div>
@@ -2117,11 +2117,11 @@ body.admin-mode .student-only { display: none; }
 <!-- CHAT WIDGET -->
 <div class="chat-widget">
   <div class="chat-popup" id="chatPopup">
-    <strong style="font-size:14px;color:var(--navy)">Support Chat</strong>
-    <div class="chat-offline mt-10">🔴 We Are Offline</div>
-    <p style="font-size:12px;color:var(--text-muted)">Leave a message and we'll get back to you.</p>
-    <textarea style="width:100%;margin-top:8px;border:1px solid #d1d5db;border-radius:4px;padding:6px;font-size:12px" rows="3" placeholder="Type your message..."></textarea>
-    <button class="btn-orange btn-sm" style="margin-top:6px;width:100%">Send Message</button>
+    <strong style="font-size:14px;color:var(--navy)">Chat Sokongan</strong>
+    <div class="chat-offline mt-10">🔴 Kami Tidak Dalam Talian</div>
+    <p style="font-size:12px;color:var(--text-muted)">Tinggalkan mesej dan kami akan membalas anda.</p>
+    <textarea style="width:100%;margin-top:8px;border:1px solid #d1d5db;border-radius:4px;padding:6px;font-size:12px" rows="3" placeholder="Taip mesej anda..."></textarea>
+    <button class="btn-orange btn-sm" style="margin-top:6px;width:100%">Hantar Mesej</button>
   </div>
   <button class="chat-btn" onclick="toggleChat()">💬 Chat</button>
 </div>
@@ -2140,10 +2140,10 @@ function initData() {
   if (DB.get('initialized')) return;
 
   const courses = [
-    { id: 'c1', level: 1, name: 'Level 1 – Al-Qaida Al-Nooraniyah (Foundation)', coach: 'Mohammed Farouk Al-Ra\'i', type: 'Online', classification: 'Hafs', location: 'Online (Global)', maxStudents: 30, startDate: '2025-01-15', nextSession: nextSessionDate(14, 7, 30), description: 'Foundation level covering Arabic alphabet recognition, basic letter forms, and introductory Tajweed rules. Suitable for complete beginners.', active: true, courseNo: 3930, totalSessions: 20, feeAmount: 120, feeCurrency: 'MYR' },
-    { id: 'c2', level: 2, name: 'Level 2 – Noorani Qaida (Elementary)', coach: 'Mohammed Farouk Al-Ra\'i', type: 'In-Person', classification: 'Hafs', location: 'Singel, Brussels, Belgium', maxStudents: 15, startDate: '2025-02-01', nextSession: nextSessionDate(2, 10, 0), description: 'Elementary level focusing on letter joining, short/long vowels, and basic Tajweed application. Students begin reading simple Quranic words.', active: true, courseNo: 3927, totalSessions: 24, feeAmount: 150, feeCurrency: 'MYR' },
-    { id: 'c3', level: 3, name: 'Level 3 – Quranic Recitation (Intermediate)', coach: 'Mohammed Farouk Al-Ra\'i', type: 'Online', classification: 'Warsh', location: 'Surabaya, Indonesia', maxStudents: 25, startDate: '2025-01-20', nextSession: nextSessionDate(7, 16, 0), description: 'Intermediate level with full Tajweed rules, Makharij Al-Huruf (articulation points), and fluent Quran reading. Warsh narration focus.', active: true, courseNo: 3926, totalSessions: 28, feeAmount: 180, feeCurrency: 'USD' },
-    { id: 'c4', level: 4, name: 'Level 4 – Teacher Certification (Advanced)', coach: 'Mohammed Farouk Al-Ra\'i', type: 'In-Person', classification: 'Qaloon', location: 'Luxembourg City, Luxembourg', maxStudents: 12, startDate: '2025-03-01', nextSession: nextSessionDate(4, 9, 0), description: 'Advanced certification program for aspiring Quran teachers. Covers advanced Tajweed, Ijazah preparation, and teaching methodology.', active: true, courseNo: 3925, totalSessions: 32, feeAmount: 220, feeCurrency: 'MYR' },
+    { id: 'c1', level: 1, name: 'Tahap 1 – Al-Qaida Al-Nooraniyah (Al-Asas)', coach: 'Mohammed Farouk Al-Ra\'i', type: 'Online', classification: 'Hafs', location: 'Online (Global)', maxStudents: 30, startDate: '2025-01-15', nextSession: nextSessionDate(14, 7, 30), description: 'Tahap asas merangkumi pengenalan huruf Arab, bentuk huruf asas, dan peraturan Tajweed pengenalan. Sesuai untuk pemula sepenuhnya.', active: true, courseNo: 3930, totalSessions: 20, feeAmount: 120, feeCurrency: 'MYR' },
+    { id: 'c2', level: 2, name: 'Tahap 2 – Noorani Qaida (Ad-Dhoruri)', coach: 'Mohammed Farouk Al-Ra\'i', type: 'In-Person', classification: 'Hafs', location: 'Singel, Brussels, Belgium', maxStudents: 15, startDate: '2025-02-01', nextSession: nextSessionDate(2, 10, 0), description: 'Tahap Ad-Dhoruri memfokuskan penyambungan huruf, baris pendek/panjang, dan aplikasi asas Tajweed. Pelajar mula membaca kalimah Al-Quran yang mudah.', active: true, courseNo: 3927, totalSessions: 24, feeAmount: 150, feeCurrency: 'MYR' },
+    { id: 'c3', level: 3, name: 'Tahap 3 – Bacaan Al-Quran (Al-Mukammil)', coach: 'Mohammed Farouk Al-Ra\'i', type: 'Online', classification: 'Warsh', location: 'Surabaya, Indonesia', maxStudents: 25, startDate: '2025-01-20', nextSession: nextSessionDate(7, 16, 0), description: 'Tahap Al-Mukammil dengan peraturan Tajweed penuh, Makharij Al-Huruf (titik sebutan), dan bacaan Al-Quran yang lancar. Fokus riwayat Warsh.', active: true, courseNo: 3926, totalSessions: 28, feeAmount: 180, feeCurrency: 'USD' },
+    { id: 'c4', level: 4, name: 'Tahap 4 – Pensijilan Guru (Al-Itqan)', coach: 'Mohammed Farouk Al-Ra\'i', type: 'In-Person', classification: 'Qaloon', location: 'Luxembourg City, Luxembourg', maxStudents: 12, startDate: '2025-03-01', nextSession: nextSessionDate(4, 9, 0), description: 'Program pensijilan lanjutan untuk bakal guru Al-Quran. Merangkumi Tajweed lanjutan, persediaan Ijazah, dan metodologi pengajaran.', active: true, courseNo: 3925, totalSessions: 32, feeAmount: 220, feeCurrency: 'MYR' },
   ];
 
   const students = [
@@ -2178,8 +2178,8 @@ function initData() {
   ];
 
   const testRequests = [
-    { id: 'req1', studentId: 's1', courseId: 'c1', requestedDate: '2025-04-10', level: 'Level 2 - Intermediate', notes: '', status: 'Pending' },
-    { id: 'req2', studentId: 's2', courseId: 'c3', requestedDate: '2025-04-05', level: 'Level 3 - Advanced', notes: 'Ready for certification', status: 'Approved' },
+    { id: 'req1', studentId: 's1', courseId: 'c1', requestedDate: '2025-04-10', level: 'Tahap 2 – Ad-Dhoruri', notes: '', status: 'Pending' },
+    { id: 'req2', studentId: 's2', courseId: 'c3', requestedDate: '2025-04-05', level: 'Tahap 3 – Al-Mukammil', notes: 'Sedia untuk pengiktirafan', status: 'Approved' },
   ];
 
   const assignments = [
@@ -2238,33 +2238,33 @@ function seedPaymentDemo() {
   const demo = [
     // ── Student s1 (Ahmed) ──
     // Paid — historical
-    { id: 'dp1',  studentId: 's1', courseId: 'c1', semester: 'Level 1 — Term 1 2025', amount: 120, currency: 'MYR', dueDate: relDate(-450), paidDate: relDate(-452), status: 'Paid', paymentPlan: 'lump_sum', instalment: null, billplzBillId: null, billplzUrl: null },
-    { id: 'dp2',  studentId: 's1', courseId: 'c1', semester: 'Level 1 — Term 2 2025', amount: 120, currency: 'MYR', dueDate: relDate(-270), paidDate: relDate(-271), status: 'Paid', paymentPlan: 'lump_sum', instalment: null, billplzBillId: null, billplzUrl: null },
-    { id: 'dp3',  studentId: 's1', courseId: 'c2', semester: 'Level 2 — Term 1 2025', amount: 150, currency: 'MYR', dueDate: relDate(-390), paidDate: relDate(-392), status: 'Paid', paymentPlan: 'lump_sum', instalment: null, billplzBillId: null, billplzUrl: null },
-    { id: 'dp4',  studentId: 's1', courseId: 'c2', semester: 'Level 2 — Term 2 2025', amount: 150, currency: 'MYR', dueDate: relDate(-180), paidDate: relDate(-181), status: 'Paid', paymentPlan: 'lump_sum', instalment: null, billplzBillId: null, billplzUrl: null },
+    { id: 'dp1',  studentId: 's1', courseId: 'c1', semester: 'Tahap 1 – Al-Asas — Penggal 1 2025', amount: 120, currency: 'MYR', dueDate: relDate(-450), paidDate: relDate(-452), status: 'Paid', paymentPlan: 'lump_sum', instalment: null, billplzBillId: null, billplzUrl: null },
+    { id: 'dp2',  studentId: 's1', courseId: 'c1', semester: 'Tahap 1 – Al-Asas — Penggal 2 2025', amount: 120, currency: 'MYR', dueDate: relDate(-270), paidDate: relDate(-271), status: 'Paid', paymentPlan: 'lump_sum', instalment: null, billplzBillId: null, billplzUrl: null },
+    { id: 'dp3',  studentId: 's1', courseId: 'c2', semester: 'Tahap 2 – Ad-Dhoruri — Penggal 1 2025', amount: 150, currency: 'MYR', dueDate: relDate(-390), paidDate: relDate(-392), status: 'Paid', paymentPlan: 'lump_sum', instalment: null, billplzBillId: null, billplzUrl: null },
+    { id: 'dp4',  studentId: 's1', courseId: 'c2', semester: 'Tahap 2 – Ad-Dhoruri — Penggal 2 2025', amount: 150, currency: 'MYR', dueDate: relDate(-180), paidDate: relDate(-181), status: 'Paid', paymentPlan: 'lump_sum', instalment: null, billplzBillId: null, billplzUrl: null },
     // Overdue — missed payments
-    { id: 'dp5',  studentId: 's1', courseId: 'c1', semester: 'Level 1 — Term 1 2026', amount: 120, currency: 'MYR', dueDate: relDate(-60),  paidDate: null, status: 'Unpaid', paymentPlan: 'lump_sum', instalment: null, billplzBillId: null, billplzUrl: null },
-    { id: 'dp6',  studentId: 's1', courseId: 'c2', semester: 'Level 2 — Term 1 2026', amount: 150, currency: 'MYR', dueDate: relDate(-30),  paidDate: null, status: 'Unpaid', paymentPlan: 'lump_sum', instalment: null, billplzBillId: null, billplzUrl: null },
+    { id: 'dp5',  studentId: 's1', courseId: 'c1', semester: 'Tahap 1 – Al-Asas — Penggal 1 2026', amount: 120, currency: 'MYR', dueDate: relDate(-60),  paidDate: null, status: 'Unpaid', paymentPlan: 'lump_sum', instalment: null, billplzBillId: null, billplzUrl: null },
+    { id: 'dp6',  studentId: 's1', courseId: 'c2', semester: 'Tahap 2 – Ad-Dhoruri — Penggal 1 2026', amount: 150, currency: 'MYR', dueDate: relDate(-30),  paidDate: null, status: 'Unpaid', paymentPlan: 'lump_sum', instalment: null, billplzBillId: null, billplzUrl: null },
     // Due soon (within 7 days)
-    { id: 'dp7',  studentId: 's1', courseId: 'c3', semester: 'Level 3 — Term 1 2026', amount: 180, currency: 'MYR', dueDate: relDate(3),   paidDate: null, status: 'Unpaid', paymentPlan: 'lump_sum', instalment: null, billplzBillId: null, billplzUrl: null },
-    { id: 'dp8',  studentId: 's1', courseId: 'c2', semester: 'Level 2 — Term 2 2026 — Instalment 1/3', amount: 50, currency: 'MYR', dueDate: relDate(6), paidDate: null, status: 'Pending', paymentPlan: 'monthly', instalment: '1/3', billplzBillId: null, billplzUrl: null },
+    { id: 'dp7',  studentId: 's1', courseId: 'c3', semester: 'Tahap 3 – Al-Mukammil — Penggal 1 2026', amount: 180, currency: 'MYR', dueDate: relDate(3),   paidDate: null, status: 'Unpaid', paymentPlan: 'lump_sum', instalment: null, billplzBillId: null, billplzUrl: null },
+    { id: 'dp8',  studentId: 's1', courseId: 'c2', semester: 'Tahap 2 – Ad-Dhoruri — Penggal 2 2026 — Instalment 1/3', amount: 50, currency: 'MYR', dueDate: relDate(6), paidDate: null, status: 'Pending', paymentPlan: 'monthly', instalment: '1/3', billplzBillId: null, billplzUrl: null },
     // Upcoming
-    { id: 'dp9',  studentId: 's1', courseId: 'c2', semester: 'Level 2 — Term 2 2026 — Instalment 2/3', amount: 50, currency: 'MYR', dueDate: relDate(37),  paidDate: null, status: 'Unpaid', paymentPlan: 'monthly', instalment: '2/3', billplzBillId: null, billplzUrl: null },
-    { id: 'dp10', studentId: 's1', courseId: 'c2', semester: 'Level 2 — Term 2 2026 — Instalment 3/3', amount: 50, currency: 'MYR', dueDate: relDate(67),  paidDate: null, status: 'Unpaid', paymentPlan: 'monthly', instalment: '3/3', billplzBillId: null, billplzUrl: null },
-    { id: 'dp11', studentId: 's1', courseId: 'c4', semester: 'Level 4 — Term 1 2026', amount: 220, currency: 'MYR', dueDate: relDate(90),  paidDate: null, status: 'Unpaid', paymentPlan: 'lump_sum', instalment: null, billplzBillId: null, billplzUrl: null },
+    { id: 'dp9',  studentId: 's1', courseId: 'c2', semester: 'Tahap 2 – Ad-Dhoruri — Penggal 2 2026 — Instalment 2/3', amount: 50, currency: 'MYR', dueDate: relDate(37),  paidDate: null, status: 'Unpaid', paymentPlan: 'monthly', instalment: '2/3', billplzBillId: null, billplzUrl: null },
+    { id: 'dp10', studentId: 's1', courseId: 'c2', semester: 'Tahap 2 – Ad-Dhoruri — Penggal 2 2026 — Instalment 3/3', amount: 50, currency: 'MYR', dueDate: relDate(67),  paidDate: null, status: 'Unpaid', paymentPlan: 'monthly', instalment: '3/3', billplzBillId: null, billplzUrl: null },
+    { id: 'dp11', studentId: 's1', courseId: 'c4', semester: 'Tahap 4 – Al-Itqan — Penggal 1 2026', amount: 220, currency: 'MYR', dueDate: relDate(90),  paidDate: null, status: 'Unpaid', paymentPlan: 'lump_sum', instalment: null, billplzBillId: null, billplzUrl: null },
 
     // ── Student s2 (Fatima) ──
-    { id: 'dp12', studentId: 's2', courseId: 'c3', semester: 'Level 3 — Term 1 2025', amount: 180, currency: 'MYR', dueDate: relDate(-360), paidDate: relDate(-362), status: 'Paid', paymentPlan: 'lump_sum', instalment: null, billplzBillId: null, billplzUrl: null },
-    { id: 'dp13', studentId: 's2', courseId: 'c3', semester: 'Level 3 — Term 2 2025', amount: 180, currency: 'MYR', dueDate: relDate(-180), paidDate: relDate(-182), status: 'Paid', paymentPlan: 'lump_sum', instalment: null, billplzBillId: null, billplzUrl: null },
-    { id: 'dp14', studentId: 's2', courseId: 'c3', semester: 'Level 3 — Term 1 2026', amount: 180, currency: 'MYR', dueDate: relDate(-45),  paidDate: null, status: 'Unpaid', paymentPlan: 'lump_sum', instalment: null, billplzBillId: null, billplzUrl: null },
-    { id: 'dp15', studentId: 's2', courseId: 'c1', semester: 'Level 1 — Term 1 2026', amount: 120, currency: 'MYR', dueDate: relDate(5),   paidDate: null, status: 'Unpaid', paymentPlan: 'lump_sum', instalment: null, billplzBillId: null, billplzUrl: null },
-    { id: 'dp16', studentId: 's2', courseId: 'c1', semester: 'Level 1 — Term 2 2026', amount: 120, currency: 'MYR', dueDate: relDate(120),  paidDate: null, status: 'Unpaid', paymentPlan: 'lump_sum', instalment: null, billplzBillId: null, billplzUrl: null },
+    { id: 'dp12', studentId: 's2', courseId: 'c3', semester: 'Tahap 3 – Al-Mukammil — Penggal 1 2025', amount: 180, currency: 'MYR', dueDate: relDate(-360), paidDate: relDate(-362), status: 'Paid', paymentPlan: 'lump_sum', instalment: null, billplzBillId: null, billplzUrl: null },
+    { id: 'dp13', studentId: 's2', courseId: 'c3', semester: 'Tahap 3 – Al-Mukammil — Penggal 2 2025', amount: 180, currency: 'MYR', dueDate: relDate(-180), paidDate: relDate(-182), status: 'Paid', paymentPlan: 'lump_sum', instalment: null, billplzBillId: null, billplzUrl: null },
+    { id: 'dp14', studentId: 's2', courseId: 'c3', semester: 'Tahap 3 – Al-Mukammil — Penggal 1 2026', amount: 180, currency: 'MYR', dueDate: relDate(-45),  paidDate: null, status: 'Unpaid', paymentPlan: 'lump_sum', instalment: null, billplzBillId: null, billplzUrl: null },
+    { id: 'dp15', studentId: 's2', courseId: 'c1', semester: 'Tahap 1 – Al-Asas — Penggal 1 2026', amount: 120, currency: 'MYR', dueDate: relDate(5),   paidDate: null, status: 'Unpaid', paymentPlan: 'lump_sum', instalment: null, billplzBillId: null, billplzUrl: null },
+    { id: 'dp16', studentId: 's2', courseId: 'c1', semester: 'Tahap 1 – Al-Asas — Penggal 2 2026', amount: 120, currency: 'MYR', dueDate: relDate(120),  paidDate: null, status: 'Unpaid', paymentPlan: 'lump_sum', instalment: null, billplzBillId: null, billplzUrl: null },
 
     // ── Student s3 (Yusuf) ──
-    { id: 'dp17', studentId: 's3', courseId: 'c4', semester: 'Level 4 — Term 1 2025', amount: 220, currency: 'MYR', dueDate: relDate(-330), paidDate: relDate(-331), status: 'Paid', paymentPlan: 'lump_sum', instalment: null, billplzBillId: null, billplzUrl: null },
-    { id: 'dp18', studentId: 's3', courseId: 'c4', semester: 'Level 4 — Term 2 2025', amount: 220, currency: 'MYR', dueDate: relDate(-150), paidDate: relDate(-151), status: 'Paid', paymentPlan: 'lump_sum', instalment: null, billplzBillId: null, billplzUrl: null },
-    { id: 'dp19', studentId: 's3', courseId: 'c4', semester: 'Level 4 — Term 1 2026', amount: 220, currency: 'MYR', dueDate: relDate(-15),  paidDate: null, status: 'Unpaid', paymentPlan: 'lump_sum', instalment: null, billplzBillId: null, billplzUrl: null },
-    { id: 'dp20', studentId: 's3', courseId: 'c4', semester: 'Level 4 — Term 2 2026', amount: 220, currency: 'MYR', dueDate: relDate(75),   paidDate: null, status: 'Unpaid', paymentPlan: 'lump_sum', instalment: null, billplzBillId: null, billplzUrl: null },
+    { id: 'dp17', studentId: 's3', courseId: 'c4', semester: 'Tahap 4 – Al-Itqan — Penggal 1 2025', amount: 220, currency: 'MYR', dueDate: relDate(-330), paidDate: relDate(-331), status: 'Paid', paymentPlan: 'lump_sum', instalment: null, billplzBillId: null, billplzUrl: null },
+    { id: 'dp18', studentId: 's3', courseId: 'c4', semester: 'Tahap 4 – Al-Itqan — Penggal 2 2025', amount: 220, currency: 'MYR', dueDate: relDate(-150), paidDate: relDate(-151), status: 'Paid', paymentPlan: 'lump_sum', instalment: null, billplzBillId: null, billplzUrl: null },
+    { id: 'dp19', studentId: 's3', courseId: 'c4', semester: 'Tahap 4 – Al-Itqan — Penggal 1 2026', amount: 220, currency: 'MYR', dueDate: relDate(-15),  paidDate: null, status: 'Unpaid', paymentPlan: 'lump_sum', instalment: null, billplzBillId: null, billplzUrl: null },
+    { id: 'dp20', studentId: 's3', courseId: 'c4', semester: 'Tahap 4 – Al-Itqan — Penggal 2 2026', amount: 220, currency: 'MYR', dueDate: relDate(75),   paidDate: null, status: 'Unpaid', paymentPlan: 'lump_sum', instalment: null, billplzBillId: null, billplzUrl: null },
   ];
 
   // Merge with any existing payments (preserve admin-added records)
@@ -2344,13 +2344,13 @@ function classTag(cls) {
 }
 function typeBadge(t) {
   return t === 'Online'
-    ? '<span class="badge-online">Online Course</span>'
-    : '<span class="badge-inperson">In-Person</span>';
+    ? '<span class="badge-online">Kursus Dalam Talian</span>'
+    : '<span class="badge-inperson">Bersemuka</span>';
 }
 function scoreBadge(s) {
-  if (s === null || s === undefined) return '<span class="score-badge score-pending">Pending</span>';
-  if (s >= 70) return `<span class="score-badge score-pass">Pass (${s}%)</span>`;
-  return `<span class="score-badge score-fail">Fail (${s}%)</span>`;
+  if (s === null || s === undefined) return '<span class="score-badge score-pending">Menunggu</span>';
+  if (s >= 70) return `<span class="score-badge score-pass">Lulus (${s}%)</span>`;
+  return `<span class="score-badge score-fail">Gagal (${s}%)</span>`;
 }
 function fmtDate(d) {
   if (!d) return '-';
@@ -2367,7 +2367,7 @@ let countdownInterval = null;
 function navigate(pageId) {
   // Check role gating
   const role = getRole();
-  if (pageId.startsWith('admin-') && role !== 'admin') { showToast('Please switch to Admin mode first'); return; }
+  if (pageId.startsWith('admin-') && role !== 'admin') { showToast('Sila tukar ke mod Pentadbir dahulu'); return; }
 
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
   const target = document.getElementById('page-' + pageId);
@@ -2443,7 +2443,7 @@ function renderSidebar() {
   // Profile name — show admin name when in admin role
   const role = getRole();
   if (role === 'admin') {
-    document.getElementById('profileNameDisplay').textContent = 'Administrator';
+    document.getElementById('profileNameDisplay').textContent = 'Pentadbir';
     document.getElementById('avatarCircle').textContent = '🛡️';
   } else {
     const user = getCurrentUser();
@@ -2475,13 +2475,13 @@ function renderStudentHome() {
       <div class="course-detail-card mb-16">
         <div class="course-detail-card-header">${activeCourse.name}</div>
         <div class="course-detail-card-body">
-          <div class="detail-row"><span class="detail-label">Coach</span><span class="detail-value">${activeCourse.coach}</span></div>
-          <div class="detail-row"><span class="detail-label">Classification</span><span class="detail-value">${classTag(activeCourse.classification)}</span></div>
-          <div class="detail-row"><span class="detail-label">Type</span><span class="detail-value">${typeBadge(activeCourse.type)}</span></div>
-          <div class="detail-row"><span class="detail-label">Location</span><span class="detail-value">${activeCourse.location}</span></div>
+          <div class="detail-row"><span class="detail-label">Ustaz/Ustazah</span><span class="detail-value">${activeCourse.coach}</span></div>
+          <div class="detail-row"><span class="detail-label">Klasifikasi</span><span class="detail-value">${classTag(activeCourse.classification)}</span></div>
+          <div class="detail-row"><span class="detail-label">Jenis</span><span class="detail-value">${typeBadge(activeCourse.type)}</span></div>
+          <div class="detail-row"><span class="detail-label">Lokasi</span><span class="detail-value">${activeCourse.location}</span></div>
           ${firstEnroll ? `
           <div style="margin-top:10px">
-            <div style="font-size:12px;color:var(--text-muted);margin-bottom:4px">Progress: ${firstEnroll.progress}%</div>
+            <div style="font-size:12px;color:var(--text-muted);margin-bottom:4px">Kemajuan: ${firstEnroll.progress}%</div>
             <div class="progress-bar-wrap"><div class="progress-bar-fill" style="width:${firstEnroll.progress}%"></div></div>
           </div>` : ''}
         </div>
@@ -2492,7 +2492,7 @@ function renderStudentHome() {
   // Enrolled courses
   const el = document.getElementById('enrolledCoursesList');
   if (!enrollments.length) {
-    el.innerHTML = '<p class="text-muted text-center" style="padding:20px">No enrolled courses yet. <a href="#" onclick="navigate(\'student-courses\')" style="color:var(--orange)">Browse courses →</a></p>';
+    el.innerHTML = '<p class="text-muted text-center" style="padding:20px">Tiada kursus yang didaftarkan lagi. <a href="#" onclick="navigate(\'student-courses\')" style="color:var(--orange)">Semak kursus →</a></p>';
     return;
   }
   el.innerHTML = enrollments.map(e => {
@@ -2503,14 +2503,14 @@ function renderStudentHome() {
         <div style="background:var(--navy);width:8px;flex-shrink:0"></div>
         <div style="flex:1;padding:14px 16px">
           <div style="font-weight:700;color:var(--navy);margin-bottom:6px;font-size:13.5px">${c.name}</div>
-          <div style="font-size:12px;color:var(--text-muted);margin-bottom:2px">Coach: ${c.coach}</div>
+          <div style="font-size:12px;color:var(--text-muted);margin-bottom:2px">Ustaz/Ustazah: ${c.coach}</div>
           <div style="font-size:12px;color:var(--text-muted);margin-bottom:8px">${c.location}</div>
-          <div style="font-size:12px;color:var(--text-muted);margin-bottom:4px">Progress: <strong style="color:var(--navy)">${e.progress}%</strong></div>
+          <div style="font-size:12px;color:var(--text-muted);margin-bottom:4px">Kemajuan: <strong style="color:var(--navy)">${e.progress}%</strong></div>
           <div class="progress-bar-wrap"><div class="progress-bar-fill" style="width:${e.progress}%"></div></div>
         </div>
         <div style="padding:14px 14px;display:flex;flex-direction:column;justify-content:center;gap:6px;flex-shrink:0">
           ${typeBadge(c.type)}
-          <button class="btn-view" onclick="viewCourseDetail('${c.id}')">View</button>
+          <button class="btn-view" onclick="viewCourseDetail('${c.id}')">Lihat</button>
         </div>
       </div>
     `;
@@ -2532,7 +2532,7 @@ function startCountdown(course, containerId) {
     const target = new Date(course.nextSession);
     const diff = target - now;
     if (diff <= 0) {
-      el.innerHTML = `<div class="countdown-card"><div class="countdown-title">Session is Live Now!</div></div>`;
+      el.innerHTML = `<div class="countdown-card"><div class="countdown-title">Sesi Sedang Berlangsung!</div></div>`;
       clearInterval(countdownInterval);
       return;
     }
@@ -2542,12 +2542,12 @@ function startCountdown(course, containerId) {
     const secs = Math.floor((diff % 60000) / 1000);
     el.innerHTML = `
       <div class="countdown-card">
-        <div class="countdown-title">Time Remaining Until The Start Of The Session</div>
+        <div class="countdown-title">Masa Berbaki Sehingga Sesi Bermula</div>
         <div class="countdown-grid">
-          <div class="countdown-cell"><div class="countdown-label">Day</div><div class="countdown-value">${pad(days)}</div></div>
-          <div class="countdown-cell"><div class="countdown-label">Hour</div><div class="countdown-value">${pad(hours)}</div></div>
-          <div class="countdown-cell"><div class="countdown-label">Minutes</div><div class="countdown-value">${pad(mins)}</div></div>
-          <div class="countdown-cell"><div class="countdown-label">Seconds</div><div class="countdown-value">${pad(secs)}</div></div>
+          <div class="countdown-cell"><div class="countdown-label">Hari</div><div class="countdown-value">${pad(days)}</div></div>
+          <div class="countdown-cell"><div class="countdown-label">Jam</div><div class="countdown-value">${pad(hours)}</div></div>
+          <div class="countdown-cell"><div class="countdown-label">Minit</div><div class="countdown-value">${pad(mins)}</div></div>
+          <div class="countdown-cell"><div class="countdown-label">Saat</div><div class="countdown-value">${pad(secs)}</div></div>
         </div>
         <div style="margin-top:12px;font-size:12px;color:rgba(255,255,255,0.6)">${course.name}</div>
       </div>`;
@@ -2568,7 +2568,7 @@ function renderCourseGrid() {
   const locSel = document.getElementById('filterLocation');
   const locs = [...new Set(courses.map(c => c.location))];
   const curLoc = locSel.value;
-  locSel.innerHTML = '<option value="">All Locations</option>' + locs.map(l => `<option value="${l}" ${l===curLoc?'selected':''}>${l}</option>`).join('');
+  locSel.innerHTML = '<option value="">Semua Lokasi</option>' + locs.map(l => `<option value="${l}" ${l===curLoc?'selected':''}>${l}</option>`).join('');
 
   const text = (document.getElementById('searchText')?.value || '').toLowerCase();
   const type = document.getElementById('filterType')?.value || '';
@@ -2585,7 +2585,7 @@ function renderCourseGrid() {
 
   const grid = document.getElementById('coursesGrid');
   if (!filtered.length) {
-    grid.innerHTML = '<p class="text-muted" style="padding:20px">No courses found.</p>';
+    grid.innerHTML = '<p class="text-muted" style="padding:20px">Tiada kursus ditemui.</p>';
     return;
   }
   grid.innerHTML = filtered.map(c => {
@@ -2596,15 +2596,15 @@ function renderCourseGrid() {
         <div class="course-card-header">${c.name}</div>
         <div class="course-card-body">
           <div class="course-meta" style="margin-bottom:6px">${levelBadge(c.level)} ${typeBadge(c.type)}</div>
-          <div class="course-meta"><strong>Coach:</strong> ${c.coach}</div>
-          <div class="course-meta"><strong>Location:</strong> ${c.location}</div>
-          <div class="course-meta"><strong>Start Date:</strong> ${fmtDate(c.startDate)}</div>
+          <div class="course-meta"><strong>Ustaz/Ustazah:</strong> ${c.coach}</div>
+          <div class="course-meta"><strong>Lokasi:</strong> ${c.location}</div>
+          <div class="course-meta"><strong>Tarikh Mula:</strong> ${fmtDate(c.startDate)}</div>
           <div class="course-meta">${classTag(c.classification)}</div>
-          ${isEnrolled && enroll ? `<div style="margin-top:8px"><div style="font-size:11px;color:var(--text-muted);margin-bottom:3px">Progress: ${enroll.progress}%</div><div class="progress-bar-wrap"><div class="progress-bar-fill" style="width:${enroll.progress}%"></div></div></div>` : ''}
+          ${isEnrolled && enroll ? `<div style="margin-top:8px"><div style="font-size:11px;color:var(--text-muted);margin-bottom:3px">Kemajuan: ${enroll.progress}%</div><div class="progress-bar-wrap"><div class="progress-bar-fill" style="width:${enroll.progress}%"></div></div></div>` : ''}
         </div>
         <div class="course-card-footer">
-          <button class="btn-enroll ${isEnrolled?'enrolled':''}" onclick="${isEnrolled?'':'enrollInCourse(\''+c.id+'\')'}">${isEnrolled?'✓ Enrolled':'Enroll Now'}</button>
-          <button class="btn-view" onclick="viewCourseDetail('${c.id}')">Details</button>
+          <button class="btn-enroll ${isEnrolled?'enrolled':''}" onclick="${isEnrolled?'':'enrollInCourse(\''+c.id+'\')'}">${isEnrolled?'✓ Telah Didaftarkan':'Daftar Sekarang'}</button>
+          <button class="btn-view" onclick="viewCourseDetail('${c.id}')">Butiran</button>
         </div>
       </div>
     `;
@@ -2615,11 +2615,11 @@ function enrollInCourse(courseId) {
   const uid = getCurrentUserId();
   const enrollments = getEnrollments();
   if (enrollments.find(e => e.studentId === uid && e.courseId === courseId)) {
-    showToast('Already enrolled in this course'); return;
+    showToast('Sudah didaftarkan dalam kursus ini'); return;
   }
   enrollments.push({ id: 'e' + Date.now(), studentId: uid, courseId, progress: 0, enrolledDate: new Date().toISOString().slice(0,10), attendance: [] });
   DB.set('enrollments', enrollments);
-  showToast('Successfully enrolled!');
+  showToast('Berjaya didaftarkan!');
   renderCourseGrid();
   renderSidebar();
 }
@@ -2639,24 +2639,24 @@ function viewCourseDetail(courseId) {
     <div class="course-detail-card">
       <div class="course-detail-card-header">${c.name}</div>
       <div class="course-detail-card-body">
-        <div class="detail-row"><span class="detail-label">Coach</span><span class="detail-value">${c.coach}</span></div>
-        <div class="detail-row"><span class="detail-label">Course Type</span><span class="detail-value">${typeBadge(c.type)}</span></div>
-        <div class="detail-row"><span class="detail-label">Classification</span><span class="detail-value">${classTag(c.classification)}</span></div>
-        <div class="detail-row"><span class="detail-label">Location</span><span class="detail-value">${c.location}</span></div>
-        <div class="detail-row"><span class="detail-label">Start Date</span><span class="detail-value">${fmtDate(c.startDate)}</span></div>
-        <div class="detail-row"><span class="detail-label">Max Students</span><span class="detail-value">${c.maxStudents}</span></div>
-        <div class="detail-row"><span class="detail-label">Description</span><span class="detail-value" style="max-width:420px;line-height:1.6">${c.description}</span></div>
+        <div class="detail-row"><span class="detail-label">Ustaz/Ustazah</span><span class="detail-value">${c.coach}</span></div>
+        <div class="detail-row"><span class="detail-label">Jenis Kursus</span><span class="detail-value">${typeBadge(c.type)}</span></div>
+        <div class="detail-row"><span class="detail-label">Klasifikasi</span><span class="detail-value">${classTag(c.classification)}</span></div>
+        <div class="detail-row"><span class="detail-label">Lokasi</span><span class="detail-value">${c.location}</span></div>
+        <div class="detail-row"><span class="detail-label">Tarikh Mula</span><span class="detail-value">${fmtDate(c.startDate)}</span></div>
+        <div class="detail-row"><span class="detail-label">Maks Pelajar</span><span class="detail-value">${c.maxStudents}</span></div>
+        <div class="detail-row"><span class="detail-label">Keterangan</span><span class="detail-value" style="max-width:420px;line-height:1.6">${c.description}</span></div>
         ${isEnrolled ? `
-        <div class="detail-row"><span class="detail-label">Your Progress</span>
+        <div class="detail-row"><span class="detail-label">Kemajuan Anda</span>
           <span class="detail-value" style="flex:1">
             <div class="progress-bar-wrap" style="max-width:220px"><div class="progress-bar-fill" style="width:${enroll.progress}%"></div></div>
-            <span style="font-size:12px;color:var(--text-muted);margin-top:3px;display:block">${enroll.progress}% complete</span>
+            <span style="font-size:12px;color:var(--text-muted);margin-top:3px;display:block">${enroll.progress}% selesai</span>
           </span>
         </div>
-        <div class="detail-row"><span class="detail-label">Last Test Score</span><span class="detail-value">${lastTest ? scoreBadge(lastTest.score) : scoreBadge(null)}</span></div>` : ''}
+        <div class="detail-row"><span class="detail-label">Markah Ujian Terkini</span><span class="detail-value">${lastTest ? scoreBadge(lastTest.score) : scoreBadge(null)}</span></div>` : ''}
         <div style="margin-top:16px;display:flex;gap:10px">
-          ${!isEnrolled ? `<button class="btn-orange" onclick="enrollInCourse('${c.id}');viewCourseDetail('${c.id}')">Enroll Now</button>` : `<span class="enroll-status enroll-active">✓ Enrolled</span>`}
-          <button class="btn-primary" onclick="navigate('student-courses')">← Back to Courses</button>
+          ${!isEnrolled ? `<button class="btn-orange" onclick="enrollInCourse('${c.id}');viewCourseDetail('${c.id}')">Daftar Sekarang</button>` : `<span class="enroll-status enroll-active">✓ Telah Didaftarkan</span>`}
+          <button class="btn-primary" onclick="navigate('student-courses')">← Kembali ke Kursus</button>
         </div>
       </div>
     </div>
@@ -2674,7 +2674,7 @@ function renderStudentTests() {
   const tests = getTests().filter(t => t.studentId === uid);
   const tbody = document.getElementById('testsTableBody');
   if (!tests.length) {
-    tbody.innerHTML = '<tr><td colspan="5" class="text-center text-muted" style="padding:20px">No test records yet.</td></tr>';
+    tbody.innerHTML = '<tr><td colspan="5" class="text-center text-muted" style="padding:20px">Tiada rekod ujian lagi.</td></tr>';
     return;
   }
   tbody.innerHTML = tests.map((t, i) => {
@@ -2697,7 +2697,7 @@ function renderPurchases() {
   const txns = getTransactions().filter(t => t.studentId === uid);
   const el = document.getElementById('purchasesBody');
   if (!txns.length) {
-    el.innerHTML = '<p class="text-muted text-center" style="padding:20px">No purchases found.</p>';
+    el.innerHTML = '<p class="text-muted text-center" style="padding:20px">Tiada pembelian ditemui.</p>';
     return;
   }
   el.innerHTML = txns.map(t => `
@@ -2723,7 +2723,7 @@ function renderTransactions() {
   const txns = getTransactions().filter(t => t.studentId === uid);
   const tbody = document.getElementById('transactionsTableBody');
   if (!txns.length) {
-    tbody.innerHTML = '<tr><td colspan="5" class="text-center text-muted" style="padding:20px">No transactions.</td></tr>';
+    tbody.innerHTML = '<tr><td colspan="5" class="text-center text-muted" style="padding:20px">Tiada transaksi.</td></tr>';
     return;
   }
   tbody.innerHTML = txns.map((t, i) => `
@@ -2766,7 +2766,7 @@ function saveProfile() {
   students[idx].classification = document.getElementById('profileClassification').value;
   DB.set('students', students);
   renderSidebar();
-  showToast('Profile saved successfully!');
+  showToast('Profil berjaya disimpan!');
 }
 function changePassword() {
   const uid = getCurrentUserId();
@@ -2777,14 +2777,14 @@ function changePassword() {
   const current = document.getElementById('pwCurrent').value;
   const newPw = document.getElementById('pwNew').value;
   const confirm = document.getElementById('pwConfirm').value;
-  if (!current || !newPw || !confirm) { showToast('Please fill all password fields'); return; }
-  if (hashPassword(s.username, current) !== s.passwordHash) { showToast('Current password is incorrect'); return; }
-  if (newPw.length < 6) { showToast('New password must be at least 6 characters'); return; }
-  if (newPw !== confirm) { showToast('New passwords do not match'); return; }
+  if (!current || !newPw || !confirm) { showToast('Sila isi semua medan kata laluan'); return; }
+  if (hashPassword(s.username, current) !== s.passwordHash) { showToast('Kata laluan semasa tidak betul'); return; }
+  if (newPw.length < 6) { showToast('Kata laluan baharu mesti sekurang-kurangnya 6 aksara'); return; }
+  if (newPw !== confirm) { showToast('Kata laluan baharu tidak sepadan'); return; }
   students[idx].passwordHash = hashPassword(s.username, newPw);
   DB.set('students', students);
   ['pwCurrent','pwNew','pwConfirm'].forEach(id => document.getElementById(id).value = '');
-  showToast('Password updated successfully!');
+  showToast('Kata laluan berjaya dikemaskini!');
 }
 
 // ════════════════════════════════
@@ -2808,7 +2808,7 @@ function submitTestRequest() {
   const reqs = getTestRequests();
   reqs.push({ id: 'req' + Date.now(), studentId: uid, courseId, requestedDate: date, level, notes, status: 'Pending' });
   DB.set('testRequests', reqs);
-  showToast('Test request submitted!');
+  showToast('Permohonan ujian telah dihantar!');
   document.getElementById('reqTestNotes').value = '';
 }
 
@@ -2823,10 +2823,10 @@ function renderAdminDashboard() {
 
   // Stats
   document.getElementById('adminStats').innerHTML = `
-    <div class="stat-card"><div class="stat-value">${courses.length}</div><div class="stat-label">Total Courses</div></div>
-    <div class="stat-card blue"><div class="stat-value">${students.length}</div><div class="stat-label">Total Students</div></div>
-    <div class="stat-card green"><div class="stat-value">${enrollments.length}</div><div class="stat-label">Active Enrollments</div></div>
-    <div class="stat-card gold"><div class="stat-value">${tests.length}</div><div class="stat-label">Tests Recorded</div></div>
+    <div class="stat-card"><div class="stat-value">${courses.length}</div><div class="stat-label">Jumlah Kursus</div></div>
+    <div class="stat-card blue"><div class="stat-value">${students.length}</div><div class="stat-label">Jumlah Pelajar</div></div>
+    <div class="stat-card green"><div class="stat-value">${enrollments.length}</div><div class="stat-label">Pendaftaran Aktif</div></div>
+    <div class="stat-card gold"><div class="stat-value">${tests.length}</div><div class="stat-label">Ujian Direkodkan</div></div>
   `;
 
   // Recent enrollments
@@ -2838,7 +2838,7 @@ function renderAdminDashboard() {
       <td>${s ? s.firstName + ' ' + s.lastName : e.studentId}</td>
       <td style="max-width:180px;font-size:12px">${c ? c.name : e.courseId}</td>
       <td>${fmtDate(e.enrolledDate)}</td>
-      <td><span class="enroll-status enroll-active">Active</span></td>
+      <td><span class="enroll-status enroll-active">Aktif</span></td>
     </tr>`;
   }).join('');
 
@@ -2880,7 +2880,7 @@ function renderAdminCourses() {
       <td style="text-align:center">${enrolled}/${c.maxStudents}</td>
       <td><div class="action-btns">
         <button class="btn-edit btn-sm" onclick="openCourseModal('${c.id}')">Edit</button>
-        <button class="btn-danger btn-sm" onclick="deleteCourse('${c.id}')">Delete</button>
+        <button class="btn-danger btn-sm" onclick="deleteCourse('${c.id}')">Padam</button>
       </div></td>
     </tr>`;
   }).join('');
@@ -2889,7 +2889,7 @@ function renderAdminCourses() {
 function openCourseModal(courseId) {
   const modal = document.getElementById('courseModal');
   const isEdit = !!courseId;
-  document.getElementById('courseModalTitle').textContent = isEdit ? 'Edit Course' : 'Create New Course';
+  document.getElementById('courseModalTitle').textContent = isEdit ? 'Edit Kursus' : 'Buat Kursus Baharu';
   document.getElementById('editCourseId').value = courseId || '';
   if (isEdit) {
     const c = courseById(courseId);
@@ -2924,7 +2924,7 @@ function closeCourseModal() {
 function saveCourse() {
   const courseId = document.getElementById('editCourseId').value;
   const name = document.getElementById('mCourseName').value.trim();
-  if (!name) { showToast('Course name is required'); return; }
+  if (!name) { showToast('Nama kursus diperlukan'); return; }
   const courses = getCourses();
   const ns = document.getElementById('mNextSession').value;
   const obj = {
@@ -2955,15 +2955,15 @@ function saveCourse() {
   closeCourseModal();
   renderAdminCourses();
   renderSidebar();
-  showToast(courseId ? 'Course updated!' : 'Course created!');
+  showToast(courseId ? 'Kursus dikemaskini!' : 'Kursus dicipta!');
 }
 function deleteCourse(courseId) {
-  if (!confirm('Delete this course? This cannot be undone.')) return;
+  if (!confirm('Padam kursus ini? Tindakan ini tidak boleh dibatalkan.')) return;
   const courses = getCourses().filter(c => c.id !== courseId);
   DB.set('courses', courses);
   renderAdminCourses();
   renderSidebar();
-  showToast('Course deleted.');
+  showToast('Kursus dipadam.');
 }
 
 // ════════════════════════════════
@@ -2972,7 +2972,7 @@ function deleteCourse(courseId) {
 function renderAdminStudents() {
   const courses = getCourses();
   const filterSel = document.getElementById('adminStudentFilter');
-  filterSel.innerHTML = '<option value="">All Courses</option>' + courses.map(c => `<option value="${c.id}">${c.name.slice(0,50)}</option>`).join('');
+  filterSel.innerHTML = '<option value="">Semua Kursus</option>' + courses.map(c => `<option value="${c.id}">${c.name.slice(0,50)}</option>`).join('');
 
   const filterCourse = filterSel.value;
   const enrollments = getEnrollments();
@@ -2984,12 +2984,12 @@ function renderAdminStudents() {
 
   const el = document.getElementById('adminStudentsList');
   if (!relevant.length) {
-    el.innerHTML = '<p class="text-muted text-center" style="padding:20px">No students found.</p>';
+    el.innerHTML = '<p class="text-muted text-center" style="padding:20px">Tiada pelajar ditemui.</p>';
     return;
   }
 
   el.innerHTML = `<table class="data-table"><thead>
-    <tr><th>#</th><th>Student</th><th>Email</th><th>Course</th><th>Progress</th><th>Enrolled</th><th>Attendance</th></tr>
+    <tr><th>#</th><th>Pelajar</th><th>E-mel</th><th>Kursus</th><th>Kemajuan</th><th>Tarikh Daftar</th><th>Kehadiran</th></tr>
   </thead><tbody>` + relevant.map((e, i) => {
     const s = studentById(e.studentId);
     const c = courseById(e.courseId);
@@ -3005,7 +3005,7 @@ function renderAdminStudents() {
         <div class="progress-bar-wrap"><div class="progress-bar-fill" style="width:${e.progress}%"></div></div>
       </td>
       <td style="font-size:12px">${fmtDate(e.enrolledDate)}</td>
-      <td style="font-size:12px">${attended}/${total} sessions</td>
+      <td style="font-size:12px">${attended}/${total} sesi</td>
     </tr>`;
   }).join('') + '</tbody></table>';
 }
@@ -3016,7 +3016,7 @@ function renderAdminStudents() {
 function renderAttendanceSelects() {
   const sel = document.getElementById('attendanceCourseFilter');
   const courses = getCourses();
-  sel.innerHTML = '<option value="">Select a course...</option>' + courses.map(c => `<option value="${c.id}">${c.name.slice(0,55)}</option>`).join('');
+  sel.innerHTML = '<option value="">Pilih kursus...</option>' + courses.map(c => `<option value="${c.id}">${c.name.slice(0,55)}</option>`).join('');
   document.getElementById('attendanceContent').innerHTML = '';
 }
 function renderAttendance() {
@@ -3024,9 +3024,9 @@ function renderAttendance() {
   const el = document.getElementById('attendanceContent');
   if (!courseId) { el.innerHTML = ''; return; }
   const enrollments = getEnrollments().filter(e => e.courseId === courseId);
-  if (!enrollments.length) { el.innerHTML = '<p class="text-muted" style="padding:20px">No enrolled students.</p>'; return; }
+  if (!enrollments.length) { el.innerHTML = '<p class="text-muted" style="padding:20px">Tiada pelajar berdaftar.</p>'; return; }
   const maxSessions = Math.max(...enrollments.map(e => (e.attendance || []).length), 5);
-  const sessions = Array.from({length: maxSessions}, (_, i) => `Session ${i+1}`);
+  const sessions = Array.from({length: maxSessions}, (_, i) => `Sesi ${i+1}`);
 
   el.innerHTML = `<table class="data-table attendance-tbl"><thead>
     <tr><th>Student</th>${sessions.map(s=>`<th style="text-align:center;font-size:11px">${s}</th>`).join('')}</tr>
@@ -3082,13 +3082,13 @@ function recordTestScore() {
   const courseId = document.getElementById('testCourseSel').value;
   const score = parseInt(document.getElementById('testScore').value);
   const date = document.getElementById('testDate').value;
-  if (isNaN(score) || score < 0 || score > 100) { showToast('Enter a valid score (0-100)'); return; }
+  if (isNaN(score) || score < 0 || score > 100) { showToast('Masukkan markah yang sah (0-100)'); return; }
   const tests = getTests();
   tests.push({ id: 't' + Date.now(), studentId, courseId, score, date });
   DB.set('tests', tests);
   renderAdminTestsTable();
   document.getElementById('testScore').value = '';
-  showToast('Score recorded!');
+  showToast('Markah direkodkan!');
 }
 
 // ════════════════════════════════
@@ -3104,15 +3104,15 @@ function renderAccreditation() {
 
   const tbody = document.getElementById('accreditationBody');
   if (!reqs.length) {
-    tbody.innerHTML = '<tr><td colspan="6" class="text-center text-muted" style="padding:20px">No test requests yet.</td></tr>';
+    tbody.innerHTML = '<tr><td colspan="6" class="text-center text-muted" style="padding:20px">Tiada permohonan ujian lagi.</td></tr>';
     return;
   }
   tbody.innerHTML = reqs.map(r => {
     const s = studentById(r.studentId);
     const c = courseById(r.courseId);
-    const badge = r.status === 'Approved' ? '<span class="score-badge score-pass">Approved</span>' :
-                  r.status === 'Rejected' ? '<span class="score-badge score-fail">Rejected</span>' :
-                  '<span class="score-badge score-pending">Pending</span>';
+    const badge = r.status === 'Approved' ? '<span class="score-badge score-pass">Diluluskan</span>' :
+                  r.status === 'Rejected' ? '<span class="score-badge score-fail">Ditolak</span>' :
+                  '<span class="score-badge score-pending">Menunggu</span>';
     return `<tr>
       <td style="font-weight:600">${s ? s.firstName+' '+s.lastName : r.studentId}</td>
       <td style="font-size:12px;max-width:140px">${c ? c.name.slice(0,40)+'...' : r.courseId}</td>
@@ -3120,8 +3120,8 @@ function renderAccreditation() {
       <td style="font-size:12px">${r.level}</td>
       <td>${badge}</td>
       <td><div class="action-btns">
-        <button class="btn-edit btn-sm" onclick="updateReqStatus('${r.id}','Approved')">Approve</button>
-        <button class="btn-danger btn-sm" onclick="updateReqStatus('${r.id}','Rejected')">Reject</button>
+        <button class="btn-edit btn-sm" onclick="updateReqStatus('${r.id}','Approved')">Lulus</button>
+        <button class="btn-danger btn-sm" onclick="updateReqStatus('${r.id}','Rejected')">Tolak</button>
       </div></td>
     </tr>`;
   }).join('');
@@ -3129,7 +3129,7 @@ function renderAccreditation() {
 function updateReqStatus(reqId, status) {
   const reqs = getTestRequests();
   const r = reqs.find(x => x.id === reqId);
-  if (r) { r.status = status; DB.set('testRequests', reqs); renderAccreditation(); showToast(`Request ${status.toLowerCase()}!`); }
+  if (r) { r.status = status; DB.set('testRequests', reqs); renderAccreditation(); showToast(`Permohonan ${status === 'Approved' ? 'diluluskan' : 'ditolak'}!`); }
 }
 
 // ════════════════════════════════
@@ -3155,7 +3155,7 @@ function logout() {
   document.getElementById('loginUsername').value = '';
   document.getElementById('loginPassword').value = '';
   showLogin();
-  showToast('Logged out successfully');
+  showToast('Berjaya log keluar');
 }
 
 // ════════════════════════════════
@@ -3240,10 +3240,10 @@ function doLogin() {
   const errEl = document.getElementById('loginError');
   errEl.classList.remove('visible');
 
-  if (!username || !password) { errEl.textContent = 'Please enter your username and password.'; errEl.classList.add('visible'); return; }
+  if (!username || !password) { errEl.textContent = 'Sila masukkan nama pengguna dan kata laluan anda.'; errEl.classList.add('visible'); return; }
 
   const result = validateLogin(username, password);
-  if (!result) { errEl.textContent = 'Incorrect username or password. Please try again.'; errEl.classList.add('visible'); document.getElementById('loginPassword').value = ''; return; }
+  if (!result) { errEl.textContent = 'Nama pengguna atau kata laluan salah. Sila cuba lagi.'; errEl.classList.add('visible'); document.getElementById('loginPassword').value = ''; return; }
 
   setSession(result.role, result.userId, remember);
   enterApp(result.role, result.userId);
@@ -3264,21 +3264,21 @@ function registerStudent() {
 
   // Validation
   if (!firstName || !lastName || !username || !email || !password || !confirm || !phone || !location) {
-    errEl.textContent = 'All fields are required.'; errEl.classList.add('visible'); return;
+    errEl.textContent = 'Semua medan diperlukan.'; errEl.classList.add('visible'); return;
   }
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-    errEl.textContent = 'Please enter a valid email address.'; errEl.classList.add('visible'); return;
+    errEl.textContent = 'Sila masukkan alamat e-mel yang sah.'; errEl.classList.add('visible'); return;
   }
   if (password.length < 6) {
-    errEl.textContent = 'Password must be at least 6 characters.'; errEl.classList.add('visible'); return;
+    errEl.textContent = 'Kata laluan mestilah sekurang-kurangnya 6 aksara.'; errEl.classList.add('visible'); return;
   }
   if (password !== confirm) {
-    errEl.textContent = 'Passwords do not match.'; errEl.classList.add('visible'); return;
+    errEl.textContent = 'Kata laluan tidak sepadan.'; errEl.classList.add('visible'); return;
   }
   const existing = getStudents().find(s => s.username && s.username.toLowerCase() === username);
   const admin = DB.get('admin');
   if (existing || (admin && admin.username === username)) {
-    errEl.textContent = 'That username is already taken. Please choose another.'; errEl.classList.add('visible'); return;
+    errEl.textContent = 'Nama pengguna telah digunakan. Sila pilih yang lain.'; errEl.classList.add('visible'); return;
   }
 
   // Create new student
@@ -3296,7 +3296,7 @@ function registerStudent() {
   DB.set('students', students);
 
   setSession('student', newStudent.id, false);
-  showToast('Account created! Welcome, ' + firstName + '!');
+  showToast('Akaun berjaya dicipta! Selamat datang, ' + firstName + '!');
   enterApp('student', newStudent.id);
 }
 
@@ -3327,10 +3327,10 @@ function getNotifications() { return DB.get('notifications') || []; }
 function seedNotifications() {
   if (DB.get('notifSeeded')) return;
   DB.set('notifications', [
-    { id: 'n1', title: 'New session scheduled', body: 'Your Brussels course has a new session on Saturday.', time: '2h ago', read: false },
-    { id: 'n2', title: 'Test result available', body: 'Your score for Course No. 3930 has been recorded.', time: '1d ago', read: false },
-    { id: 'n3', title: 'Enrollment confirmed', body: 'You are now enrolled in Noorani Qaida Indonesia.', time: '3d ago', read: true },
-    { id: 'n4', title: 'Test request approved', body: 'Your Nooraniyah test request has been approved.', time: '5d ago', read: true },
+    { id: 'n1', title: 'Sesi baharu dijadualkan', body: 'Kursus Brussels anda mempunyai sesi baharu pada hari Sabtu.', time: '2j lalu', read: false },
+    { id: 'n2', title: 'Keputusan ujian tersedia', body: 'Markah anda untuk No. Kursus 3930 telah direkodkan.', time: '1h lalu', read: false },
+    { id: 'n3', title: 'Pendaftaran disahkan', body: 'Anda kini telah didaftarkan dalam Noorani Qaida Indonesia.', time: '3h lalu', read: true },
+    { id: 'n4', title: 'Permohonan ujian diluluskan', body: 'Permohonan ujian Nooraniyah anda telah diluluskan.', time: '5h lalu', read: true },
   ]);
   DB.set('notifSeeded', true);
 }
@@ -3343,7 +3343,7 @@ function renderNotifications() {
   badge.style.display = unread ? 'flex' : 'none';
   const list = document.getElementById('notifList');
   if (!notifs.length) {
-    list.innerHTML = '<div class="notif-empty">No notifications</div>';
+    list.innerHTML = '<div class="notif-empty">Tiada pemberitahuan</div>';
     return;
   }
   list.innerHTML = notifs.map(n => `
@@ -3422,8 +3422,8 @@ function submitReview() {
   const uid = getCurrentUserId();
   const courseId = document.getElementById('reviewCourseSel').value;
   const text = document.getElementById('reviewText').value.trim();
-  if (!currentRating) { showToast('Please select a star rating'); return; }
-  if (!text) { showToast('Please write a review'); return; }
+  if (!currentRating) { showToast('Sila pilih penilaian bintang'); return; }
+  if (!text) { showToast('Sila tulis ulasan'); return; }
   const reviews = getReviews();
   reviews.unshift({ id: 'rv' + Date.now(), studentId: uid, courseId, rating: currentRating, text, date: new Date().toISOString().slice(0,10) });
   DB.set('reviews', reviews);
@@ -3431,14 +3431,14 @@ function submitReview() {
   currentRating = 0;
   updateStarDisplay(0);
   renderReviewsList();
-  showToast('Review submitted!');
+  showToast('Ulasan dihantar!');
 }
 
 function renderReviewsList() {
   const reviews = getReviews();
   const el = document.getElementById('reviewsList');
   if (!reviews.length) {
-    el.innerHTML = '<p class="text-muted text-center" style="padding:20px">No reviews yet. Be the first!</p>';
+    el.innerHTML = '<p class="text-muted text-center" style="padding:20px">Tiada ulasan lagi. Jadilah yang pertama!</p>';
     return;
   }
   el.innerHTML = reviews.map(r => {
@@ -3490,8 +3490,8 @@ function renderCalendar() {
     eventMap[key].push(c);
   });
 
-  const monthNames = ['January','February','March','April','May','June','July','August','September','October','November','December'];
-  const dayNames = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+  const monthNames = ['Januari','Februari','Mac','April','Mei','Jun','Julai','Ogos','September','Oktober','November','Disember'];
+  const dayNames = ['Ahd','Isn','Sel','Rab','Kha','Jum','Sab'];
   const today = new Date();
   const todayKey = today.toISOString().slice(0,10);
 
@@ -3538,7 +3538,7 @@ function renderCalendar() {
 
   const evList = document.getElementById('calendarEventList');
   if (!allEvents.length) {
-    evList.innerHTML = '<p class="text-muted" style="padding:10px 0">No sessions scheduled this month.</p>';
+    evList.innerHTML = '<p class="text-muted" style="padding:10px 0">Tiada sesi dijadualkan bulan ini.</p>';
     return;
   }
   evList.innerHTML = allEvents.map(e => `
@@ -3571,11 +3571,11 @@ function openCertificate(studentId, courseId) {
   const c = courseById(courseId);
   const tests = getTests().filter(t => t.studentId === studentId && t.courseId === courseId);
   const best = tests.length ? Math.max(...tests.map(t => t.score)) : null;
-  if (!best || best < 70) { showToast('Student must pass (≥70%) to generate certificate'); return; }
+  if (!best || best < 70) { showToast('Pelajar mesti lulus (≥70%) untuk menjana sijil'); return; }
   document.getElementById('certStudentName').textContent = s ? s.firstName + ' ' + s.lastName : studentId;
   document.getElementById('certCourseName').textContent = c ? c.name : courseId;
-  document.getElementById('certDetails').textContent = `with a score of ${best}%, demonstrating proficiency in Quranic recitation according to the ${c ? c.classification : ''} narration method.`;
-  document.getElementById('certDate').textContent = `Issued on ${new Date().toLocaleDateString('en-GB', {day:'2-digit',month:'long',year:'numeric'})} · Course No. ${c && c.courseNo ? c.courseNo : ''}`;
+  document.getElementById('certDetails').textContent = `dengan markah ${best}%, menunjukkan kecekapan dalam bacaan Al-Quran mengikut kaedah riwayat ${c ? c.classification : ''}.`;
+  document.getElementById('certDate').textContent = `Dikeluarkan pada ${new Date().toLocaleDateString('ms-MY', {day:'2-digit',month:'long',year:'numeric'})} · No. Kursus: ${c && c.courseNo ? c.courseNo : ''}`;
   document.getElementById('certModal').classList.add('open');
 }
 
@@ -3605,11 +3605,11 @@ function renderProgressEditor() {
   const enrollments = getEnrollments().filter(e => e.studentId === uid);
   const el = document.getElementById('progressEditorContent');
   if (!enrollments.length) {
-    el.innerHTML = '<p class="text-muted" style="padding:10px">No enrollments for this student.</p>';
+    el.innerHTML = '<p class="text-muted" style="padding:10px">Tiada pendaftaran untuk pelajar ini.</p>';
     return;
   }
   el.innerHTML = `<table class="data-table">
-    <thead><tr><th>Course</th><th>Current Progress</th><th>Edit Progress</th><th>Certificate</th></tr></thead>
+    <thead><tr><th>Kursus</th><th>Kemajuan Semasa</th><th>Edit Kemajuan</th><th>Sijil</th></tr></thead>
     <tbody>` + enrollments.map(e => {
     const c = courseById(e.courseId);
     return `<tr>
@@ -3621,11 +3621,11 @@ function renderProgressEditor() {
       <td>
         <div class="progress-editor">
           <input type="number" class="progress-input" id="pi_${e.id}" value="${e.progress}" min="0" max="100">
-          <button class="btn-save-progress" onclick="saveProgress('${e.id}')">Save</button>
+          <button class="btn-save-progress" onclick="saveProgress('${e.id}')">Simpan</button>
         </div>
       </td>
       <td>
-        <button class="btn-edit btn-sm" onclick="openCertificate('${uid}','${e.courseId}')">🎓 Certificate</button>
+        <button class="btn-edit btn-sm" onclick="openCertificate('${uid}','${e.courseId}')">🎓 Sijil</button>
       </td>
     </tr>`;
   }).join('') + '</tbody></table>';
@@ -3633,14 +3633,14 @@ function renderProgressEditor() {
 
 function saveProgress(enrollId) {
   const val = parseInt(document.getElementById('pi_' + enrollId).value);
-  if (isNaN(val) || val < 0 || val > 100) { showToast('Enter 0–100'); return; }
+  if (isNaN(val) || val < 0 || val > 100) { showToast('Masukkan 0–100'); return; }
   const enrollments = getEnrollments();
   const e = enrollments.find(x => x.id === enrollId);
   if (!e) return;
   e.progress = val;
   DB.set('enrollments', enrollments);
   renderProgressEditor();
-  showToast('Progress updated!');
+  showToast('Kemajuan dikemaskini!');
 }
 
 function exportStudentData() {
@@ -3660,7 +3660,7 @@ function exportStudentData() {
   a.href = URL.createObjectURL(blob);
   a.download = 'student_data_' + new Date().toISOString().slice(0,10) + '.csv';
   a.click();
-  showToast('CSV exported!');
+  showToast('CSV dieksport!');
 }
 
 // ════════════════════════════════
@@ -3681,10 +3681,10 @@ function openBillplzSettings() {
 function saveBillplzSettings() {
   const apiKey = document.getElementById('bpApiKey').value.trim();
   const collectionId = document.getElementById('bpCollectionId').value.trim();
-  if (!apiKey || !collectionId) { showToast('Both Worker URL and Collection ID are required'); return; }
+  if (!apiKey || !collectionId) { showToast('URL Worker dan ID Koleksi diperlukan'); return; }
   DB.set('billplzSettings', { apiKey, collectionId });
   document.getElementById('billplzSettingsModal').classList.remove('open');
-  showToast('Billplz settings saved!');
+  showToast('Tetapan Billplz disimpan!');
 }
 
 async function testBillplzConnection() {
@@ -3695,13 +3695,13 @@ async function testBillplzConnection() {
   if (!workerUrl || !collectionId) {
     resultEl.style.display = 'block';
     resultEl.style.background = '#fef3c7'; resultEl.style.color = '#92400e';
-    resultEl.textContent = '⚠ Please enter both Worker URL and Collection ID first.';
+    resultEl.textContent = '⚠ Sila masukkan URL Worker dan ID Koleksi terlebih dahulu.';
     return;
   }
 
   resultEl.style.display = 'block';
   resultEl.style.background = '#f0f2f8'; resultEl.style.color = '#1a237e';
-  resultEl.textContent = '⏳ Testing connection via Worker…';
+  resultEl.textContent = '⏳ Menguji sambungan melalui Worker…';
 
   try {
     const resp = await fetch(`${workerUrl}/collections/${collectionId}`);
@@ -3709,22 +3709,22 @@ async function testBillplzConnection() {
 
     if (resp.ok) {
       resultEl.style.background = '#dcfce7'; resultEl.style.color = '#166534';
-      resultEl.innerHTML = `✅ <strong>Connection successful!</strong><br>
-        Collection: <strong>${data.title || collectionId}</strong><br>
-        Status: ${data.status || 'Active'} · Currency: ${data.primary_currency || 'MYR'}`;
+      resultEl.innerHTML = `✅ <strong>Sambungan berjaya!</strong><br>
+        Koleksi: <strong>${data.title || collectionId}</strong><br>
+        Status: ${data.status || 'Aktif'} · Mata Wang: ${data.primary_currency || 'MYR'}`;
     } else if (resp.status === 401) {
       resultEl.style.background = '#fee2e2'; resultEl.style.color = '#991b1b';
-      resultEl.textContent = '❌ Invalid API Key in Worker — check BILLPLZ_API_KEY secret.';
+      resultEl.textContent = '❌ Kunci API tidak sah dalam Worker — semak rahsia BILLPLZ_API_KEY.';
     } else if (resp.status === 404) {
       resultEl.style.background = '#fee2e2'; resultEl.style.color = '#991b1b';
-      resultEl.textContent = '❌ Collection ID not found. Please check your Collection ID.';
+      resultEl.textContent = '❌ ID Koleksi tidak dijumpai. Sila semak ID Koleksi anda.';
     } else {
       resultEl.style.background = '#fee2e2'; resultEl.style.color = '#991b1b';
-      resultEl.textContent = `❌ Error ${resp.status}: ${data.error ? JSON.stringify(data.error) : 'Unknown error'}`;
+      resultEl.textContent = `❌ Ralat ${resp.status}: ${data.error ? JSON.stringify(data.error) : 'Ralat tidak diketahui'}`;
     }
   } catch (e) {
     resultEl.style.background = '#fef3c7'; resultEl.style.color = '#92400e';
-    resultEl.textContent = '⚠ Could not reach Worker URL. Make sure it is deployed and the URL is correct.';
+    resultEl.textContent = '⚠ Tidak dapat menghubungi URL Worker. Pastikan ia telah diterbitkan dan URL adalah betul.';
   }
 }
 
@@ -3756,7 +3756,7 @@ function renderCentreStudents() {
   const enrollments = getEnrollments();
   const tbody = document.getElementById('centreStudentsBody');
   if (!tbody) return;
-  if (!students.length) { tbody.innerHTML = '<tr><td colspan="8" class="text-center text-muted" style="padding:20px">No students yet.</td></tr>'; return; }
+  if (!students.length) { tbody.innerHTML = '<tr><td colspan="8" class="text-center text-muted" style="padding:20px">Tiada pelajar lagi.</td></tr>'; return; }
   tbody.innerHTML = students.map((s, i) => {
     const enrolled = enrollments.filter(e => e.studentId === s.id).length;
     return `<tr>
@@ -3766,7 +3766,7 @@ function renderCentreStudents() {
       <td style="font-size:12px">${s.email}</td>
       <td style="font-size:12px">${s.phone}</td>
       <td style="font-size:12px">${s.location}</td>
-      <td style="text-align:center">${enrolled} course${enrolled!==1?'s':''}</td>
+      <td style="text-align:center">${enrolled} kursus</td>
       <td><div class="action-btns">
         <button class="btn-edit btn-sm" onclick="openStudentModal('${s.id}')">✏️ Edit</button>
         <button class="btn-danger btn-sm" onclick="deleteStudent('${s.id}')">🗑</button>
@@ -3778,35 +3778,35 @@ function renderCentreStudents() {
 function openStudentModal(studentId) {
   const isEdit = !!studentId;
   const s = isEdit ? studentById(studentId) : null;
-  document.getElementById('adminModalTitle').textContent = isEdit ? '✏️ Edit Student' : '+ Add Student';
+  document.getElementById('adminModalTitle').textContent = isEdit ? '✏️ Edit Pelajar' : '+ Tambah Pelajar';
   document.getElementById('adminEditModal').classList.add('open');
   document.getElementById('adminModalBody').innerHTML = `
     <input type="hidden" id="editStudentId" value="${studentId || ''}">
     <div class="form-row">
-      <div class="form-group"><label>First Name</label><input type="text" id="sFirstName" class="form-group input" style="width:100%;border:1px solid #d1d5db;border-radius:5px;padding:8px 11px;font-size:13px" value="${s ? s.firstName : ''}"></div>
-      <div class="form-group"><label>Last Name</label><input type="text" id="sLastName" style="width:100%;border:1px solid #d1d5db;border-radius:5px;padding:8px 11px;font-size:13px" value="${s ? s.lastName : ''}"></div>
+      <div class="form-group"><label>Nama Pertama</label><input type="text" id="sFirstName" class="form-group input" style="width:100%;border:1px solid #d1d5db;border-radius:5px;padding:8px 11px;font-size:13px" value="${s ? s.firstName : ''}"></div>
+      <div class="form-group"><label>Nama Akhir</label><input type="text" id="sLastName" style="width:100%;border:1px solid #d1d5db;border-radius:5px;padding:8px 11px;font-size:13px" value="${s ? s.lastName : ''}"></div>
     </div>
     <div class="form-row">
-      <div class="form-group"><label>Username</label><input type="text" id="sUsername" style="width:100%;border:1px solid #d1d5db;border-radius:5px;padding:8px 11px;font-size:13px" value="${s ? s.username : ''}" ${isEdit?'readonly style="width:100%;border:1px solid #d1d5db;border-radius:5px;padding:8px 11px;font-size:13px;background:#f0f2f8"':''}></div>
-      <div class="form-group"><label>Email</label><input type="email" id="sEmail" style="width:100%;border:1px solid #d1d5db;border-radius:5px;padding:8px 11px;font-size:13px" value="${s ? s.email : ''}"></div>
+      <div class="form-group"><label>Nama Pengguna</label><input type="text" id="sUsername" style="width:100%;border:1px solid #d1d5db;border-radius:5px;padding:8px 11px;font-size:13px" value="${s ? s.username : ''}" ${isEdit?'readonly style="width:100%;border:1px solid #d1d5db;border-radius:5px;padding:8px 11px;font-size:13px;background:#f0f2f8"':''}></div>
+      <div class="form-group"><label>E-mel</label><input type="email" id="sEmail" style="width:100%;border:1px solid #d1d5db;border-radius:5px;padding:8px 11px;font-size:13px" value="${s ? s.email : ''}"></div>
     </div>
     <div class="form-row">
-      <div class="form-group"><label>Phone</label><input type="text" id="sPhone" style="width:100%;border:1px solid #d1d5db;border-radius:5px;padding:8px 11px;font-size:13px" value="${s ? s.phone : ''}"></div>
-      <div class="form-group"><label>City / Country</label><input type="text" id="sLocation" style="width:100%;border:1px solid #d1d5db;border-radius:5px;padding:8px 11px;font-size:13px" value="${s ? s.location : ''}"></div>
+      <div class="form-group"><label>Telefon</label><input type="text" id="sPhone" style="width:100%;border:1px solid #d1d5db;border-radius:5px;padding:8px 11px;font-size:13px" value="${s ? s.phone : ''}"></div>
+      <div class="form-group"><label>Bandar / Negara</label><input type="text" id="sLocation" style="width:100%;border:1px solid #d1d5db;border-radius:5px;padding:8px 11px;font-size:13px" value="${s ? s.location : ''}"></div>
     </div>
     <div class="form-group">
-      <label>Classification</label>
+      <label>Klasifikasi</label>
       <select id="sClassification" style="width:100%;border:1px solid #d1d5db;border-radius:5px;padding:8px 11px;font-size:13px">
         <option ${s&&s.classification==='Hafs On The Authority Of Asim'?'selected':''}>Hafs On The Authority Of Asim</option>
         <option ${s&&s.classification==='Warsh On The Authority Of Nafi'?'selected':''}>Warsh On The Authority Of Nafi</option>
         <option ${s&&s.classification==='Qaloon On The Authority Of Nafi'?'selected':''}>Qaloon On The Authority Of Nafi</option>
       </select>
     </div>
-    ${!isEdit ? `<div class="form-group"><label>Password</label><input type="password" id="sPassword" style="width:100%;border:1px solid #d1d5db;border-radius:5px;padding:8px 11px;font-size:13px" placeholder="Min. 6 characters"></div>` : ''}
+    ${!isEdit ? `<div class="form-group"><label>Kata Laluan</label><input type="password" id="sPassword" style="width:100%;border:1px solid #d1d5db;border-radius:5px;padding:8px 11px;font-size:13px" placeholder="Min. 6 aksara"></div>` : ''}
     <div id="studentModalError" style="color:var(--danger);font-size:12px;margin-bottom:8px;display:none"></div>
     <div style="display:flex;gap:10px;margin-top:6px">
-      <button class="btn-orange" onclick="saveStudent()">Save Student</button>
-      <button class="btn-primary" onclick="closeAdminModal()">Cancel</button>
+      <button class="btn-orange" onclick="saveStudent()">Simpan Pelajar</button>
+      <button class="btn-primary" onclick="closeAdminModal()">Batal</button>
     </div>`;
 }
 
@@ -3823,14 +3823,14 @@ function saveStudent() {
   const errEl     = document.getElementById('studentModalError');
   errEl.style.display = 'none';
 
-  if (!firstName || !lastName || !email) { errEl.textContent = 'First name, last name and email are required.'; errEl.style.display='block'; return; }
+  if (!firstName || !lastName || !email) { errEl.textContent = 'Nama pertama, nama akhir dan e-mel diperlukan.'; errEl.style.display='block'; return; }
 
   const students = getStudents();
   if (!isEdit) {
     const pw = document.getElementById('sPassword').value;
-    if (!username) { errEl.textContent = 'Username is required.'; errEl.style.display='block'; return; }
-    if (pw.length < 6) { errEl.textContent = 'Password must be at least 6 characters.'; errEl.style.display='block'; return; }
-    if (students.find(s => s.username === username)) { errEl.textContent = 'Username already taken.'; errEl.style.display='block'; return; }
+    if (!username) { errEl.textContent = 'Nama pengguna diperlukan.'; errEl.style.display='block'; return; }
+    if (pw.length < 6) { errEl.textContent = 'Kata laluan mesti sekurang-kurangnya 6 aksara.'; errEl.style.display='block'; return; }
+    if (students.find(s => s.username === username)) { errEl.textContent = 'Nama pengguna sudah digunakan.'; errEl.style.display='block'; return; }
     const avatars = ['🧑','👩','🧔','👨','👱','🧕'];
     students.push({ id:'s'+Date.now(), firstName, lastName, email, phone, location, classification:cls, avatar:avatars[students.length%avatars.length], username, passwordHash:hashPassword(username,pw) });
   } else {
@@ -3841,11 +3841,11 @@ function saveStudent() {
   closeAdminModal();
   renderCentreStudents();
   renderSidebar();
-  showToast(isEdit ? 'Student updated!' : 'Student added!');
+  showToast(isEdit ? 'Pelajar dikemaskini!' : 'Pelajar ditambah!');
 }
 
 function deleteStudent(studentId) {
-  if (!confirm('Delete this student and all their enrollment records?')) return;
+  if (!confirm('Padam pelajar ini dan semua rekod pendaftaran mereka?')) return;
   DB.set('students', getStudents().filter(s => s.id !== studentId));
   DB.set('enrollments', getEnrollments().filter(e => e.studentId !== studentId));
   DB.set('tests', getTests().filter(t => t.studentId !== studentId));
@@ -3853,7 +3853,7 @@ function deleteStudent(studentId) {
   DB.set('payments', getPayments().filter(p => p.studentId !== studentId));
   renderCentreStudents();
   renderSidebar();
-  showToast('Student deleted.');
+  showToast('Pelajar dipadam.');
 }
 
 // ════════════════════════════════
@@ -3864,12 +3864,12 @@ function renderCentreAssignments() {
   if (!sel) return;
   const courses = getCourses();
   const cur = sel.value;
-  sel.innerHTML = '<option value="">All Courses</option>' + courses.map(c => `<option value="${c.id}" ${c.id===cur?'selected':''}>${c.name.slice(0,50)}</option>`).join('');
+  sel.innerHTML = '<option value="">Semua Kursus</option>' + courses.map(c => `<option value="${c.id}" ${c.id===cur?'selected':''}>${c.name.slice(0,50)}</option>`).join('');
   const assignments = getAssignments().filter(a => !cur || a.courseId === cur);
   const submissions = getSubmissions();
   const tbody = document.getElementById('centreAssignmentsBody');
   if (!tbody) return;
-  if (!assignments.length) { tbody.innerHTML = '<tr><td colspan="7" class="text-center text-muted" style="padding:20px">No assignments yet.</td></tr>'; return; }
+  if (!assignments.length) { tbody.innerHTML = '<tr><td colspan="7" class="text-center text-muted" style="padding:20px">Tiada tugasan lagi.</td></tr>'; return; }
   tbody.innerHTML = assignments.map((a, i) => {
     const c = courseById(a.courseId);
     const subCount = submissions.filter(s => s.assignmentId === a.id).length;
@@ -3880,7 +3880,7 @@ function renderCentreAssignments() {
       <td style="font-size:12px">${c ? c.name.slice(0,35)+'…' : a.courseId} ${levelBadge(c&&c.level)}</td>
       <td style="font-size:12px">${fmtDate(a.dueDate)}</td>
       <td style="text-align:center">${a.maxScore}</td>
-      <td style="font-size:12px">${gradedCount}/${subCount} graded</td>
+      <td style="font-size:12px">${gradedCount}/${subCount} dinilai</td>
       <td><div class="action-btns">
         <button class="btn-edit btn-sm" onclick="openAssignmentModal('${a.id}')">✏️ Edit</button>
         <button class="btn-danger btn-sm" onclick="deleteAssignment('${a.id}')">🗑</button>
@@ -3893,32 +3893,32 @@ function openAssignmentModal(assignId) {
   const isEdit = !!assignId;
   const a = isEdit ? getAssignments().find(x => x.id === assignId) : null;
   const courses = getCourses();
-  document.getElementById('adminModalTitle').textContent = isEdit ? '✏️ Edit Assignment' : '+ Add Assignment';
+  document.getElementById('adminModalTitle').textContent = isEdit ? '✏️ Edit Tugasan' : '+ Tambah Tugasan';
   document.getElementById('adminEditModal').classList.add('open');
   document.getElementById('adminModalBody').innerHTML = `
     <input type="hidden" id="editAssignId" value="${assignId || ''}">
-    <div class="form-group"><label>Assignment Title</label><input type="text" id="aTitle" style="width:100%;border:1px solid #d1d5db;border-radius:5px;padding:8px 11px;font-size:13px" value="${a ? a.title : ''}"></div>
+    <div class="form-group"><label>Tajuk Tugasan</label><input type="text" id="aTitle" style="width:100%;border:1px solid #d1d5db;border-radius:5px;padding:8px 11px;font-size:13px" value="${a ? a.title : ''}"></div>
     <div class="form-row">
       <div class="form-group">
-        <label>Course</label>
+        <label>Kursus</label>
         <select id="aCourse" style="width:100%;border:1px solid #d1d5db;border-radius:5px;padding:8px 11px;font-size:13px">
           ${courses.map(c => `<option value="${c.id}" ${a&&a.courseId===c.id?'selected':''}>${c.name.slice(0,50)}</option>`).join('')}
         </select>
       </div>
-      <div class="form-group"><label>Due Date</label><input type="date" id="aDueDate" style="width:100%;border:1px solid #d1d5db;border-radius:5px;padding:8px 11px;font-size:13px" value="${a ? a.dueDate : ''}"></div>
+      <div class="form-group"><label>Tarikh Akhir</label><input type="date" id="aDueDate" style="width:100%;border:1px solid #d1d5db;border-radius:5px;padding:8px 11px;font-size:13px" value="${a ? a.dueDate : ''}"></div>
     </div>
-    <div class="form-group"><label>Max Score</label><input type="number" id="aMaxScore" style="width:120px;border:1px solid #d1d5db;border-radius:5px;padding:8px 11px;font-size:13px" value="${a ? a.maxScore : 100}" min="1" max="100"></div>
-    <div class="form-group"><label>Description / Instructions</label><textarea id="aDescription" rows="4" style="width:100%;border:1px solid #d1d5db;border-radius:5px;padding:8px 11px;font-size:13px">${a ? a.description : ''}</textarea></div>
+    <div class="form-group"><label>Markah Maksimum</label><input type="number" id="aMaxScore" style="width:120px;border:1px solid #d1d5db;border-radius:5px;padding:8px 11px;font-size:13px" value="${a ? a.maxScore : 100}" min="1" max="100"></div>
+    <div class="form-group"><label>Keterangan / Arahan</label><textarea id="aDescription" rows="4" style="width:100%;border:1px solid #d1d5db;border-radius:5px;padding:8px 11px;font-size:13px">${a ? a.description : ''}</textarea></div>
     <div style="display:flex;gap:10px;margin-top:6px">
-      <button class="btn-orange" onclick="saveAssignment()">Save Assignment</button>
-      <button class="btn-primary" onclick="closeAdminModal()">Cancel</button>
+      <button class="btn-orange" onclick="saveAssignment()">Simpan Tugasan</button>
+      <button class="btn-primary" onclick="closeAdminModal()">Batal</button>
     </div>`;
 }
 
 function saveAssignment() {
   const assignId = document.getElementById('editAssignId').value;
   const title = document.getElementById('aTitle').value.trim();
-  if (!title) { showToast('Title is required'); return; }
+  if (!title) { showToast('Tajuk diperlukan'); return; }
   const assignments = getAssignments();
   const obj = {
     id: assignId || 'a' + Date.now(),
@@ -3937,15 +3937,15 @@ function saveAssignment() {
   DB.set('assignments', assignments);
   closeAdminModal();
   renderCentreAssignments();
-  showToast(assignId ? 'Assignment updated!' : 'Assignment added!');
+  showToast(assignId ? 'Tugasan dikemaskini!' : 'Tugasan ditambah!');
 }
 
 function deleteAssignment(assignId) {
-  if (!confirm('Delete this assignment and all submissions?')) return;
+  if (!confirm('Padam tugasan ini dan semua penghantaran?')) return;
   DB.set('assignments', getAssignments().filter(a => a.id !== assignId));
   DB.set('submissions', getSubmissions().filter(s => s.assignmentId !== assignId));
   renderCentreAssignments();
-  showToast('Assignment deleted.');
+  showToast('Tugasan dipadam.');
 }
 
 // ════════════════════════════════
@@ -3956,15 +3956,15 @@ function renderCentrePayments() {
   if (!sel) return;
   const students = getStudents();
   const cur = sel.value;
-  sel.innerHTML = '<option value="">All Students</option>' + students.map(s => `<option value="${s.id}" ${s.id===cur?'selected':''}>${s.firstName} ${s.lastName}</option>`).join('');
+  sel.innerHTML = '<option value="">Semua Pelajar</option>' + students.map(s => `<option value="${s.id}" ${s.id===cur?'selected':''}>${s.firstName} ${s.lastName}</option>`).join('');
   const payments = getPayments().filter(p => !cur || p.studentId === cur);
   const tbody = document.getElementById('centrePaymentsBody');
   if (!tbody) return;
-  if (!payments.length) { tbody.innerHTML = '<tr><td colspan="9" class="text-center text-muted" style="padding:20px">No payment records yet.</td></tr>'; return; }
+  if (!payments.length) { tbody.innerHTML = '<tr><td colspan="9" class="text-center text-muted" style="padding:20px">Tiada rekod pembayaran lagi.</td></tr>'; return; }
   tbody.innerHTML = payments.map((p, i) => {
     const s = studentById(p.studentId);
     const c = courseById(p.courseId);
-    const badge = p.status==='Paid' ? '<span class="paid-badge">✓ Paid</span>' : p.status==='Pending' ? '<span class="pending-badge">⏳ Pending</span>' : '<span class="unpaid-badge">✗ Unpaid</span>';
+    const badge = p.status==='Paid' ? '<span class="paid-badge">✓ Dibayar</span>' : p.status==='Pending' ? '<span class="pending-badge">⏳ Menunggu</span>' : '<span class="unpaid-badge">✗ Belum Dibayar</span>';
     const billCell = p.billplzUrl
       ? `<a href="${p.billplzUrl}" target="_blank" class="billplz-link-badge" title="Open Billplz bill">🔗</a>`
       : `<span style="color:#d1d5db;font-size:12px">—</span>`;
@@ -3996,7 +3996,8 @@ function togglePaymentStatus(payId) {
   else p.paidDate = null;
   DB.set('payments', payments);
   renderCentrePayments();
-  showToast('Status updated to: ' + p.status);
+  const statusLabel = { 'Unpaid': 'Belum Bayar', 'Pending': 'Dalam Proses', 'Paid': 'Telah Bayar' };
+  showToast('Status dikemaskini kepada: ' + (statusLabel[p.status] || p.status));
 }
 
 function openPaymentModal(payId) {
@@ -4004,19 +4005,19 @@ function openPaymentModal(payId) {
   const p = isEdit ? getPayments().find(x => x.id === payId) : null;
   const students = getStudents();
   const courses = getCourses();
-  document.getElementById('adminModalTitle').textContent = isEdit ? '✏️ Edit Payment' : '+ Add Payment Record';
+  document.getElementById('adminModalTitle').textContent = isEdit ? '✏️ Edit Pembayaran' : '+ Tambah Rekod Pembayaran';
   document.getElementById('adminEditModal').classList.add('open');
   document.getElementById('adminModalBody').innerHTML = `
     <input type="hidden" id="editPayId" value="${payId || ''}">
     <div class="form-row">
       <div class="form-group">
-        <label>Student</label>
+        <label>Pelajar</label>
         <select id="pStudent" style="width:100%;border:1px solid #d1d5db;border-radius:5px;padding:8px 11px;font-size:13px">
           ${students.map(s => `<option value="${s.id}" ${p&&p.studentId===s.id?'selected':''}>${s.firstName} ${s.lastName}</option>`).join('')}
         </select>
       </div>
       <div class="form-group">
-        <label>Course</label>
+        <label>Kursus</label>
         <select id="pCourse" style="width:100%;border:1px solid #d1d5db;border-radius:5px;padding:8px 11px;font-size:13px">
           ${courses.map(c => `<option value="${c.id}" ${p&&p.courseId===c.id?'selected':''}>${c.name.slice(0,45)}</option>`).join('')}
         </select>
@@ -4024,24 +4025,24 @@ function openPaymentModal(payId) {
     </div>
     ${!isEdit ? `
     <div class="form-group">
-      <label>Payment Plan</label>
+      <label>Pelan Pembayaran</label>
       <select id="pPlan" onchange="toggleMonthlyInput()" style="width:100%;border:1px solid #d1d5db;border-radius:5px;padding:8px 11px;font-size:13px">
-        <option value="lump_sum">Lump Sum (Full amount, one bill)</option>
-        <option value="monthly">Monthly Instalments</option>
+        <option value="lump_sum">Sepenuh (Jumlah penuh, satu bil)</option>
+        <option value="monthly">Ansuran Bulanan</option>
       </select>
     </div>
     <div id="pMonthsRow" style="display:none" class="form-group">
-      <label>Number of Monthly Instalments</label>
+      <label>Bilangan Ansuran Bulanan</label>
       <input type="number" id="pMonths" value="6" min="2" max="24" style="width:100%;border:1px solid #d1d5db;border-radius:5px;padding:8px 11px;font-size:13px">
     </div>` : ''}
     <div class="form-row">
-      <div class="form-group"><label>${isEdit ? 'Semester / Label' : 'Label / Prefix'}</label><input type="text" id="pSemester" style="width:100%;border:1px solid #d1d5db;border-radius:5px;padding:8px 11px;font-size:13px" placeholder="e.g. Semester 1 2025" value="${p ? p.semester : ''}"></div>
-      <div class="form-group"><label>First Due Date</label><input type="date" id="pDueDate" style="width:100%;border:1px solid #d1d5db;border-radius:5px;padding:8px 11px;font-size:13px" value="${p ? p.dueDate : ''}"></div>
+      <div class="form-group"><label>${isEdit ? 'Semester / Label' : 'Label / Awalan'}</label><input type="text" id="pSemester" style="width:100%;border:1px solid #d1d5db;border-radius:5px;padding:8px 11px;font-size:13px" placeholder="cth. Semester 1 2025" value="${p ? p.semester : ''}"></div>
+      <div class="form-group"><label>Tarikh Tiba Pertama</label><input type="date" id="pDueDate" style="width:100%;border:1px solid #d1d5db;border-radius:5px;padding:8px 11px;font-size:13px" value="${p ? p.dueDate : ''}"></div>
     </div>
     <div class="form-row">
-      <div class="form-group"><label>${isEdit ? 'Amount' : 'Total Amount'}</label><input type="number" id="pAmount" style="width:100%;border:1px solid #d1d5db;border-radius:5px;padding:8px 11px;font-size:13px" value="${p ? p.amount : ''}" placeholder="0.00"></div>
+      <div class="form-group"><label>${isEdit ? 'Jumlah' : 'Jumlah Keseluruhan'}</label><input type="number" id="pAmount" style="width:100%;border:1px solid #d1d5db;border-radius:5px;padding:8px 11px;font-size:13px" value="${p ? p.amount : ''}" placeholder="0.00"></div>
       <div class="form-group">
-        <label>Currency</label>
+        <label>Mata Wang</label>
         <select id="pCurrency" style="width:100%;border:1px solid #d1d5db;border-radius:5px;padding:8px 11px;font-size:13px">
           <option ${(!p||p.currency==='MYR')?'selected':''}>MYR</option>
           <option ${p&&p.currency==='EUR'?'selected':''}>EUR</option>
@@ -4054,23 +4055,23 @@ function openPaymentModal(payId) {
     <div class="form-group">
       <label>Status</label>
       <select id="pStatus" style="width:100%;border:1px solid #d1d5db;border-radius:5px;padding:8px 11px;font-size:13px">
-        <option ${p&&p.status==='Unpaid'?'selected':''}>Unpaid</option>
-        <option ${p&&p.status==='Pending'?'selected':''}>Pending</option>
-        <option ${p&&p.status==='Paid'?'selected':''}>Paid</option>
+        <option value="Unpaid" ${p&&p.status==='Unpaid'?'selected':''}>Belum Bayar</option>
+        <option value="Pending" ${p&&p.status==='Pending'?'selected':''}>Dalam Proses</option>
+        <option value="Paid" ${p&&p.status==='Paid'?'selected':''}>Telah Bayar</option>
       </select>
     </div>
     <div class="form-group">
-      <label>Bill URL <span style="font-weight:400;color:var(--text-muted)">(from Billplz dashboard)</span></label>
+      <label>URL Bil <span style="font-weight:400;color:var(--text-muted)">(daripada papan pemuka Billplz)</span></label>
       <input type="url" id="pBillUrl" value="${p&&p.billplzUrl ? p.billplzUrl : ''}"
         placeholder="https://www.billplz.com/bills/xxxxxxxx"
         style="width:100%;border:1px solid #d1d5db;border-radius:5px;padding:8px 11px;font-size:13px">
       <div style="font-size:11px;color:var(--text-muted);margin-top:4px">
-        Create the bill in your <a href="https://www.billplz.com/bills" target="_blank" style="color:var(--navy)">Billplz dashboard</a>, copy the bill URL and paste here.
+        Cipta bil dalam <a href="https://www.billplz.com/bills" target="_blank" style="color:var(--navy)">papan pemuka Billplz</a> anda, salin URL bil dan tampal di sini.
       </div>
     </div>` : ''}
     <div style="display:flex;gap:10px;margin-top:6px">
-      <button class="btn-orange" onclick="savePayment()">Save Payment</button>
-      <button class="btn-primary" onclick="closeAdminModal()">Cancel</button>
+      <button class="btn-orange" onclick="savePayment()">Simpan Pembayaran</button>
+      <button class="btn-primary" onclick="closeAdminModal()">Batal</button>
     </div>`;
 }
 
@@ -4083,7 +4084,7 @@ async function savePayment() {
   const payId = document.getElementById('editPayId').value;
   const totalAmount = parseFloat(document.getElementById('pAmount').value);
   const label = document.getElementById('pSemester').value.trim();
-  if (!label || isNaN(totalAmount)) { showToast('Label and amount are required'); return; }
+  if (!label || isNaN(totalAmount)) { showToast('Label dan jumlah diperlukan'); return; }
 
   const isEdit = !!payId;
   const currency = document.getElementById('pCurrency').value;
@@ -4109,7 +4110,7 @@ async function savePayment() {
     DB.set('payments', payments);
     closeAdminModal();
     renderCentrePayments();
-    showToast('Payment updated!');
+    showToast('Pembayaran dikemaskini!');
     return;
   }
 
@@ -4122,7 +4123,7 @@ async function savePayment() {
     const due = new Date(dueDate || Date.now());
     due.setMonth(due.getMonth() + i);
     const dueDateStr = due.toISOString().slice(0, 10);
-    const semesterLabel = months > 1 ? `${label} — Instalment ${i + 1} of ${months}` : label;
+    const semesterLabel = months > 1 ? `${label} — Ansuran ${i + 1} daripada ${months}` : label;
     newRecords.push({
       id: 'pay' + Date.now() + '_' + i,
       studentId, courseId,
@@ -4142,14 +4143,14 @@ async function savePayment() {
   DB.set('payments', [...payments, ...newRecords]);
   closeAdminModal();
   renderCentrePayments();
-  showToast(`${newRecords.length} payment record(s) added. Edit each record to add the Billplz bill URL.`);
+  showToast(`${newRecords.length} rekod pembayaran ditambah. Edit setiap rekod untuk menambah URL bil Billplz.`);
 }
 
 function deletePayment(payId) {
-  if (!confirm('Delete this payment record?')) return;
+  if (!confirm('Padam rekod pembayaran ini?')) return;
   DB.set('payments', getPayments().filter(p => p.id !== payId));
   renderCentrePayments();
-  showToast('Payment deleted.');
+  showToast('Pembayaran dipadam.');
 }
 
 async function createBillplzBill(payRec, student, bpSettings) {
@@ -4209,24 +4210,24 @@ async function handleStudentPay(payId) {
       </div>
       <div style="background:var(--light-gray);border-radius:8px;padding:14px 16px;margin-bottom:14px">
         <div style="display:flex;justify-content:space-between;margin-bottom:8px;font-size:13px">
-          <span style="color:var(--text-muted)">Amount Due</span>
+          <span style="color:var(--text-muted)">Jumlah Perlu Dibayar</span>
           <span style="font-weight:800;color:var(--orange);font-size:16px">RM ${p.amount}</span>
         </div>
         <div style="display:flex;justify-content:space-between;font-size:13px">
-          <span style="color:var(--text-muted)">Due Date</span>
+          <span style="color:var(--text-muted)">Tarikh Tiba</span>
           <span style="font-weight:600">${fmtDate(p.dueDate)}</span>
         </div>
       </div>
       ${note ? `<div style="font-size:12px;color:#92400e;background:#fef3c7;border-radius:6px;padding:8px 12px;margin-bottom:12px">${note}</div>` : ''}
       <div style="font-size:12.5px;color:var(--text-muted);margin-bottom:14px;line-height:1.7">
-        To complete your payment, please contact your course administrator or make a bank transfer using the details provided by your institute. Quote your name and course when making payment.
+        Untuk menyelesaikan pembayaran, sila hubungi pentadbir kursus anda atau buat pindahan bank menggunakan butiran yang diberikan oleh institusi anda. Nyatakan nama dan kursus anda semasa membuat pembayaran.
       </div>
       <div style="display:flex;gap:8px;flex-wrap:wrap">
-        <a href="mailto:admin@alqaida-nooraniyah.com?subject=Payment%20for%20${encodeURIComponent(p.semester)}&body=Assalamualaikum%2C%0A%0APlease%20find%20my%20payment%20details%3A%0AName%3A%20${encodeURIComponent(student ? student.firstName+' '+student.lastName : '')}%0ACourse%3A%20${encodeURIComponent(c ? c.name : '')}%0ATerm%3A%20${encodeURIComponent(p.semester)}%0AAmount%3A%20RM%20${p.amount}%0A%0AJazakallah%20khair."
+        <a href="mailto:admin@alqaida-nooraniyah.com?subject=Pembayaran%20untuk%20${encodeURIComponent(p.semester)}&body=Assalamualaikum%2C%0A%0ASila%20terima%20butiran%20pembayaran%20saya%3A%0ANama%3A%20${encodeURIComponent(student ? student.firstName+' '+student.lastName : '')}%0AKursus%3A%20${encodeURIComponent(c ? c.name : '')}%0APenggal%3A%20${encodeURIComponent(p.semester)}%0AJumlah%3A%20RM%20${p.amount}%0A%0AJazakallah%20khair."
           class="btn-orange" style="font-size:13px;padding:8px 14px;text-decoration:none">
-          ✉ Email Admin
+          ✉ E-mel Admin
         </a>
-        <button class="btn-primary" style="font-size:13px" onclick="document.getElementById('studentPayModal').classList.remove('open')">Close</button>
+        <button class="btn-primary" style="font-size:13px" onclick="document.getElementById('studentPayModal').classList.remove('open')">Tutup</button>
       </div>`;
     modal.classList.add('open');
   }
@@ -4235,8 +4236,8 @@ async function handleStudentPay(payId) {
   if (bpSettings.apiKey && bpSettings.collectionId) {
     body.innerHTML = `<div style="text-align:center;padding:20px 0">
       <div style="font-size:30px;margin-bottom:10px">⏳</div>
-      <div style="font-weight:600;color:var(--navy)">Generating your payment link…</div>
-      <div style="font-size:12.5px;color:var(--text-muted);margin-top:6px">Please wait</div>
+      <div style="font-weight:600;color:var(--navy)">Menjana pautan pembayaran anda…</div>
+      <div style="font-size:12.5px;color:var(--text-muted);margin-top:6px">Sila tunggu</div>
     </div>`;
     modal.classList.add('open');
 
@@ -4264,13 +4265,13 @@ async function handleStudentPay(payId) {
 async function checkBillplzStatus(payId) {
   const payments = getPayments();
   const p = payments.find(x => x.id === payId);
-  if (!p || !p.billplzBillId) { showToast('No Billplz bill linked to this payment'); return; }
+  if (!p || !p.billplzBillId) { showToast('Tiada bil Billplz dikaitkan dengan pembayaran ini'); return; }
   const bpSettings = getBillplzSettings();
-  if (!bpSettings.apiKey) { showToast('Worker URL not configured'); return; }
+  if (!bpSettings.apiKey) { showToast('URL Worker belum dikonfigurasi'); return; }
   try {
     const workerUrl = bpSettings.apiKey.replace(/\/$/, '');
     const resp = await fetch(workerUrl + '/bills/' + p.billplzBillId);
-    if (!resp.ok) { showToast('Could not reach Worker — check Worker URL'); return; }
+    if (!resp.ok) { showToast('Tidak dapat menghubungi Worker — semak URL Worker'); return; }
     const data = await resp.json();
     if (data.paid) {
       p.status = 'Paid';
@@ -4278,12 +4279,12 @@ async function checkBillplzStatus(payId) {
       DB.set('payments', payments);
       renderCentrePayments();
       renderStudentPayment();
-      showToast('Payment confirmed as Paid ✓');
+      showToast('Pembayaran disahkan sebagai Telah Bayar ✓');
     } else {
-      showToast('Not paid yet (Billplz status: ' + (data.state || 'pending') + ')');
+      showToast('Belum dibayar (status Billplz: ' + (data.state || 'menunggu') + ')');
     }
   } catch (e) {
-    showToast('Network error checking payment status');
+    showToast('Ralat rangkaian semasa menyemak status pembayaran');
   }
 }
 
@@ -4293,7 +4294,8 @@ function closeAdminModal() {
 
 function levelBadge(level) {
   const map = { 1:'level-1', 2:'level-2', 3:'level-3', 4:'level-4' };
-  return level ? `<span class="level-badge ${map[level]||'level-1'}">Level ${level}</span>` : '';
+  const names = { 1:'Tahap 1 – Al-Asas', 2:'Tahap 2 – Ad-Dhoruri', 3:'Tahap 3 – Al-Mukammil', 4:'Tahap 4 – Al-Itqan' };
+  return level ? `<span class="level-badge ${map[level]||'level-1'}">${names[level]||'Tahap '+level}</span>` : '';
 }
 
 function gradeLetter(pct) {
@@ -4314,7 +4316,7 @@ function renderStudentAttendance() {
   const detail = document.getElementById('attDetailList');
 
   if (!enrollments.length) {
-    grid.innerHTML = ''; detail.innerHTML = '<p class="text-muted" style="padding:20px">No enrolled courses.</p>'; return;
+    grid.innerHTML = ''; detail.innerHTML = '<p class="text-muted" style="padding:20px">Tiada kursus yang didaftarkan.</p>'; return;
   }
 
   grid.innerHTML = enrollments.map(e => {
@@ -4328,18 +4330,18 @@ function renderStudentAttendance() {
       <div style="font-size:12px;font-weight:700;color:var(--navy);margin-bottom:4px">${c ? c.name.slice(0,35)+'…' : e.courseId}</div>
       ${levelBadge(c && c.level)}
       <div class="att-rate">${rate}%</div>
-      <div class="att-label">${present} / ${total} sessions attended</div>
+      <div class="att-label">${present} / ${total} sesi hadir</div>
     </div>`;
   }).join('');
 
   detail.innerHTML = enrollments.map(e => {
     const c = courseById(e.courseId);
     const att = e.attendance || [];
-    const dots = att.map((p, i) => `<div class="att-dot ${p?'present':'absent'}" title="Session ${i+1}">${p?'✓':'✗'}</div>`).join('');
+    const dots = att.map((p, i) => `<div class="att-dot ${p?'present':'absent'}" title="Sesi ${i+1}">${p?'✓':'✗'}</div>`).join('');
     return `<div class="form-card mb-16">
       <div class="form-title" style="display:flex;align-items:center;gap:8px">${c ? c.name.slice(0,50) : e.courseId} ${levelBadge(c && c.level)}</div>
-      <div class="att-dots">${dots || '<span class="text-muted">No sessions recorded yet.</span>'}</div>
-      <div style="font-size:11px;color:var(--text-muted);margin-top:8px">● Present &nbsp; ✗ Absent</div>
+      <div class="att-dots">${dots || '<span class="text-muted">Tiada sesi direkodkan lagi.</span>'}</div>
+      <div style="font-size:11px;color:var(--text-muted);margin-top:8px">● Hadir &nbsp; ✗ Tidak Hadir</div>
     </div>`;
   }).join('');
 }
@@ -4353,7 +4355,7 @@ function loadStudentAssignments() {
   const courses = getCourses().filter(c => enrolledIds.includes(c.id));
   const sel = document.getElementById('assignCourseFilter');
   const cur = sel.value;
-  sel.innerHTML = '<option value="">All Courses</option>' + courses.map(c => `<option value="${c.id}" ${c.id===cur?'selected':''}>${c.name.slice(0,55)}</option>`).join('');
+  sel.innerHTML = '<option value="">Semua Kursus</option>' + courses.map(c => `<option value="${c.id}" ${c.id===cur?'selected':''}>${c.name.slice(0,55)}</option>`).join('');
   renderStudentAssignments();
 }
 
@@ -4368,7 +4370,7 @@ function renderStudentAssignments() {
   });
   const submissions = getSubmissions();
   const el = document.getElementById('assignmentsList');
-  if (!assignments.length) { el.innerHTML = '<p class="text-muted" style="padding:20px">No assignments yet.</p>'; return; }
+  if (!assignments.length) { el.innerHTML = '<p class="text-muted" style="padding:20px">Tiada tugasan lagi.</p>'; return; }
 
   el.innerHTML = assignments.map(a => {
     const c = courseById(a.courseId);
@@ -4378,29 +4380,29 @@ function renderStudentAssignments() {
     let submitArea = '';
     if (sub) {
       if (sub.status === 'Graded') {
-        statusHtml = `<span class="status-graded">✓ Graded: ${sub.score}/100</span>`;
+        statusHtml = `<span class="status-graded">✓ Telah Dinilai: ${sub.score}/100</span>`;
         submitArea = `<div style="font-size:12.5px;background:#f0f4ff;padding:10px;border-radius:6px">
-          <strong>Score:</strong> ${sub.score}/100 &nbsp; <strong>Grade:</strong> ${gradeLetter(sub.score)}<br>
-          <strong>Feedback:</strong> ${sub.feedback || '—'}
+          <strong>Markah:</strong> ${sub.score}/100 &nbsp; <strong>Gred:</strong> ${gradeLetter(sub.score)}<br>
+          <strong>Maklum Balas:</strong> ${sub.feedback || '—'}
         </div>`;
       } else {
-        statusHtml = `<span class="status-submitted">✓ Submitted – awaiting grade</span>`;
-        submitArea = `<div style="font-size:12px;color:var(--text-muted)">File: ${sub.fileName} · Submitted ${fmtDate(sub.submittedDate)}</div>`;
+        statusHtml = `<span class="status-submitted">✓ Dihantar – menunggu penilaian</span>`;
+        submitArea = `<div style="font-size:12px;color:var(--text-muted)">Fail: ${sub.fileName} · Dihantar ${fmtDate(sub.submittedDate)}</div>`;
       }
     } else {
-      statusHtml = overdue ? `<span style="color:var(--danger);font-weight:700;font-size:12px">⚠ Overdue</span>` : `<span class="status-pending-sub">Pending submission</span>`;
+      statusHtml = overdue ? `<span style="color:var(--danger);font-weight:700;font-size:12px">⚠ Tamat Tempoh</span>` : `<span class="status-pending-sub">Menunggu penghantaran</span>`;
       submitArea = `<div>
-        <label class="file-upload-label" for="fileInput_${a.id}">📎 Choose File</label>
+        <label class="file-upload-label" for="fileInput_${a.id}">📎 Pilih Fail</label>
         <input type="file" id="fileInput_${a.id}" style="display:none" onchange="submitAssignment('${a.id}',this)">
         <span id="fileName_${a.id}" style="font-size:12px;color:var(--text-muted);margin-left:8px"></span>
-        <button class="btn-orange btn-sm" style="margin-left:8px" onclick="confirmSubmit('${a.id}')">Submit</button>
+        <button class="btn-orange btn-sm" style="margin-left:8px" onclick="confirmSubmit('${a.id}')">Hantar</button>
       </div>`;
     }
     return `<div class="assignment-card">
       <div class="assignment-card-header">
         <div>
           <div class="assignment-title">${a.title}</div>
-          <div class="assignment-due">Due: ${fmtDate(a.dueDate)} · ${c ? c.name.slice(0,40) : ''} ${levelBadge(c && c.level)}</div>
+          <div class="assignment-due">Tarikh Akhir: ${fmtDate(a.dueDate)} · ${c ? c.name.slice(0,40) : ''} ${levelBadge(c && c.level)}</div>
         </div>
         <div>${statusHtml}</div>
       </div>
@@ -4421,10 +4423,10 @@ function confirmSubmit(assignmentId) {
   const fileInput = document.getElementById('fileInput_' + assignmentId);
   const fileName = fileInput && fileInput.files[0] ? fileInput.files[0].name : 'submission_' + assignmentId + '.pdf';
   const subs = getSubmissions();
-  if (subs.find(s => s.assignmentId === assignmentId && s.studentId === uid)) { showToast('Already submitted'); return; }
+  if (subs.find(s => s.assignmentId === assignmentId && s.studentId === uid)) { showToast('Tugasan telah dihantar sebelumnya'); return; }
   subs.push({ id: 'sub' + Date.now(), assignmentId, studentId: uid, submittedDate: new Date().toISOString().slice(0,10), fileName, score: null, feedback: '', status: 'Submitted' });
   DB.set('submissions', subs);
-  showToast('Assignment submitted successfully!');
+  showToast('Tugasan berjaya dihantar!');
   renderStudentAssignments();
 }
 
@@ -4435,7 +4437,7 @@ function renderStudentResults() {
   const uid = getCurrentUserId();
   const enrollments = getEnrollments().filter(e => e.studentId === uid);
   const el = document.getElementById('resultsBody');
-  if (!enrollments.length) { el.innerHTML = '<p class="text-muted" style="padding:20px">No enrolled courses.</p>'; return; }
+  if (!enrollments.length) { el.innerHTML = '<p class="text-muted" style="padding:20px">Tiada kursus yang didaftarkan.</p>'; return; }
 
   el.innerHTML = enrollments.map(e => {
     const c = courseById(e.courseId);
@@ -4461,9 +4463,9 @@ function renderStudentResults() {
     const gradeClass = { A:'grade-A', B:'grade-B', C:'grade-C', D:'grade-D', F:'grade-F' }[grade] || 'grade-F';
 
     const rows = [
-      { label: '📝 Exam / Test', score: examAvg, weight: 40, weighted: examAvg !== null ? Math.round(examAvg * 0.4) : null },
-      { label: '✅ Attendance', score: attRate, weight: 30, weighted: attRate !== null ? Math.round(attRate * 0.3) : null },
-      { label: '📎 Assignments', score: assignAvg, weight: 30, weighted: assignAvg !== null ? Math.round(assignAvg * 0.3) : null },
+      { label: '📝 Peperiksaan / Ujian', score: examAvg, weight: 40, weighted: examAvg !== null ? Math.round(examAvg * 0.4) : null },
+      { label: '✅ Kehadiran', score: attRate, weight: 30, weighted: attRate !== null ? Math.round(attRate * 0.3) : null },
+      { label: '📎 Tugasan', score: assignAvg, weight: 30, weighted: assignAvg !== null ? Math.round(assignAvg * 0.3) : null },
     ];
 
     return `<div class="mark-card">
@@ -4473,7 +4475,7 @@ function renderStudentResults() {
           <div style="font-size:11px;color:rgba(255,255,255,0.6);margin-top:3px">${c.coach}</div>
         </div>
         <div style="text-align:right">
-          <div class="total-mark">${total !== null ? total + '%' : 'In Progress'}</div>
+          <div class="total-mark">${total !== null ? total + '%' : 'Dalam Proses'}</div>
           <div class="grade-pill ${gradeClass}" style="margin:4px 0 0 auto">${grade}</div>
         </div>
       </div>
@@ -4488,11 +4490,11 @@ function renderStudentResults() {
             <span class="mark-weighted" style="min-width:50px;text-align:right">→ ${r.weighted !== null ? r.weighted : '—'} pts</span>
           </div>`).join('')}
         <div style="margin-top:10px;font-size:12px;color:var(--text-muted);text-align:right">
-          Weighting: Exam 40% + Attendance 30% + Assignment 30%
+          Pemberatan: Peperiksaan 40% + Kehadiran 30% + Tugasan 30%
         </div>
-        ${tests.length ? `<div style="margin-top:10px"><div class="fw-700" style="font-size:12px;margin-bottom:6px;color:var(--navy)">Exam History</div>
+        ${tests.length ? `<div style="margin-top:10px"><div class="fw-700" style="font-size:12px;margin-bottom:6px;color:var(--navy)">Sejarah Peperiksaan</div>
           <table class="data-table" style="font-size:12px">
-            <thead><tr><th>Date</th><th>Score</th><th>Grade</th></tr></thead>
+            <thead><tr><th>Tarikh</th><th>Markah</th><th>Gred</th></tr></thead>
             <tbody>${tests.map(t => `<tr><td>${fmtDate(t.date)}</td><td>${t.score}%</td><td>${scoreBadge(t.score)}</td></tr>`).join('')}</tbody>
           </table></div>` : ''}
       </div>
@@ -4530,13 +4532,13 @@ function checkPaymentReminders(uid) {
 
     let title = '', body = '';
     if (diff < 0) {
-      title = `⚠ Payment Overdue — ${courseName}`;
-      body  = `${p.semester} — ${p.amount} ${p.currency} was due ${Math.abs(diff)} day${Math.abs(diff) !== 1 ? 's' : ''} ago.`;
+      title = `⚠ Pembayaran Tertunggak — ${courseName}`;
+      body  = `${p.semester} — ${p.amount} ${p.currency} telah tertunggak ${Math.abs(diff)} hari.`;
     } else if (diff <= 7) {
-      title = `⏰ Payment Due Soon — ${courseName}`;
+      title = `⏰ Pembayaran Hampir Tiba — ${courseName}`;
       body  = diff === 0
-        ? `${p.semester} — ${p.amount} ${p.currency} is due TODAY.`
-        : `${p.semester} — ${p.amount} ${p.currency} due in ${diff} day${diff !== 1 ? 's' : ''}.`;
+        ? `${p.semester} — ${p.amount} ${p.currency} perlu dibayar HARI INI.`
+        : `${p.semester} — ${p.amount} ${p.currency} perlu dibayar dalam ${diff} hari.`;
     } else {
       return; // not yet urgent
     }
@@ -4546,7 +4548,7 @@ function checkPaymentReminders(uid) {
       id: 'pay_' + p.id + '_' + todayStr,
       title,
       body,
-      time: 'Just now',
+      time: 'Baru sahaja',
       read: false,
     });
 
@@ -4595,15 +4597,15 @@ function renderStudentPayment() {
   // ── Summary bar ──
   const summaryHtml = `
     <div class="stats-grid mb-16" style="grid-template-columns:repeat(4,1fr)">
-      <div class="stat-card green"><div class="stat-value">${paidList.length}</div><div class="stat-label">Paid</div></div>
-      <div class="stat-card red"><div class="stat-value">${overdueList.length}</div><div class="stat-label">Overdue</div></div>
-      <div class="stat-card amber"><div class="stat-value">${dueSoonList.length}</div><div class="stat-label">Due Soon</div></div>
-      <div class="stat-card gold"><div class="stat-value" style="font-size:15px">${outstandingAmt.toFixed(2)}</div><div class="stat-label">Outstanding</div></div>
+      <div class="stat-card green"><div class="stat-value">${paidList.length}</div><div class="stat-label">Telah Bayar</div></div>
+      <div class="stat-card red"><div class="stat-value">${overdueList.length}</div><div class="stat-label">Tertunggak</div></div>
+      <div class="stat-card amber"><div class="stat-value">${dueSoonList.length}</div><div class="stat-label">Hampir Tiba</div></div>
+      <div class="stat-card gold"><div class="stat-value" style="font-size:15px">${outstandingAmt.toFixed(2)}</div><div class="stat-label">Baki Tertunggak</div></div>
     </div>
     <div style="margin-bottom:16px">
       <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px">
-        <span style="font-size:12.5px;font-weight:600;color:var(--navy)">Overall Progress</span>
-        <span style="font-size:12px;color:var(--text-muted)">${paidAmt.toFixed(2)} of ${totalAmt.toFixed(2)} paid</span>
+        <span style="font-size:12.5px;font-weight:600;color:var(--navy)">Kemajuan Keseluruhan</span>
+        <span style="font-size:12px;color:var(--text-muted)">${paidAmt.toFixed(2)} daripada ${totalAmt.toFixed(2)} dibayar</span>
       </div>
       <div class="payment-progress-wrap">
         <div class="payment-progress-bar" style="width:${pct}%"></div>
@@ -4614,12 +4616,12 @@ function renderStudentPayment() {
   // ── Alert banners ──
   let alertHtml = '';
   if (overdueList.length)
-    alertHtml += `<div class="pay-alert-banner pay-alert-overdue">⚠ ${overdueList.length} payment${overdueList.length > 1 ? 's are' : ' is'} overdue — please settle as soon as possible.</div>`;
+    alertHtml += `<div class="pay-alert-banner pay-alert-overdue">⚠ ${overdueList.length} pembayaran tertunggak — sila selesaikan secepat mungkin.</div>`;
   if (dueSoonList.length)
-    alertHtml += `<div class="pay-alert-banner pay-alert-soon">⏰ ${dueSoonList.length} payment${dueSoonList.length > 1 ? 's are' : ' is'} due within the next 7 days.</div>`;
+    alertHtml += `<div class="pay-alert-banner pay-alert-soon">⏰ ${dueSoonList.length} pembayaran perlu dijelaskan dalam masa 7 hari.</div>`;
 
   if (!payments.length) {
-    el.innerHTML = summaryHtml + '<p class="text-muted" style="padding:10px">No payment records found.</p>';
+    el.innerHTML = summaryHtml + '<p class="text-muted" style="padding:10px">Tiada rekod pembayaran dijumpai.</p>';
     return;
   }
 
@@ -4650,21 +4652,21 @@ function renderStudentPayment() {
     let badge = '';
     let daysNote = '';
     if (isPaid) {
-      badge = `<span class="pay-badge-done">Done</span>`;
+      badge = `<span class="pay-badge-done">Selesai</span>`;
     } else if (diff === null) {
-      badge = `<span class="pay-badge-upcoming">Unpaid</span>`;
+      badge = `<span class="pay-badge-upcoming">Belum Bayar</span>`;
     } else if (diff < 0) {
-      badge = `<span class="pay-badge-overdue">Overdue</span>`;
-      daysNote = `<span class="days-overdue">${Math.abs(diff)} day${Math.abs(diff) !== 1 ? 's' : ''} overdue</span>`;
+      badge = `<span class="pay-badge-overdue">Tertunggak</span>`;
+      daysNote = `<span class="days-overdue">${Math.abs(diff)} hari tertunggak</span>`;
     } else if (diff === 0) {
-      badge = `<span class="pay-badge-today">Due Today</span>`;
-      daysNote = `<span class="days-due-soon">Act now!</span>`;
+      badge = `<span class="pay-badge-today">Tiba Hari Ini</span>`;
+      daysNote = `<span class="days-due-soon">Bayar sekarang!</span>`;
     } else if (diff <= 7) {
-      badge = `<span class="pay-badge-soon">Due Soon</span>`;
-      daysNote = `<span class="days-due-soon">In ${diff} day${diff !== 1 ? 's' : ''}</span>`;
+      badge = `<span class="pay-badge-soon">Hampir Tiba</span>`;
+      daysNote = `<span class="days-due-soon">Dalam ${diff} hari</span>`;
     } else {
-      badge = `<span class="pay-badge-upcoming">Upcoming</span>`;
-      daysNote = `<span class="days-upcoming">In ${diff} days</span>`;
+      badge = `<span class="pay-badge-upcoming">Akan Datang</span>`;
+      daysNote = `<span class="days-upcoming">Dalam ${diff} hari</span>`;
     }
 
     // Course label: add instalment tag if monthly
@@ -4699,7 +4701,7 @@ function renderStudentPayment() {
         </div>
         <div class="pay-card-meta">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-          Due: ${fmtDate(p.dueDate)}
+          Tarikh Tiba: ${fmtDate(p.dueDate)}
         </div>
       </div>
       <div class="pay-card-footer">
@@ -4722,12 +4724,12 @@ function renderAdminAssignments() {
   const courses = getCourses();
   const filterSel = document.getElementById('adminAssignCourseFilter');
   const cur = filterSel.value;
-  filterSel.innerHTML = '<option value="">All Courses</option>' + courses.map(c => `<option value="${c.id}" ${c.id===cur?'selected':''}>${c.name.slice(0,55)}</option>`).join('');
+  filterSel.innerHTML = '<option value="">Semua Kursus</option>' + courses.map(c => `<option value="${c.id}" ${c.id===cur?'selected':''}>${c.name.slice(0,55)}</option>`).join('');
 
   const assignments = getAssignments().filter(a => !cur || a.courseId === cur);
   const submissions = getSubmissions();
   const el = document.getElementById('adminAssignmentsList');
-  if (!assignments.length) { el.innerHTML = '<p class="text-muted" style="padding:20px">No assignments found.</p>'; return; }
+  if (!assignments.length) { el.innerHTML = '<p class="text-muted" style="padding:20px">Tiada tugasan dijumpai.</p>'; return; }
 
   el.innerHTML = assignments.map(a => {
     const c = courseById(a.courseId);
@@ -4737,23 +4739,23 @@ function renderAdminAssignments() {
       <div class="flex-between mb-16">
         <div>
           <div style="font-weight:700;color:var(--navy);font-size:14px">${a.title}</div>
-          <div style="font-size:12px;color:var(--text-muted);margin-top:2px">${c ? c.name.slice(0,50) : ''} ${levelBadge(c && c.level)} · Due: ${fmtDate(a.dueDate)}</div>
+          <div style="font-size:12px;color:var(--text-muted);margin-top:2px">${c ? c.name.slice(0,50) : ''} ${levelBadge(c && c.level)} · Tarikh Akhir: ${fmtDate(a.dueDate)}</div>
         </div>
-        ${pendingCount > 0 ? `<span class="score-badge score-pending">${pendingCount} to grade</span>` : '<span class="score-badge score-pass">All graded</span>'}
+        ${pendingCount > 0 ? `<span class="score-badge score-pending">${pendingCount} perlu dinilai</span>` : '<span class="score-badge score-pass">Semua dinilai</span>'}
       </div>
-      ${subs.length === 0 ? '<p class="text-muted" style="font-size:12.5px">No submissions yet.</p>' :
+      ${subs.length === 0 ? '<p class="text-muted" style="font-size:12.5px">Tiada penghantaran lagi.</p>' :
         subs.map(sub => {
           const s = studentById(sub.studentId);
           return `<div class="submission-card">
             <div style="font-size:22px">${s ? s.avatar : '👤'}</div>
             <div class="submission-info">
               <div style="font-weight:600;font-size:13px">${s ? s.firstName+' '+s.lastName : sub.studentId}</div>
-              <div class="submission-file">📎 ${sub.fileName} · Submitted ${fmtDate(sub.submittedDate)}</div>
-              ${sub.status === 'Graded' ? `<div style="font-size:12px;color:var(--success);margin-top:3px">✓ Graded: ${sub.score}/100 — ${sub.feedback}</div>` : ''}
+              <div class="submission-file">📎 ${sub.fileName} · Dihantar ${fmtDate(sub.submittedDate)}</div>
+              ${sub.status === 'Graded' ? `<div style="font-size:12px;color:var(--success);margin-top:3px">✓ Dinilai: ${sub.score}/100 — ${sub.feedback}</div>` : ''}
             </div>
             <div>
               ${sub.status === 'Submitted'
-                ? `<button class="btn-edit btn-sm" onclick="openGradeForm('${sub.id}','${a.title}','${s ? s.firstName+' '+s.lastName : sub.studentId}')">Grade</button>`
+                ? `<button class="btn-edit btn-sm" onclick="openGradeForm('${sub.id}','${a.title}','${s ? s.firstName+' '+s.lastName : sub.studentId}')">Nilai</button>`
                 : `<span class="score-badge ${sub.score >= 70 ? 'score-pass' : 'score-fail'}">${sub.score}/100</span>`}
             </div>
           </div>`;
@@ -4765,7 +4767,7 @@ function renderAdminAssignments() {
 function openGradeForm(subId, assignTitle, studentName) {
   document.getElementById('gradeFormWrap').style.display = '';
   document.getElementById('gradeSubId').value = subId;
-  document.getElementById('gradeSubInfo').textContent = `Grading: "${assignTitle}" — submitted by ${studentName}`;
+  document.getElementById('gradeSubInfo').textContent = `Menilai: "${assignTitle}" — dihantar oleh ${studentName}`;
   document.getElementById('gradeScore').value = '';
   document.getElementById('gradeFeedback').value = '';
   document.getElementById('gradeFormWrap').scrollIntoView({ behavior: 'smooth' });
@@ -4775,7 +4777,7 @@ function saveGrade() {
   const subId = document.getElementById('gradeSubId').value;
   const score = parseInt(document.getElementById('gradeScore').value);
   const feedback = document.getElementById('gradeFeedback').value.trim();
-  if (isNaN(score) || score < 0 || score > 100) { showToast('Enter a valid score (0–100)'); return; }
+  if (isNaN(score) || score < 0 || score > 100) { showToast('Masukkan markah yang sah (0–100)'); return; }
   const subs = getSubmissions();
   const sub = subs.find(s => s.id === subId);
   if (!sub) return;
@@ -4783,7 +4785,7 @@ function saveGrade() {
   DB.set('submissions', subs);
   document.getElementById('gradeFormWrap').style.display = 'none';
   renderAdminAssignments();
-  showToast('Grade saved!');
+  showToast('Markah disimpan!');
 }
 
 // ════════════════════════════════
