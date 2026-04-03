@@ -835,6 +835,39 @@ body.admin-mode .student-only { display: none; }
 .btn-login:hover { background: var(--orange-dark); }
 .login-admin-link { font-size: 12px; color: var(--light-blue); margin-top: 12px; cursor: pointer; }
 .login-admin-link:hover { text-decoration: underline; }
+.login-form-group { margin-bottom: 13px; text-align: left; }
+.login-form-group label { display: block; font-size: 12px; font-weight: 600; color: var(--text-muted); margin-bottom: 5px; text-transform: uppercase; letter-spacing: 0.4px; }
+.login-input {
+  width: 100%; border: 1.5px solid #e5e7eb; border-radius: 7px;
+  padding: 10px 12px; font-size: 14px; background: #f9fafb;
+  transition: border-color 0.15s, background 0.15s;
+}
+.login-input:focus { outline: none; border-color: var(--orange); background: #fff; }
+.login-input.error { border-color: var(--danger); }
+.login-input-wrap { position: relative; }
+.login-input-wrap .toggle-pw {
+  position: absolute; right: 10px; top: 50%; transform: translateY(-50%);
+  background: none; border: none; cursor: pointer; font-size: 16px; color: var(--text-muted);
+}
+.login-error { color: var(--danger); font-size: 12px; margin-top: -8px; margin-bottom: 8px; text-align: left; display: none; }
+.login-error.visible { display: block; }
+.login-divider { display: flex; align-items: center; gap: 10px; margin: 14px 0; color: var(--text-muted); font-size: 12px; }
+.login-divider::before, .login-divider::after { content: ''; flex: 1; height: 1px; background: #e5e7eb; }
+.login-switch { font-size: 13px; color: var(--text-muted); margin-top: 14px; text-align: center; }
+.login-switch a { color: var(--orange); font-weight: 600; cursor: pointer; text-decoration: none; }
+.login-switch a:hover { text-decoration: underline; }
+.demo-creds {
+  background: #f0f2f8; border-radius: 8px; padding: 10px 12px;
+  margin-top: 14px; text-align: left;
+}
+.demo-creds summary { font-size: 12px; font-weight: 600; color: var(--navy); cursor: pointer; }
+.demo-creds table { width: 100%; margin-top: 7px; font-size: 11.5px; border-collapse: collapse; }
+.demo-creds td { padding: 3px 6px; }
+.demo-creds td:last-child { font-family: monospace; color: var(--light-blue); }
+.demo-creds tr:nth-child(even) td { background: rgba(255,255,255,0.5); }
+.remember-row { display: flex; align-items: center; gap: 7px; font-size: 12.5px; color: var(--text-muted); margin-bottom: 10px; }
+.remember-row input { accent-color: var(--orange); width: 15px; height: 15px; cursor: pointer; }
+.login-form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
 
 /* ── NOTIFICATION BELL ── */
 .notif-wrap { position: relative; }
@@ -950,19 +983,107 @@ body.admin-mode .student-only { display: none; }
 
 <!-- LOGIN SCREEN -->
 <div id="loginScreen">
-  <div class="login-box">
+
+  <!-- LOGIN FORM -->
+  <div class="login-box" id="loginFormBox">
     <div class="login-logo">القاعدة النورانيّة</div>
     <div class="login-subtitle">Al-Qaida Al-Nooraniyah Learning Management System</div>
-    <div class="login-title">Select Your Account</div>
-    <div class="user-select-grid" id="loginUserGrid"></div>
-    <div style="margin:10px 0 6px;font-size:12px;color:var(--text-muted)">— or —</div>
-    <div class="user-select-card" id="adminLoginCard" onclick="selectLoginUser('admin')" style="border-color:var(--navy);margin-bottom:12px">
-      <div class="usc-avatar">🛡️</div>
-      <div class="usc-name">Administrator</div>
-      <div class="usc-role">Full system access</div>
+    <div class="login-title" style="margin-top:18px">Welcome Back</div>
+
+    <div class="login-form-group">
+      <label>Username</label>
+      <input class="login-input" type="text" id="loginUsername" placeholder="Enter your username" autocomplete="username">
     </div>
-    <button class="btn-login" onclick="doLogin()">Enter System →</button>
+    <div class="login-form-group">
+      <label>Password</label>
+      <div class="login-input-wrap">
+        <input class="login-input" type="password" id="loginPassword" placeholder="Enter your password" autocomplete="current-password" onkeydown="if(event.key==='Enter')doLogin()">
+        <button class="toggle-pw" onclick="togglePw('loginPassword',this)" tabindex="-1">👁</button>
+      </div>
+    </div>
+    <div class="login-error" id="loginError">Incorrect username or password. Please try again.</div>
+    <div class="remember-row">
+      <input type="checkbox" id="rememberMe">
+      <label for="rememberMe">Remember me for 30 days</label>
+    </div>
+    <button class="btn-login" onclick="doLogin()">Sign In →</button>
+
+    <div class="login-switch">Don't have an account? <a onclick="showRegister()">Register Here</a></div>
+
+    <details class="demo-creds">
+      <summary>Demo Credentials (click to expand)</summary>
+      <table>
+        <tr><td>👤 Ahmed</td><td>ahmed</td><td>student123</td></tr>
+        <tr><td>👩 Fatima</td><td>fatima</td><td>student123</td></tr>
+        <tr><td>🧔 Yusuf</td><td>yusuf</td><td>student123</td></tr>
+        <tr><td>🛡️ Admin</td><td>admin</td><td>admin123</td></tr>
+      </table>
+    </details>
   </div>
+
+  <!-- REGISTER FORM -->
+  <div class="login-box" id="registerFormBox" style="display:none;max-width:460px">
+    <div class="login-logo">القاعدة النورانيّة</div>
+    <div class="login-subtitle">Al-Qaida Al-Nooraniyah Learning Management System</div>
+    <div class="login-title" style="margin-top:14px">Create Account</div>
+
+    <div class="login-form-row">
+      <div class="login-form-group">
+        <label>First Name</label>
+        <input class="login-input" type="text" id="regFirstName" placeholder="First name">
+      </div>
+      <div class="login-form-group">
+        <label>Last Name</label>
+        <input class="login-input" type="text" id="regLastName" placeholder="Last name">
+      </div>
+    </div>
+    <div class="login-form-group">
+      <label>Username</label>
+      <input class="login-input" type="text" id="regUsername" placeholder="Choose a username (no spaces)">
+    </div>
+    <div class="login-form-group">
+      <label>Email Address</label>
+      <input class="login-input" type="email" id="regEmail" placeholder="your@email.com">
+    </div>
+    <div class="login-form-row">
+      <div class="login-form-group">
+        <label>Password</label>
+        <div class="login-input-wrap">
+          <input class="login-input" type="password" id="regPassword" placeholder="Min. 6 characters">
+          <button class="toggle-pw" onclick="togglePw('regPassword',this)" tabindex="-1">👁</button>
+        </div>
+      </div>
+      <div class="login-form-group">
+        <label>Confirm Password</label>
+        <div class="login-input-wrap">
+          <input class="login-input" type="password" id="regConfirmPassword" placeholder="Repeat password">
+          <button class="toggle-pw" onclick="togglePw('regConfirmPassword',this)" tabindex="-1">👁</button>
+        </div>
+      </div>
+    </div>
+    <div class="login-form-row">
+      <div class="login-form-group">
+        <label>Phone</label>
+        <input class="login-input" type="text" id="regPhone" placeholder="+60 12 345 6789">
+      </div>
+      <div class="login-form-group">
+        <label>City / Country</label>
+        <input class="login-input" type="text" id="regLocation" placeholder="e.g. Kuala Lumpur">
+      </div>
+    </div>
+    <div class="login-form-group">
+      <label>Preferred Classification</label>
+      <select class="login-input" id="regClassification">
+        <option>Hafs On The Authority Of Asim</option>
+        <option>Warsh On The Authority Of Nafi</option>
+        <option>Qaloon On The Authority Of Nafi</option>
+      </select>
+    </div>
+    <div class="login-error" id="registerError"></div>
+    <button class="btn-login" onclick="registerStudent()">Register Now →</button>
+    <div class="login-switch">Already have an account? <a onclick="showLogin()">Sign In</a></div>
+  </div>
+
 </div>
 
 <!-- TOP NAV -->
@@ -989,7 +1110,7 @@ body.admin-mode .student-only { display: none; }
     </div>
     <button class="nav-icon-btn" title="Language">🌐</button>
     <button class="nav-icon-btn" title="Payments">💳</button>
-    <button class="role-toggle" id="roleToggleBtn" onclick="toggleRole()">Switch to Admin ▶</button>
+    <span id="loggedInUsername" style="font-size:12px;color:rgba(255,255,255,0.6);padding:0 6px"></span>
   </div>
   <div class="topnav-right">
     <div class="arabic-logo" onclick="navigate('student-home')">القاعدة النورانيّة</div>
@@ -1156,6 +1277,38 @@ body.admin-mode .student-only { display: none; }
             </div>
           </div>
           <button class="btn-orange" onclick="saveProfile()">Save Changes</button>
+        </div>
+
+        <div class="form-card">
+          <div class="form-title">Account & Security</div>
+          <div class="form-group">
+            <label>Username</label>
+            <input type="text" id="profileUsername" readonly style="background:#f0f2f8;cursor:default;color:var(--text-muted)">
+          </div>
+          <div style="margin-top:6px;padding-top:14px;border-top:1px solid #f0f0f0">
+            <div style="font-size:13px;font-weight:700;color:var(--navy);margin-bottom:12px">Change Password</div>
+            <div class="form-row">
+              <div class="form-group">
+                <label>Current Password</label>
+                <div class="login-input-wrap">
+                  <input type="password" id="pwCurrent" class="form-group input" style="width:100%;border:1px solid #d1d5db;border-radius:5px;padding:8px 36px 8px 11px;font-size:13px" placeholder="Current password">
+                  <button class="toggle-pw" onclick="togglePw('pwCurrent',this)" tabindex="-1" style="top:50%;transform:translateY(-50%)">👁</button>
+                </div>
+              </div>
+              <div class="form-group">
+                <label>New Password</label>
+                <div class="login-input-wrap">
+                  <input type="password" id="pwNew" style="width:100%;border:1px solid #d1d5db;border-radius:5px;padding:8px 36px 8px 11px;font-size:13px" placeholder="Min. 6 characters">
+                  <button class="toggle-pw" onclick="togglePw('pwNew',this)" tabindex="-1" style="top:50%;transform:translateY(-50%)">👁</button>
+                </div>
+              </div>
+            </div>
+            <div class="form-group" style="max-width:50%;padding-right:7px">
+              <label>Confirm New Password</label>
+              <input type="password" id="pwConfirm" style="width:100%;border:1px solid #d1d5db;border-radius:5px;padding:8px 11px;font-size:13px" placeholder="Repeat new password">
+            </div>
+            <button class="btn-primary" onclick="changePassword()">Update Password</button>
+          </div>
         </div>
       </div>
     </div>
@@ -1552,10 +1705,11 @@ function initData() {
   ];
 
   const students = [
-    { id: 's1', firstName: 'Ahmed', lastName: 'Al-Rashid', email: 'ahmed@example.com', phone: '+32 478 123 456', location: 'Brussels, Belgium', classification: 'Hafs On The Authority Of Asim', avatar: '🧑' },
-    { id: 's2', firstName: 'Fatima', lastName: 'Al-Zahra', email: 'fatima@example.com', phone: '+62 812 345 6789', location: 'Surabaya, Indonesia', classification: 'Warsh On The Authority Of Nafi', avatar: '👩' },
-    { id: 's3', firstName: 'Yusuf', lastName: 'Hassan', email: 'yusuf@example.com', phone: '+352 691 234 567', location: 'Luxembourg City, Luxembourg', classification: 'Qaloon On The Authority Of Nafi', avatar: '🧔' },
+    { id: 's1', firstName: 'Ahmed', lastName: 'Al-Rashid', email: 'ahmed@example.com', phone: '+32 478 123 456', location: 'Brussels, Belgium', classification: 'Hafs On The Authority Of Asim', avatar: '🧑', username: 'ahmed', passwordHash: hashPassword('ahmed', 'student123') },
+    { id: 's2', firstName: 'Fatima', lastName: 'Al-Zahra', email: 'fatima@example.com', phone: '+62 812 345 6789', location: 'Surabaya, Indonesia', classification: 'Warsh On The Authority Of Nafi', avatar: '👩', username: 'fatima', passwordHash: hashPassword('fatima', 'student123') },
+    { id: 's3', firstName: 'Yusuf', lastName: 'Hassan', email: 'yusuf@example.com', phone: '+352 691 234 567', location: 'Luxembourg City, Luxembourg', classification: 'Qaloon On The Authority Of Nafi', avatar: '🧔', username: 'yusuf', passwordHash: hashPassword('yusuf', 'student123') },
   ];
+  DB.set('admin', { username: 'admin', passwordHash: hashPassword('admin', 'admin123') });
 
   const enrollments = [
     { id: 'e1', studentId: 's1', courseId: 'c1', progress: 65, enrolledDate: '2025-01-15', attendance: [true,true,false,true,true,true,false,true] },
@@ -1687,18 +1841,9 @@ function navigate(pageId) {
 // ════════════════════════════════
 //  ROLE SWITCHER
 // ════════════════════════════════
-function toggleRole() {
-  const current = getRole();
-  const next = current === 'student' ? 'admin' : 'student';
-  DB.set('role', next);
-  applyRole();
-  navigate(next === 'admin' ? 'admin-dashboard' : 'student-home');
-}
 function applyRole() {
   const role = getRole();
   document.body.classList.toggle('admin-mode', role === 'admin');
-  const btn = document.getElementById('roleToggleBtn');
-  btn.textContent = role === 'admin' ? '◀ Switch to Student' : 'Switch to Admin ▶';
   renderSidebar();
 }
 
@@ -2027,6 +2172,9 @@ function loadProfileForm() {
   document.getElementById('profilePhone').value = user.phone;
   document.getElementById('profileLocation').value = user.location;
   document.getElementById('profileClassification').value = user.classification;
+  document.getElementById('profileUsername').value = user.username || '';
+  // Clear password fields
+  ['pwCurrent','pwNew','pwConfirm'].forEach(id => { const el = document.getElementById(id); if(el) el.value = ''; });
 }
 function saveProfile() {
   const students = getStudents();
@@ -2042,6 +2190,24 @@ function saveProfile() {
   DB.set('students', students);
   renderSidebar();
   showToast('Profile saved successfully!');
+}
+function changePassword() {
+  const uid = getCurrentUserId();
+  const students = getStudents();
+  const idx = students.findIndex(s => s.id === uid);
+  if (idx === -1) return;
+  const s = students[idx];
+  const current = document.getElementById('pwCurrent').value;
+  const newPw = document.getElementById('pwNew').value;
+  const confirm = document.getElementById('pwConfirm').value;
+  if (!current || !newPw || !confirm) { showToast('Please fill all password fields'); return; }
+  if (hashPassword(s.username, current) !== s.passwordHash) { showToast('Current password is incorrect'); return; }
+  if (newPw.length < 6) { showToast('New password must be at least 6 characters'); return; }
+  if (newPw !== confirm) { showToast('New passwords do not match'); return; }
+  students[idx].passwordHash = hashPassword(s.username, newPw);
+  DB.set('students', students);
+  ['pwCurrent','pwNew','pwConfirm'].forEach(id => document.getElementById(id).value = '');
+  showToast('Password updated successfully!');
 }
 
 // ════════════════════════════════
@@ -2395,9 +2561,11 @@ function toggleChat() {
 }
 
 function logout() {
-  loginSelection = null;
-  document.querySelectorAll('.user-select-card').forEach(c => c.classList.remove('selected'));
+  clearSession();
   document.getElementById('loginScreen').classList.remove('hidden');
+  document.getElementById('loginUsername').value = '';
+  document.getElementById('loginPassword').value = '';
+  showLogin();
   showToast('Logged out successfully');
 }
 
@@ -2414,43 +2582,150 @@ function showToast(msg) {
 }
 
 // ════════════════════════════════
-//  LOGIN
+//  AUTH HELPERS
 // ════════════════════════════════
-let loginSelection = null;
-
-function renderLoginScreen() {
-  const students = getStudents();
-  const grid = document.getElementById('loginUserGrid');
-  grid.innerHTML = students.map(s => `
-    <div class="user-select-card" id="loginCard_${s.id}" onclick="selectLoginUser('${s.id}')">
-      <div class="usc-avatar">${s.avatar || '👤'}</div>
-      <div class="usc-name">${s.firstName} ${s.lastName}</div>
-      <div class="usc-role">Student</div>
-    </div>
-  `).join('');
+function hashPassword(username, password) {
+  // Lightweight deterministic hash using btoa — suitable for localStorage-only auth
+  const raw = username.toLowerCase() + ':' + password + ':qn_lms_2025';
+  return btoa(unescape(encodeURIComponent(raw)));
 }
 
-function selectLoginUser(id) {
-  loginSelection = id;
-  document.querySelectorAll('.user-select-card').forEach(c => c.classList.remove('selected'));
-  const target = id === 'admin' ? document.getElementById('adminLoginCard') : document.getElementById('loginCard_' + id);
-  if (target) target.classList.add('selected');
+function validateLogin(username, password) {
+  const u = username.trim().toLowerCase();
+  const h = hashPassword(u, password);
+  // Check admin
+  const admin = DB.get('admin');
+  if (admin && admin.username === u && admin.passwordHash === h) {
+    return { role: 'admin', userId: null };
+  }
+  // Check students
+  const student = getStudents().find(s => s.username && s.username.toLowerCase() === u && s.passwordHash === h);
+  if (student) return { role: 'student', userId: student.id };
+  return null;
+}
+
+function setSession(role, userId, remember) {
+  const days = remember ? 30 : 7;
+  const expiry = Date.now() + days * 86400000;
+  DB.set('session', { role, userId, expiry });
+  DB.set('role', role);
+  DB.set('currentUserId', userId || 's1');
+}
+
+function getSession() {
+  const s = DB.get('session');
+  if (!s || Date.now() > s.expiry) { DB.set('session', null); return null; }
+  return s;
+}
+
+function clearSession() {
+  DB.set('session', null);
+  DB.set('role', 'student');
+}
+
+// ════════════════════════════════
+//  LOGIN UI
+// ════════════════════════════════
+function showLogin() {
+  document.getElementById('loginFormBox').style.display = '';
+  document.getElementById('registerFormBox').style.display = 'none';
+  document.getElementById('loginError').classList.remove('visible');
+}
+
+function showRegister() {
+  document.getElementById('loginFormBox').style.display = 'none';
+  document.getElementById('registerFormBox').style.display = '';
+  document.getElementById('registerError').classList.remove('visible');
+}
+
+function togglePw(inputId, btn) {
+  const el = document.getElementById(inputId);
+  if (el.type === 'password') { el.type = 'text'; btn.textContent = '🙈'; }
+  else { el.type = 'password'; btn.textContent = '👁'; }
 }
 
 function doLogin() {
-  if (!loginSelection) { showToast('Please select an account'); return; }
-  if (loginSelection === 'admin') {
-    DB.set('role', 'admin');
-    DB.set('currentUserId', 's1');
-  } else {
-    DB.set('role', 'student');
-    DB.set('currentUserId', loginSelection);
+  const username = document.getElementById('loginUsername').value.trim();
+  const password = document.getElementById('loginPassword').value;
+  const remember = document.getElementById('rememberMe').checked;
+  const errEl = document.getElementById('loginError');
+  errEl.classList.remove('visible');
+
+  if (!username || !password) { errEl.textContent = 'Please enter your username and password.'; errEl.classList.add('visible'); return; }
+
+  const result = validateLogin(username, password);
+  if (!result) { errEl.textContent = 'Incorrect username or password. Please try again.'; errEl.classList.add('visible'); document.getElementById('loginPassword').value = ''; return; }
+
+  setSession(result.role, result.userId, remember);
+  enterApp(result.role, result.userId);
+}
+
+function registerStudent() {
+  const firstName = document.getElementById('regFirstName').value.trim();
+  const lastName  = document.getElementById('regLastName').value.trim();
+  const username  = document.getElementById('regUsername').value.trim().toLowerCase().replace(/\s+/g,'');
+  const email     = document.getElementById('regEmail').value.trim();
+  const password  = document.getElementById('regPassword').value;
+  const confirm   = document.getElementById('regConfirmPassword').value;
+  const phone     = document.getElementById('regPhone').value.trim();
+  const location  = document.getElementById('regLocation').value.trim();
+  const cls       = document.getElementById('regClassification').value;
+  const errEl     = document.getElementById('registerError');
+  errEl.classList.remove('visible');
+
+  // Validation
+  if (!firstName || !lastName || !username || !email || !password || !confirm || !phone || !location) {
+    errEl.textContent = 'All fields are required.'; errEl.classList.add('visible'); return;
   }
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    errEl.textContent = 'Please enter a valid email address.'; errEl.classList.add('visible'); return;
+  }
+  if (password.length < 6) {
+    errEl.textContent = 'Password must be at least 6 characters.'; errEl.classList.add('visible'); return;
+  }
+  if (password !== confirm) {
+    errEl.textContent = 'Passwords do not match.'; errEl.classList.add('visible'); return;
+  }
+  const existing = getStudents().find(s => s.username && s.username.toLowerCase() === username);
+  const admin = DB.get('admin');
+  if (existing || (admin && admin.username === username)) {
+    errEl.textContent = 'That username is already taken. Please choose another.'; errEl.classList.add('visible'); return;
+  }
+
+  // Create new student
+  const students = getStudents();
+  const avatars = ['🧑','👩','🧔','👨','👱','🧕','👲','🧒'];
+  const newStudent = {
+    id: 's' + Date.now(),
+    firstName, lastName, email, phone, location,
+    classification: cls,
+    avatar: avatars[students.length % avatars.length],
+    username,
+    passwordHash: hashPassword(username, password),
+  };
+  students.push(newStudent);
+  DB.set('students', students);
+
+  setSession('student', newStudent.id, false);
+  showToast('Account created! Welcome, ' + firstName + '!');
+  enterApp('student', newStudent.id);
+}
+
+function enterApp(role, userId) {
   document.getElementById('loginScreen').classList.add('hidden');
+  // Show logged in username in nav
+  const students = getStudents();
+  const admin = DB.get('admin');
+  let displayName = '';
+  if (role === 'admin') displayName = '🛡️ admin';
+  else { const s = students.find(x => x.id === userId); displayName = s ? '👤 ' + s.username : ''; }
+  const navEl = document.getElementById('loggedInUsername');
+  if (navEl) navEl.textContent = displayName;
+
   applyRole();
   renderSidebar();
   renderNotifications();
-  navigate(getRole() === 'admin' ? 'admin-dashboard' : 'student-home');
+  navigate(role === 'admin' ? 'admin-dashboard' : 'student-home');
 }
 
 // ════════════════════════════════
@@ -2803,7 +3078,13 @@ function exportStudentData() {
 initData();
 seedNotifications();
 seedReviews();
-renderLoginScreen();
+
+// Check for valid session — skip login screen if still logged in
+const _session = getSession();
+if (_session) {
+  enterApp(_session.role, _session.userId);
+}
+// else: login screen is already visible by default
 </script>
 </body>
 </html>
