@@ -1068,6 +1068,21 @@ body.admin-mode .student-only { display: none; }
 .submission-info { flex: 1; }
 .submission-file { font-size: 12px; color: var(--light-blue); font-style: italic; }
 
+/* ── ADMIN CENTRE TABS ── */
+.admin-tabs { display: flex; border-bottom: 2px solid #e5e7eb; margin-bottom: 20px; gap: 2px; }
+.admin-tab {
+  padding: 10px 22px; font-size: 13.5px; font-weight: 600; cursor: pointer;
+  color: var(--text-muted); border-bottom: 3px solid transparent; margin-bottom: -2px;
+  background: none; border-top: none; border-left: none; border-right: none;
+  transition: color 0.15s;
+}
+.admin-tab:hover { color: var(--navy); }
+.admin-tab.active { color: var(--navy); border-bottom-color: var(--orange); }
+.admin-tab-panel { display: none; }
+.admin-tab-panel.active { display: block; }
+.tab-toolbar { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; flex-wrap: wrap; gap: 8px; }
+.tab-toolbar-title { font-size: 14px; font-weight: 700; color: var(--navy); }
+
 /* ── USER SWITCHER BANNER (admin) ── */
 .student-switcher { display: flex; gap: 8px; margin-bottom: 14px; flex-wrap: wrap; }
 .student-pill {
@@ -1255,6 +1270,7 @@ body.admin-mode .student-only { display: none; }
       <a href="#" onclick="navigate('admin-assignments')"><span class="icon">📎</span> Assignments</a>
       <a href="#" onclick="navigate('admin-accreditation')"><span class="icon">🎓</span> Accreditation</a>
       <a href="#" onclick="navigate('admin-progress')"><span class="icon">📈</span> Progress Editor</a>
+      <a href="#" onclick="navigate('admin-centre')"><span class="icon">⚙️</span> Admin Centre</a>
       <a href="#" onclick="navigate('calendar')"><span class="icon">📅</span> Calendar</a>
     </div>
 
@@ -1720,7 +1736,86 @@ body.admin-mode .student-only { display: none; }
       </div>
     </div>
 
+    <!-- ===== ADMIN CENTRE ===== -->
+    <div class="page" id="page-admin-centre">
+      <div class="action-bar">⚙️ Admin Management Centre</div>
+      <div class="section-header">Manage Students · Assignments · Payments</div>
+      <div class="page-body">
+
+        <!-- Tab Bar -->
+        <div class="admin-tabs">
+          <button class="admin-tab active" onclick="showAdminTab('students')">👥 Students</button>
+          <button class="admin-tab" onclick="showAdminTab('assignments')">📎 Assignments</button>
+          <button class="admin-tab" onclick="showAdminTab('payments')">💳 Payments</button>
+        </div>
+
+        <!-- STUDENTS TAB -->
+        <div class="admin-tab-panel active" id="tab-students">
+          <div class="tab-toolbar">
+            <span class="tab-toolbar-title">All Students</span>
+            <button class="btn-orange" onclick="openStudentModal(null)">+ Add Student</button>
+          </div>
+          <div style="overflow-x:auto">
+            <table class="data-table" id="centreStudentsTable">
+              <thead><tr><th>#</th><th>Name</th><th>Username</th><th>Email</th><th>Phone</th><th>Location</th><th>Courses</th><th>Actions</th></tr></thead>
+              <tbody id="centreStudentsBody"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- ASSIGNMENTS TAB -->
+        <div class="admin-tab-panel" id="tab-assignments">
+          <div class="tab-toolbar">
+            <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+              <span class="tab-toolbar-title">Assignments</span>
+              <select id="centreAssignCourseFilter" onchange="renderCentreAssignments()" style="border:1px solid #d1d5db;border-radius:5px;padding:6px 10px;font-size:13px">
+                <option value="">All Courses</option>
+              </select>
+            </div>
+            <button class="btn-orange" onclick="openAssignmentModal(null)">+ Add Assignment</button>
+          </div>
+          <div style="overflow-x:auto">
+            <table class="data-table">
+              <thead><tr><th>#</th><th>Title</th><th>Course</th><th>Due Date</th><th>Max Score</th><th>Submissions</th><th>Actions</th></tr></thead>
+              <tbody id="centreAssignmentsBody"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- PAYMENTS TAB -->
+        <div class="admin-tab-panel" id="tab-payments">
+          <div class="tab-toolbar">
+            <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+              <span class="tab-toolbar-title">Payment Records</span>
+              <select id="centrePayStudentFilter" onchange="renderCentrePayments()" style="border:1px solid #d1d5db;border-radius:5px;padding:6px 10px;font-size:13px">
+                <option value="">All Students</option>
+              </select>
+            </div>
+            <button class="btn-orange" onclick="openPaymentModal(null)">+ Add Payment</button>
+          </div>
+          <div style="overflow-x:auto">
+            <table class="data-table">
+              <thead><tr><th>#</th><th>Student</th><th>Course</th><th>Semester</th><th>Amount</th><th>Due Date</th><th>Status</th><th>Actions</th></tr></thead>
+              <tbody id="centrePaymentsBody"></tbody>
+            </table>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
   </main>
+
+  <!-- ADMIN EDIT MODAL (shared: students / assignments / payments) -->
+  <div class="modal-overlay" id="adminEditModal">
+    <div class="modal-box" style="width:560px">
+      <div class="modal-header">
+        <span id="adminModalTitle">Edit</span>
+        <button class="modal-close" onclick="closeAdminModal()">✕</button>
+      </div>
+      <div class="modal-body" id="adminModalBody"></div>
+    </div>
+  </div>
 
   <!-- RIGHT SIDEBAR -->
   <aside class="sidebar-right" id="sidebarRight">
@@ -1755,6 +1850,7 @@ body.admin-mode .student-only { display: none; }
       <a href="#" onclick="navigate('admin-assignments')"><span class="nav-icon">📎</span> Assignments</a>
       <a href="#" onclick="navigate('admin-accreditation')"><span class="nav-icon">🎓</span> Accreditation</a>
       <a href="#" onclick="navigate('admin-progress')"><span class="nav-icon">📈</span> Progress Editor</a>
+      <a href="#" onclick="navigate('admin-centre')"><span class="nav-icon">⚙️</span> Admin Centre</a>
       <a href="#" onclick="navigate('calendar')"><span class="nav-icon">📅</span> Calendar</a>
     </nav>
   </aside>
@@ -1782,6 +1878,21 @@ body.admin-mode .student-only { display: none; }
       </div>
       <div class="form-row">
         <div class="form-group">
+          <label>Level</label>
+          <select id="mLevel">
+            <option value="1">Level 1 – Foundation</option>
+            <option value="2">Level 2 – Elementary</option>
+            <option value="3">Level 3 – Intermediate</option>
+            <option value="4">Level 4 – Advanced / Certification</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Course Number</label>
+          <input type="number" id="mCourseNo" placeholder="e.g. 3930">
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
           <label>Course Type</label>
           <select id="mCourseType">
             <option>Online</option>
@@ -1805,6 +1916,24 @@ body.admin-mode .student-only { display: none; }
         <div class="form-group">
           <label>Max Students</label>
           <input type="number" id="mMaxStudents" value="20" min="1">
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Total Sessions</label>
+          <input type="number" id="mTotalSessions" value="20" min="1">
+        </div>
+        <div class="form-group">
+          <label>Fee Amount</label>
+          <div style="display:flex;gap:6px">
+            <input type="number" id="mFeeAmount" placeholder="e.g. 150" style="flex:1">
+            <select id="mFeeCurrency" style="width:80px;border:1px solid #d1d5db;border-radius:5px;padding:8px 6px;font-size:13px">
+              <option>EUR</option>
+              <option>USD</option>
+              <option>MYR</option>
+              <option>GBP</option>
+            </select>
+          </div>
         </div>
       </div>
       <div class="form-row">
@@ -2090,6 +2219,7 @@ function navigate(pageId) {
   if (pageId === 'student-results') renderStudentResults();
   if (pageId === 'student-payment') renderStudentPayment();
   if (pageId === 'admin-assignments') renderAdminAssignments();
+  if (pageId === 'admin-centre') renderAdminCentre();
 }
 
 // ════════════════════════════════
@@ -2574,16 +2704,23 @@ function openCourseModal(courseId) {
     if (!c) return;
     document.getElementById('mCourseName').value = c.name;
     document.getElementById('mCoachName').value = c.coach;
+    document.getElementById('mLevel').value = c.level || 1;
+    document.getElementById('mCourseNo').value = c.courseNo || '';
     document.getElementById('mCourseType').value = c.type;
     document.getElementById('mClassification').value = c.classification;
     document.getElementById('mLocation').value = c.location;
     document.getElementById('mMaxStudents').value = c.maxStudents;
+    document.getElementById('mTotalSessions').value = c.totalSessions || 20;
+    document.getElementById('mFeeAmount').value = c.feeAmount || '';
+    document.getElementById('mFeeCurrency').value = c.feeCurrency || 'EUR';
     document.getElementById('mStartDate').value = c.startDate;
     document.getElementById('mNextSession').value = c.nextSession ? c.nextSession.slice(0,16) : '';
     document.getElementById('mDescription').value = c.description || '';
   } else {
-    ['mCourseName','mCoachName','mLocation','mDescription'].forEach(id => document.getElementById(id).value = '');
+    ['mCourseName','mCoachName','mLocation','mDescription','mCourseNo','mFeeAmount'].forEach(id => document.getElementById(id).value = '');
     document.getElementById('mMaxStudents').value = 20;
+    document.getElementById('mTotalSessions').value = 20;
+    document.getElementById('mLevel').value = 1;
     document.getElementById('mStartDate').value = '';
     document.getElementById('mNextSession').value = '';
   }
@@ -2602,10 +2739,15 @@ function saveCourse() {
     id: courseId || 'c' + Date.now(),
     name,
     coach: document.getElementById('mCoachName').value,
+    level: parseInt(document.getElementById('mLevel').value) || 1,
+    courseNo: parseInt(document.getElementById('mCourseNo').value) || null,
     type: document.getElementById('mCourseType').value,
     classification: document.getElementById('mClassification').value,
     location: document.getElementById('mLocation').value,
     maxStudents: parseInt(document.getElementById('mMaxStudents').value) || 20,
+    totalSessions: parseInt(document.getElementById('mTotalSessions').value) || 20,
+    feeAmount: parseFloat(document.getElementById('mFeeAmount').value) || 0,
+    feeCurrency: document.getElementById('mFeeCurrency').value,
     startDate: document.getElementById('mStartDate').value,
     nextSession: ns ? new Date(ns).toISOString() : nextSessionDate(7, 10, 0),
     description: document.getElementById('mDescription').value,
@@ -3333,6 +3475,367 @@ function exportStudentData() {
 function getAssignments() { return DB.get('assignments') || []; }
 function getSubmissions() { return DB.get('submissions') || []; }
 function getPayments() { return DB.get('payments') || []; }
+
+// ════════════════════════════════
+//  ADMIN CENTRE — TAB SWITCHER
+// ════════════════════════════════
+function renderAdminCentre() {
+  renderCentreStudents();
+  renderCentreAssignments();
+  renderCentrePayments();
+}
+
+function showAdminTab(tab) {
+  document.querySelectorAll('.admin-tab').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.admin-tab-panel').forEach(p => p.classList.remove('active'));
+  document.getElementById('tab-' + tab).classList.add('active');
+  document.querySelectorAll('.admin-tab').forEach(b => {
+    if (b.getAttribute('onclick') && b.getAttribute('onclick').includes("'"+tab+"'")) b.classList.add('active');
+  });
+  if (tab === 'assignments') renderCentreAssignments();
+  if (tab === 'payments') renderCentrePayments();
+}
+
+// ════════════════════════════════
+//  ADMIN CENTRE — STUDENTS CRUD
+// ════════════════════════════════
+function renderCentreStudents() {
+  const students = getStudents();
+  const enrollments = getEnrollments();
+  const tbody = document.getElementById('centreStudentsBody');
+  if (!tbody) return;
+  if (!students.length) { tbody.innerHTML = '<tr><td colspan="8" class="text-center text-muted" style="padding:20px">No students yet.</td></tr>'; return; }
+  tbody.innerHTML = students.map((s, i) => {
+    const enrolled = enrollments.filter(e => e.studentId === s.id).length;
+    return `<tr>
+      <td>${i+1}</td>
+      <td style="font-weight:600">${s.avatar || '👤'} ${s.firstName} ${s.lastName}</td>
+      <td style="font-family:monospace;font-size:12px">${s.username || '—'}</td>
+      <td style="font-size:12px">${s.email}</td>
+      <td style="font-size:12px">${s.phone}</td>
+      <td style="font-size:12px">${s.location}</td>
+      <td style="text-align:center">${enrolled} course${enrolled!==1?'s':''}</td>
+      <td><div class="action-btns">
+        <button class="btn-edit btn-sm" onclick="openStudentModal('${s.id}')">✏️ Edit</button>
+        <button class="btn-danger btn-sm" onclick="deleteStudent('${s.id}')">🗑</button>
+      </div></td>
+    </tr>`;
+  }).join('');
+}
+
+function openStudentModal(studentId) {
+  const isEdit = !!studentId;
+  const s = isEdit ? studentById(studentId) : null;
+  document.getElementById('adminModalTitle').textContent = isEdit ? '✏️ Edit Student' : '+ Add Student';
+  document.getElementById('adminEditModal').classList.add('open');
+  document.getElementById('adminModalBody').innerHTML = `
+    <input type="hidden" id="editStudentId" value="${studentId || ''}">
+    <div class="form-row">
+      <div class="form-group"><label>First Name</label><input type="text" id="sFirstName" class="form-group input" style="width:100%;border:1px solid #d1d5db;border-radius:5px;padding:8px 11px;font-size:13px" value="${s ? s.firstName : ''}"></div>
+      <div class="form-group"><label>Last Name</label><input type="text" id="sLastName" style="width:100%;border:1px solid #d1d5db;border-radius:5px;padding:8px 11px;font-size:13px" value="${s ? s.lastName : ''}"></div>
+    </div>
+    <div class="form-row">
+      <div class="form-group"><label>Username</label><input type="text" id="sUsername" style="width:100%;border:1px solid #d1d5db;border-radius:5px;padding:8px 11px;font-size:13px" value="${s ? s.username : ''}" ${isEdit?'readonly style="width:100%;border:1px solid #d1d5db;border-radius:5px;padding:8px 11px;font-size:13px;background:#f0f2f8"':''}></div>
+      <div class="form-group"><label>Email</label><input type="email" id="sEmail" style="width:100%;border:1px solid #d1d5db;border-radius:5px;padding:8px 11px;font-size:13px" value="${s ? s.email : ''}"></div>
+    </div>
+    <div class="form-row">
+      <div class="form-group"><label>Phone</label><input type="text" id="sPhone" style="width:100%;border:1px solid #d1d5db;border-radius:5px;padding:8px 11px;font-size:13px" value="${s ? s.phone : ''}"></div>
+      <div class="form-group"><label>City / Country</label><input type="text" id="sLocation" style="width:100%;border:1px solid #d1d5db;border-radius:5px;padding:8px 11px;font-size:13px" value="${s ? s.location : ''}"></div>
+    </div>
+    <div class="form-group">
+      <label>Classification</label>
+      <select id="sClassification" style="width:100%;border:1px solid #d1d5db;border-radius:5px;padding:8px 11px;font-size:13px">
+        <option ${s&&s.classification==='Hafs On The Authority Of Asim'?'selected':''}>Hafs On The Authority Of Asim</option>
+        <option ${s&&s.classification==='Warsh On The Authority Of Nafi'?'selected':''}>Warsh On The Authority Of Nafi</option>
+        <option ${s&&s.classification==='Qaloon On The Authority Of Nafi'?'selected':''}>Qaloon On The Authority Of Nafi</option>
+      </select>
+    </div>
+    ${!isEdit ? `<div class="form-group"><label>Password</label><input type="password" id="sPassword" style="width:100%;border:1px solid #d1d5db;border-radius:5px;padding:8px 11px;font-size:13px" placeholder="Min. 6 characters"></div>` : ''}
+    <div id="studentModalError" style="color:var(--danger);font-size:12px;margin-bottom:8px;display:none"></div>
+    <div style="display:flex;gap:10px;margin-top:6px">
+      <button class="btn-orange" onclick="saveStudent()">Save Student</button>
+      <button class="btn-primary" onclick="closeAdminModal()">Cancel</button>
+    </div>`;
+}
+
+function saveStudent() {
+  const studentId = document.getElementById('editStudentId').value;
+  const isEdit = !!studentId;
+  const firstName = document.getElementById('sFirstName').value.trim();
+  const lastName  = document.getElementById('sLastName').value.trim();
+  const username  = isEdit ? studentById(studentId)?.username : document.getElementById('sUsername').value.trim().toLowerCase();
+  const email     = document.getElementById('sEmail').value.trim();
+  const phone     = document.getElementById('sPhone').value.trim();
+  const location  = document.getElementById('sLocation').value.trim();
+  const cls       = document.getElementById('sClassification').value;
+  const errEl     = document.getElementById('studentModalError');
+  errEl.style.display = 'none';
+
+  if (!firstName || !lastName || !email) { errEl.textContent = 'First name, last name and email are required.'; errEl.style.display='block'; return; }
+
+  const students = getStudents();
+  if (!isEdit) {
+    const pw = document.getElementById('sPassword').value;
+    if (!username) { errEl.textContent = 'Username is required.'; errEl.style.display='block'; return; }
+    if (pw.length < 6) { errEl.textContent = 'Password must be at least 6 characters.'; errEl.style.display='block'; return; }
+    if (students.find(s => s.username === username)) { errEl.textContent = 'Username already taken.'; errEl.style.display='block'; return; }
+    const avatars = ['🧑','👩','🧔','👨','👱','🧕'];
+    students.push({ id:'s'+Date.now(), firstName, lastName, email, phone, location, classification:cls, avatar:avatars[students.length%avatars.length], username, passwordHash:hashPassword(username,pw) });
+  } else {
+    const idx = students.findIndex(s => s.id === studentId);
+    if (idx !== -1) Object.assign(students[idx], { firstName, lastName, email, phone, location, classification:cls });
+  }
+  DB.set('students', students);
+  closeAdminModal();
+  renderCentreStudents();
+  renderSidebar();
+  showToast(isEdit ? 'Student updated!' : 'Student added!');
+}
+
+function deleteStudent(studentId) {
+  if (!confirm('Delete this student and all their enrollment records?')) return;
+  DB.set('students', getStudents().filter(s => s.id !== studentId));
+  DB.set('enrollments', getEnrollments().filter(e => e.studentId !== studentId));
+  DB.set('tests', getTests().filter(t => t.studentId !== studentId));
+  DB.set('submissions', getSubmissions().filter(s => s.studentId !== studentId));
+  DB.set('payments', getPayments().filter(p => p.studentId !== studentId));
+  renderCentreStudents();
+  renderSidebar();
+  showToast('Student deleted.');
+}
+
+// ════════════════════════════════
+//  ADMIN CENTRE — ASSIGNMENTS CRUD
+// ════════════════════════════════
+function renderCentreAssignments() {
+  const sel = document.getElementById('centreAssignCourseFilter');
+  if (!sel) return;
+  const courses = getCourses();
+  const cur = sel.value;
+  sel.innerHTML = '<option value="">All Courses</option>' + courses.map(c => `<option value="${c.id}" ${c.id===cur?'selected':''}>${c.name.slice(0,50)}</option>`).join('');
+  const assignments = getAssignments().filter(a => !cur || a.courseId === cur);
+  const submissions = getSubmissions();
+  const tbody = document.getElementById('centreAssignmentsBody');
+  if (!tbody) return;
+  if (!assignments.length) { tbody.innerHTML = '<tr><td colspan="7" class="text-center text-muted" style="padding:20px">No assignments yet.</td></tr>'; return; }
+  tbody.innerHTML = assignments.map((a, i) => {
+    const c = courseById(a.courseId);
+    const subCount = submissions.filter(s => s.assignmentId === a.id).length;
+    const gradedCount = submissions.filter(s => s.assignmentId === a.id && s.status === 'Graded').length;
+    return `<tr>
+      <td>${i+1}</td>
+      <td style="font-weight:600;max-width:180px;font-size:13px">${a.title}</td>
+      <td style="font-size:12px">${c ? c.name.slice(0,35)+'…' : a.courseId} ${levelBadge(c&&c.level)}</td>
+      <td style="font-size:12px">${fmtDate(a.dueDate)}</td>
+      <td style="text-align:center">${a.maxScore}</td>
+      <td style="font-size:12px">${gradedCount}/${subCount} graded</td>
+      <td><div class="action-btns">
+        <button class="btn-edit btn-sm" onclick="openAssignmentModal('${a.id}')">✏️ Edit</button>
+        <button class="btn-danger btn-sm" onclick="deleteAssignment('${a.id}')">🗑</button>
+      </div></td>
+    </tr>`;
+  }).join('');
+}
+
+function openAssignmentModal(assignId) {
+  const isEdit = !!assignId;
+  const a = isEdit ? getAssignments().find(x => x.id === assignId) : null;
+  const courses = getCourses();
+  document.getElementById('adminModalTitle').textContent = isEdit ? '✏️ Edit Assignment' : '+ Add Assignment';
+  document.getElementById('adminEditModal').classList.add('open');
+  document.getElementById('adminModalBody').innerHTML = `
+    <input type="hidden" id="editAssignId" value="${assignId || ''}">
+    <div class="form-group"><label>Assignment Title</label><input type="text" id="aTitle" style="width:100%;border:1px solid #d1d5db;border-radius:5px;padding:8px 11px;font-size:13px" value="${a ? a.title : ''}"></div>
+    <div class="form-row">
+      <div class="form-group">
+        <label>Course</label>
+        <select id="aCourse" style="width:100%;border:1px solid #d1d5db;border-radius:5px;padding:8px 11px;font-size:13px">
+          ${courses.map(c => `<option value="${c.id}" ${a&&a.courseId===c.id?'selected':''}>${c.name.slice(0,50)}</option>`).join('')}
+        </select>
+      </div>
+      <div class="form-group"><label>Due Date</label><input type="date" id="aDueDate" style="width:100%;border:1px solid #d1d5db;border-radius:5px;padding:8px 11px;font-size:13px" value="${a ? a.dueDate : ''}"></div>
+    </div>
+    <div class="form-group"><label>Max Score</label><input type="number" id="aMaxScore" style="width:120px;border:1px solid #d1d5db;border-radius:5px;padding:8px 11px;font-size:13px" value="${a ? a.maxScore : 100}" min="1" max="100"></div>
+    <div class="form-group"><label>Description / Instructions</label><textarea id="aDescription" rows="4" style="width:100%;border:1px solid #d1d5db;border-radius:5px;padding:8px 11px;font-size:13px">${a ? a.description : ''}</textarea></div>
+    <div style="display:flex;gap:10px;margin-top:6px">
+      <button class="btn-orange" onclick="saveAssignment()">Save Assignment</button>
+      <button class="btn-primary" onclick="closeAdminModal()">Cancel</button>
+    </div>`;
+}
+
+function saveAssignment() {
+  const assignId = document.getElementById('editAssignId').value;
+  const title = document.getElementById('aTitle').value.trim();
+  if (!title) { showToast('Title is required'); return; }
+  const assignments = getAssignments();
+  const obj = {
+    id: assignId || 'a' + Date.now(),
+    title,
+    courseId: document.getElementById('aCourse').value,
+    dueDate: document.getElementById('aDueDate').value,
+    maxScore: parseInt(document.getElementById('aMaxScore').value) || 100,
+    description: document.getElementById('aDescription').value,
+  };
+  if (assignId) {
+    const idx = assignments.findIndex(a => a.id === assignId);
+    if (idx !== -1) assignments[idx] = obj;
+  } else {
+    assignments.push(obj);
+  }
+  DB.set('assignments', assignments);
+  closeAdminModal();
+  renderCentreAssignments();
+  showToast(assignId ? 'Assignment updated!' : 'Assignment added!');
+}
+
+function deleteAssignment(assignId) {
+  if (!confirm('Delete this assignment and all submissions?')) return;
+  DB.set('assignments', getAssignments().filter(a => a.id !== assignId));
+  DB.set('submissions', getSubmissions().filter(s => s.assignmentId !== assignId));
+  renderCentreAssignments();
+  showToast('Assignment deleted.');
+}
+
+// ════════════════════════════════
+//  ADMIN CENTRE — PAYMENTS CRUD
+// ════════════════════════════════
+function renderCentrePayments() {
+  const sel = document.getElementById('centrePayStudentFilter');
+  if (!sel) return;
+  const students = getStudents();
+  const cur = sel.value;
+  sel.innerHTML = '<option value="">All Students</option>' + students.map(s => `<option value="${s.id}" ${s.id===cur?'selected':''}>${s.firstName} ${s.lastName}</option>`).join('');
+  const payments = getPayments().filter(p => !cur || p.studentId === cur);
+  const tbody = document.getElementById('centrePaymentsBody');
+  if (!tbody) return;
+  if (!payments.length) { tbody.innerHTML = '<tr><td colspan="8" class="text-center text-muted" style="padding:20px">No payment records yet.</td></tr>'; return; }
+  tbody.innerHTML = payments.map((p, i) => {
+    const s = studentById(p.studentId);
+    const c = courseById(p.courseId);
+    const badge = p.status==='Paid' ? '<span class="paid-badge">✓ Paid</span>' : p.status==='Pending' ? '<span class="pending-badge">⏳ Pending</span>' : '<span class="unpaid-badge">✗ Unpaid</span>';
+    return `<tr>
+      <td>${i+1}</td>
+      <td style="font-weight:600;font-size:13px">${s ? s.firstName+' '+s.lastName : p.studentId}</td>
+      <td style="font-size:12px;max-width:130px">${c ? c.name.slice(0,30)+'…' : p.courseId} ${levelBadge(c&&c.level)}</td>
+      <td style="font-size:12px">${p.semester}</td>
+      <td style="font-weight:700;color:var(--orange)">${p.amount} ${p.currency}</td>
+      <td style="font-size:12px">${fmtDate(p.dueDate)}</td>
+      <td>${badge}</td>
+      <td><div class="action-btns">
+        <button class="btn-edit btn-sm" onclick="togglePaymentStatus('${p.id}')" title="Cycle status">🔄</button>
+        <button class="btn-edit btn-sm" onclick="openPaymentModal('${p.id}')">✏️</button>
+        <button class="btn-danger btn-sm" onclick="deletePayment('${p.id}')">🗑</button>
+      </div></td>
+    </tr>`;
+  }).join('');
+}
+
+function togglePaymentStatus(payId) {
+  const payments = getPayments();
+  const p = payments.find(x => x.id === payId);
+  if (!p) return;
+  const cycle = { 'Unpaid':'Pending', 'Pending':'Paid', 'Paid':'Unpaid' };
+  p.status = cycle[p.status] || 'Unpaid';
+  if (p.status === 'Paid') p.paidDate = new Date().toISOString().slice(0,10);
+  else p.paidDate = null;
+  DB.set('payments', payments);
+  renderCentrePayments();
+  showToast('Status updated to: ' + p.status);
+}
+
+function openPaymentModal(payId) {
+  const isEdit = !!payId;
+  const p = isEdit ? getPayments().find(x => x.id === payId) : null;
+  const students = getStudents();
+  const courses = getCourses();
+  document.getElementById('adminModalTitle').textContent = isEdit ? '✏️ Edit Payment' : '+ Add Payment Record';
+  document.getElementById('adminEditModal').classList.add('open');
+  document.getElementById('adminModalBody').innerHTML = `
+    <input type="hidden" id="editPayId" value="${payId || ''}">
+    <div class="form-row">
+      <div class="form-group">
+        <label>Student</label>
+        <select id="pStudent" style="width:100%;border:1px solid #d1d5db;border-radius:5px;padding:8px 11px;font-size:13px">
+          ${students.map(s => `<option value="${s.id}" ${p&&p.studentId===s.id?'selected':''}>${s.firstName} ${s.lastName}</option>`).join('')}
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Course</label>
+        <select id="pCourse" style="width:100%;border:1px solid #d1d5db;border-radius:5px;padding:8px 11px;font-size:13px">
+          ${courses.map(c => `<option value="${c.id}" ${p&&p.courseId===c.id?'selected':''}>${c.name.slice(0,45)}</option>`).join('')}
+        </select>
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group"><label>Semester / Label</label><input type="text" id="pSemester" style="width:100%;border:1px solid #d1d5db;border-radius:5px;padding:8px 11px;font-size:13px" placeholder="e.g. Semester 1 2025" value="${p ? p.semester : ''}"></div>
+      <div class="form-group"><label>Due Date</label><input type="date" id="pDueDate" style="width:100%;border:1px solid #d1d5db;border-radius:5px;padding:8px 11px;font-size:13px" value="${p ? p.dueDate : ''}"></div>
+    </div>
+    <div class="form-row">
+      <div class="form-group"><label>Amount</label><input type="number" id="pAmount" style="width:100%;border:1px solid #d1d5db;border-radius:5px;padding:8px 11px;font-size:13px" value="${p ? p.amount : ''}" placeholder="0.00"></div>
+      <div class="form-group">
+        <label>Currency</label>
+        <select id="pCurrency" style="width:100%;border:1px solid #d1d5db;border-radius:5px;padding:8px 11px;font-size:13px">
+          <option ${p&&p.currency==='EUR'?'selected':''}>EUR</option>
+          <option ${p&&p.currency==='USD'?'selected':''}>USD</option>
+          <option ${p&&p.currency==='MYR'?'selected':''}>MYR</option>
+          <option ${p&&p.currency==='GBP'?'selected':''}>GBP</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-group">
+      <label>Status</label>
+      <select id="pStatus" style="width:100%;border:1px solid #d1d5db;border-radius:5px;padding:8px 11px;font-size:13px">
+        <option ${p&&p.status==='Unpaid'?'selected':''}>Unpaid</option>
+        <option ${p&&p.status==='Pending'?'selected':''}>Pending</option>
+        <option ${p&&p.status==='Paid'?'selected':''}>Paid</option>
+      </select>
+    </div>
+    <div style="display:flex;gap:10px;margin-top:6px">
+      <button class="btn-orange" onclick="savePayment()">Save Payment</button>
+      <button class="btn-primary" onclick="closeAdminModal()">Cancel</button>
+    </div>`;
+}
+
+function savePayment() {
+  const payId = document.getElementById('editPayId').value;
+  const amount = parseFloat(document.getElementById('pAmount').value);
+  const semester = document.getElementById('pSemester').value.trim();
+  if (!semester || isNaN(amount)) { showToast('Semester label and amount are required'); return; }
+  const status = document.getElementById('pStatus').value;
+  const payments = getPayments();
+  const obj = {
+    id: payId || 'pay' + Date.now(),
+    studentId: document.getElementById('pStudent').value,
+    courseId: document.getElementById('pCourse').value,
+    semester,
+    amount,
+    currency: document.getElementById('pCurrency').value,
+    dueDate: document.getElementById('pDueDate').value,
+    paidDate: status === 'Paid' ? new Date().toISOString().slice(0,10) : null,
+    status,
+  };
+  if (payId) {
+    const idx = payments.findIndex(p => p.id === payId);
+    if (idx !== -1) payments[idx] = obj;
+  } else {
+    payments.push(obj);
+  }
+  DB.set('payments', payments);
+  closeAdminModal();
+  renderCentrePayments();
+  showToast(payId ? 'Payment updated!' : 'Payment added!');
+}
+
+function deletePayment(payId) {
+  if (!confirm('Delete this payment record?')) return;
+  DB.set('payments', getPayments().filter(p => p.id !== payId));
+  renderCentrePayments();
+  showToast('Payment deleted.');
+}
+
+function closeAdminModal() {
+  document.getElementById('adminEditModal').classList.remove('open');
+}
 
 function levelBadge(level) {
   const map = { 1:'level-1', 2:'level-2', 3:'level-3', 4:'level-4' };
