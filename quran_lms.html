@@ -1758,6 +1758,26 @@ function nextSessionDate(daysFromNow, hour, minute) {
   return d.toISOString();
 }
 
+function migrateData() {
+  // Patch existing students who are missing username/passwordHash
+  const defaults = { s1: 'ahmed', s2: 'fatima', s3: 'yusuf' };
+  const students = DB.get('students') || [];
+  let changed = false;
+  students.forEach(s => {
+    if (!s.username) {
+      s.username = defaults[s.id] || s.firstName.toLowerCase();
+      s.passwordHash = hashPassword(s.username, 'student123');
+      changed = true;
+    }
+  });
+  if (changed) DB.set('students', students);
+
+  // Ensure admin account exists
+  if (!DB.get('admin')) {
+    DB.set('admin', { username: 'admin', passwordHash: hashPassword('admin', 'admin123') });
+  }
+}
+
 // ════════════════════════════════
 //  HELPERS
 // ════════════════════════════════
@@ -3076,6 +3096,7 @@ function exportStudentData() {
 //  INIT
 // ════════════════════════════════
 initData();
+migrateData();
 seedNotifications();
 seedReviews();
 
