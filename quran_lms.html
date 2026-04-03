@@ -1,0 +1,2809 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Al-Qaida Al-Nooraniyah LMS</title>
+<style>
+:root {
+  --navy: #1a237e;
+  --navy-dark: #0d1257;
+  --navy-mid: #283593;
+  --orange: #FF8C00;
+  --orange-dark: #e07b00;
+  --gold: #FFD700;
+  --white: #ffffff;
+  --light-blue: #3949ab;
+  --light-gray: #f0f2f8;
+  --text-dark: #1a1a2e;
+  --text-muted: #6b7280;
+  --success: #22c55e;
+  --danger: #ef4444;
+  --card-shadow: 0 2px 8px rgba(26,35,126,0.15);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Segoe UI', Arial, sans-serif;
+  background: var(--light-gray);
+  color: var(--text-dark);
+  min-height: 100vh;
+}
+
+/* ── TOP NAV ── */
+.topnav {
+  background: var(--navy-dark);
+  height: 52px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 18px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.4);
+}
+.topnav-left { display: flex; align-items: center; gap: 8px; }
+.topnav-right { display: flex; align-items: center; gap: 14px; }
+
+.account-btn {
+  background: none;
+  border: 1px solid rgba(255,255,255,0.25);
+  color: #fff;
+  padding: 5px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 13px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  position: relative;
+}
+.account-btn:hover { background: rgba(255,255,255,0.1); }
+
+.nav-icon-btn {
+  background: none;
+  border: none;
+  color: rgba(255,255,255,0.75);
+  font-size: 18px;
+  cursor: pointer;
+  padding: 4px 6px;
+  border-radius: 4px;
+}
+.nav-icon-btn:hover { color: #fff; background: rgba(255,255,255,0.1); }
+
+.role-toggle {
+  background: var(--orange);
+  border: none;
+  color: #fff;
+  padding: 5px 14px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+.role-toggle:hover { background: var(--orange-dark); }
+
+.arabic-logo {
+  font-family: 'Georgia', serif;
+  font-size: 22px;
+  color: var(--gold);
+  letter-spacing: 2px;
+  text-shadow: 0 0 12px rgba(255,215,0,0.4);
+  cursor: pointer;
+  user-select: none;
+}
+
+/* dropdown */
+.dropdown { position: relative; }
+.dropdown-menu {
+  display: none;
+  position: absolute;
+  top: 38px;
+  left: 0;
+  background: var(--navy);
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 6px;
+  min-width: 160px;
+  z-index: 200;
+  overflow: hidden;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+}
+.dropdown-menu.open { display: block; }
+.dropdown-menu a {
+  display: block;
+  padding: 9px 16px;
+  color: rgba(255,255,255,0.85);
+  text-decoration: none;
+  font-size: 13px;
+}
+.dropdown-menu a:hover { background: rgba(255,255,255,0.1); color: #fff; }
+.dropdown-menu .sep { border-top: 1px solid rgba(255,255,255,0.1); }
+
+/* ── MAIN LAYOUT ── */
+.layout {
+  display: grid;
+  grid-template-columns: 260px 1fr 220px;
+  gap: 0;
+  min-height: calc(100vh - 52px);
+}
+
+/* ── LEFT SIDEBAR ── */
+.sidebar-left {
+  background: var(--navy-dark);
+  padding: 0;
+  overflow-y: auto;
+  border-right: 1px solid rgba(255,255,255,0.08);
+}
+
+.sidebar-profile-menu {
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+  padding: 8px 0;
+}
+.sidebar-profile-menu a {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 18px;
+  color: rgba(255,255,255,0.75);
+  text-decoration: none;
+  font-size: 13.5px;
+  transition: background 0.15s;
+}
+.sidebar-profile-menu a:hover,
+.sidebar-profile-menu a.active {
+  background: rgba(255,140,0,0.18);
+  color: var(--orange);
+}
+.sidebar-profile-menu .icon { font-size: 15px; width: 20px; text-align: center; }
+
+.sidebar-section-title {
+  background: var(--navy-mid);
+  color: rgba(255,255,255,0.6);
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  padding: 8px 18px;
+}
+
+.last-courses-list { padding: 6px 0; }
+.last-course-item {
+  padding: 10px 16px;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+  cursor: pointer;
+  transition: background 0.15s;
+}
+.last-course-item:hover { background: rgba(255,255,255,0.05); }
+.last-course-item .lc-title {
+  color: var(--orange);
+  font-size: 12.5px;
+  font-weight: 600;
+  line-height: 1.4;
+  margin-bottom: 3px;
+}
+.last-course-item .lc-coach {
+  color: rgba(255,255,255,0.55);
+  font-size: 11.5px;
+  margin-bottom: 3px;
+}
+.last-course-item .lc-location {
+  color: rgba(255,255,255,0.4);
+  font-size: 11px;
+}
+.badge-online {
+  display: inline-block;
+  background: var(--light-blue);
+  color: #fff;
+  font-size: 10px;
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: 10px;
+  margin-top: 4px;
+}
+.badge-inperson {
+  display: inline-block;
+  background: #2e7d32;
+  color: #fff;
+  font-size: 10px;
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: 10px;
+  margin-top: 4px;
+}
+
+/* ── CENTER CONTENT ── */
+.center-content {
+  background: var(--light-gray);
+  overflow-y: auto;
+}
+
+.action-bar {
+  background: var(--orange);
+  color: #fff;
+  padding: 11px 20px;
+  font-weight: 700;
+  font-size: 14px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.action-bar:hover { background: var(--orange-dark); }
+
+.section-header {
+  background: var(--navy);
+  color: #fff;
+  padding: 10px 20px;
+  font-weight: 700;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.page { display: none; }
+.page.active { display: block; }
+
+.page-body { padding: 18px 20px; }
+
+/* Search / filter bar */
+.filter-bar {
+  background: #fff;
+  border-radius: 8px;
+  padding: 14px 16px;
+  margin-bottom: 16px;
+  box-shadow: var(--card-shadow);
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+.filter-bar input, .filter-bar select {
+  border: 1px solid #d1d5db;
+  border-radius: 5px;
+  padding: 7px 10px;
+  font-size: 13px;
+  flex: 1;
+  min-width: 130px;
+}
+.filter-bar input:focus, .filter-bar select:focus {
+  outline: 2px solid var(--orange);
+  border-color: var(--orange);
+}
+.btn-search {
+  background: var(--orange);
+  color: #fff;
+  border: none;
+  padding: 7px 18px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 13px;
+}
+.btn-search:hover { background: var(--orange-dark); }
+
+/* Course cards grid */
+.courses-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 16px;
+}
+
+.course-card {
+  background: var(--white);
+  border-radius: 10px;
+  box-shadow: var(--card-shadow);
+  overflow: hidden;
+  transition: transform 0.15s, box-shadow 0.15s;
+}
+.course-card:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(26,35,126,0.2); }
+
+.course-card-header {
+  background: var(--navy);
+  padding: 14px 16px;
+  color: var(--gold);
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 1.4;
+}
+.course-card-body { padding: 14px 16px; }
+.course-meta { font-size: 12.5px; color: var(--text-muted); margin-bottom: 5px; }
+.course-meta strong { color: var(--text-dark); }
+.course-card-footer {
+  padding: 10px 16px 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.btn-enroll {
+  background: var(--orange);
+  color: #fff;
+  border: none;
+  padding: 7px 18px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 600;
+}
+.btn-enroll:hover { background: var(--orange-dark); }
+.btn-enroll.enrolled {
+  background: var(--success);
+  cursor: default;
+}
+.btn-view {
+  background: var(--navy);
+  color: #fff;
+  border: none;
+  padding: 7px 14px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 12px;
+}
+.btn-view:hover { background: var(--navy-mid); }
+
+/* Countdown widget */
+.countdown-card {
+  background: var(--navy);
+  border-radius: 10px;
+  padding: 20px 24px;
+  color: #fff;
+  text-align: center;
+  margin-bottom: 18px;
+  box-shadow: var(--card-shadow);
+}
+.countdown-title {
+  font-size: 16px;
+  font-weight: 700;
+  margin-bottom: 14px;
+  color: var(--gold);
+}
+.countdown-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+}
+.countdown-cell { text-align: center; }
+.countdown-label {
+  font-size: 11px;
+  color: rgba(255,255,255,0.6);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 4px;
+}
+.countdown-value {
+  font-size: 32px;
+  font-weight: 800;
+  color: #fff;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Active course detail */
+.course-detail-card {
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: var(--card-shadow);
+  overflow: hidden;
+  margin-bottom: 16px;
+}
+.course-detail-card-header {
+  background: var(--navy);
+  padding: 16px 20px;
+  color: var(--gold);
+  font-weight: 700;
+  font-size: 16px;
+}
+.course-detail-card-body { padding: 18px 20px; }
+.detail-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  margin-bottom: 10px;
+  font-size: 13.5px;
+}
+.detail-label { color: var(--text-muted); min-width: 110px; }
+.detail-value { color: var(--text-dark); font-weight: 500; }
+
+/* Progress bar */
+.progress-bar-wrap {
+  background: #e5e7eb;
+  border-radius: 6px;
+  height: 10px;
+  overflow: hidden;
+  margin-top: 4px;
+}
+.progress-bar-fill {
+  height: 100%;
+  background: var(--orange);
+  border-radius: 6px;
+  transition: width 0.5s;
+}
+
+/* Tables */
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #fff;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: var(--card-shadow);
+  font-size: 13px;
+}
+.data-table th {
+  background: var(--navy);
+  color: #fff;
+  padding: 10px 14px;
+  text-align: left;
+  font-weight: 600;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.data-table td {
+  padding: 10px 14px;
+  border-bottom: 1px solid #f0f0f0;
+  vertical-align: middle;
+}
+.data-table tr:last-child td { border-bottom: none; }
+.data-table tr:hover td { background: #fafbff; }
+.data-table tbody tr:nth-child(even) td { background: #f9fafb; }
+.data-table tbody tr:nth-child(even):hover td { background: #fafbff; }
+
+/* Stats cards */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 14px;
+  margin-bottom: 20px;
+}
+.stat-card {
+  background: #fff;
+  border-radius: 10px;
+  padding: 18px 16px;
+  box-shadow: var(--card-shadow);
+  border-left: 4px solid var(--orange);
+}
+.stat-card.blue { border-left-color: var(--light-blue); }
+.stat-card.green { border-left-color: var(--success); }
+.stat-card.gold { border-left-color: var(--gold); }
+.stat-value { font-size: 28px; font-weight: 800; color: var(--navy); }
+.stat-label { font-size: 12px; color: var(--text-muted); margin-top: 4px; }
+
+/* Forms */
+.form-card {
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: var(--card-shadow);
+  padding: 22px 24px;
+  margin-bottom: 16px;
+}
+.form-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--navy);
+  margin-bottom: 16px;
+  padding-bottom: 10px;
+  border-bottom: 2px solid var(--orange);
+}
+.form-group { margin-bottom: 14px; }
+.form-group label {
+  display: block;
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--text-dark);
+  margin-bottom: 5px;
+}
+.form-group input,
+.form-group select,
+.form-group textarea {
+  width: 100%;
+  border: 1px solid #d1d5db;
+  border-radius: 5px;
+  padding: 8px 11px;
+  font-size: 13px;
+  background: #fff;
+}
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  outline: 2px solid var(--orange);
+  border-color: var(--orange);
+}
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.btn-primary {
+  background: var(--navy);
+  color: #fff;
+  border: none;
+  padding: 9px 22px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 600;
+}
+.btn-primary:hover { background: var(--navy-mid); }
+.btn-orange {
+  background: var(--orange);
+  color: #fff;
+  border: none;
+  padding: 9px 22px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 600;
+}
+.btn-orange:hover { background: var(--orange-dark); }
+.btn-danger {
+  background: var(--danger);
+  color: #fff;
+  border: none;
+  padding: 6px 14px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 12px;
+}
+.btn-edit {
+  background: var(--light-blue);
+  color: #fff;
+  border: none;
+  padding: 6px 14px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 12px;
+}
+.btn-sm {
+  padding: 5px 11px;
+  font-size: 11.5px;
+  border-radius: 4px;
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+/* Purchase / transaction cards */
+.purchase-card {
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: var(--card-shadow);
+  padding: 16px 18px;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.purchase-icon {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: var(--navy);
+  color: var(--gold);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  flex-shrink: 0;
+}
+.purchase-info { flex: 1; }
+.purchase-title { font-size: 13.5px; font-weight: 600; color: var(--navy); }
+.purchase-date { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
+.purchase-amount { font-size: 16px; font-weight: 800; color: var(--orange); }
+
+/* Right sidebar */
+.sidebar-right {
+  background: var(--navy-dark);
+  border-left: 1px solid rgba(255,255,255,0.08);
+  overflow-y: auto;
+  padding: 18px 0 18px;
+}
+.profile-card {
+  text-align: center;
+  padding: 16px 18px 14px;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+  margin-bottom: 6px;
+}
+.avatar-circle {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background: var(--light-blue);
+  margin: 0 auto 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+  color: #fff;
+  border: 3px solid var(--orange);
+}
+.profile-welcome { font-size: 12px; color: rgba(255,255,255,0.5); }
+.profile-name { font-size: 14px; font-weight: 700; color: #fff; margin-top: 2px; }
+
+.right-nav a {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 9px 18px;
+  color: rgba(255,255,255,0.7);
+  text-decoration: none;
+  font-size: 12.5px;
+  transition: background 0.15s;
+}
+.right-nav a:hover,
+.right-nav a.active {
+  background: rgba(255,140,0,0.18);
+  color: var(--orange);
+}
+.right-nav .nav-icon { font-size: 14px; width: 20px; text-align: center; }
+.right-nav .sep { border-top: 1px solid rgba(255,255,255,0.08); margin: 6px 0; }
+
+/* Attendance checkboxes */
+.attendance-grid-wrap { overflow-x: auto; }
+.attendance-tbl { min-width: 600px; }
+.att-check { accent-color: var(--orange); width: 16px; height: 16px; cursor: pointer; }
+
+/* Test score badge */
+.score-badge {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 700;
+}
+.score-pass { background: #dcfce7; color: #166534; }
+.score-fail { background: #fee2e2; color: #991b1b; }
+.score-pending { background: #fef3c7; color: #92400e; }
+
+/* Modal */
+.modal-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.55);
+  z-index: 300;
+  align-items: center;
+  justify-content: center;
+}
+.modal-overlay.open { display: flex; }
+.modal-box {
+  background: #fff;
+  border-radius: 12px;
+  width: 520px;
+  max-width: 95vw;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+}
+.modal-header {
+  background: var(--navy);
+  color: var(--gold);
+  padding: 14px 20px;
+  font-weight: 700;
+  font-size: 15px;
+  border-radius: 12px 12px 0 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.modal-close {
+  background: none;
+  border: none;
+  color: rgba(255,255,255,0.7);
+  font-size: 20px;
+  cursor: pointer;
+}
+.modal-close:hover { color: #fff; }
+.modal-body { padding: 20px 22px 22px; }
+
+/* Toast */
+.toast {
+  position: fixed;
+  bottom: 80px;
+  right: 20px;
+  background: var(--navy);
+  color: #fff;
+  padding: 12px 20px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  z-index: 500;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.3);
+  transform: translateY(20px);
+  opacity: 0;
+  transition: all 0.3s;
+  border-left: 4px solid var(--orange);
+}
+.toast.show { transform: translateY(0); opacity: 1; }
+
+/* Live chat widget */
+.chat-widget {
+  position: fixed;
+  bottom: 18px;
+  right: 18px;
+  z-index: 400;
+}
+.chat-btn {
+  background: var(--orange);
+  color: #fff;
+  border: none;
+  border-radius: 50px;
+  padding: 11px 18px;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 700;
+  box-shadow: 0 4px 16px rgba(255,140,0,0.4);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.chat-popup {
+  display: none;
+  position: absolute;
+  bottom: 52px;
+  right: 0;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+  width: 240px;
+  padding: 16px;
+  font-size: 13px;
+}
+.chat-popup.open { display: block; }
+.chat-offline { color: var(--text-muted); font-size: 12px; margin-bottom: 6px; }
+
+/* Pill tags */
+.tag { display: inline-block; border-radius: 12px; padding: 2px 9px; font-size: 11px; font-weight: 600; margin-right: 4px; }
+.tag-hafs { background: #e0e7ff; color: #3730a3; }
+.tag-warsh { background: #fce7f3; color: #9d174d; }
+.tag-qaloon { background: #d1fae5; color: #065f46; }
+
+/* Admin course table actions */
+.action-btns { display: flex; gap: 6px; }
+
+/* Enrollment status */
+.enroll-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 3px 10px;
+  border-radius: 12px;
+}
+.enroll-active { background: #dcfce7; color: #166534; }
+.enroll-pending { background: #fef3c7; color: #92400e; }
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: rgba(26,35,126,0.25); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(26,35,126,0.45); }
+
+/* Utility */
+.mb-16 { margin-bottom: 16px; }
+.mt-10 { margin-top: 10px; }
+.flex { display: flex; }
+.flex-between { display: flex; align-items: center; justify-content: space-between; }
+.gap-8 { gap: 8px; }
+.text-center { text-align: center; }
+.text-muted { color: var(--text-muted); font-size: 12.5px; }
+.fw-700 { font-weight: 700; }
+.color-orange { color: var(--orange); }
+.color-gold { color: var(--gold); }
+
+/* fade in */
+.page.active { animation: fadeIn 0.2s ease; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+
+/* Admin only elements */
+.admin-only { display: none; }
+body.admin-mode .admin-only { display: block; }
+body.admin-mode .student-only { display: none; }
+
+/* ── LOGIN SCREEN ── */
+#loginScreen {
+  position: fixed; inset: 0; background: var(--navy-dark);
+  display: flex; align-items: center; justify-content: center;
+  z-index: 1000; flex-direction: column;
+}
+#loginScreen.hidden { display: none; }
+.login-box {
+  background: #fff; border-radius: 16px; padding: 36px 40px;
+  width: 380px; max-width: 95vw; box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+  text-align: center;
+}
+.login-logo { font-size: 28px; color: var(--gold); margin-bottom: 4px; font-family: Georgia, serif; text-shadow: 0 2px 8px rgba(255,215,0,0.3); }
+.login-subtitle { font-size: 12px; color: var(--text-muted); margin-bottom: 22px; }
+.login-title { font-size: 17px; font-weight: 800; color: var(--navy); margin-bottom: 20px; }
+.user-select-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 16px; }
+.user-select-card {
+  border: 2px solid #e5e7eb; border-radius: 10px; padding: 14px 10px;
+  cursor: pointer; transition: all 0.18s; text-align: center;
+}
+.user-select-card:hover, .user-select-card.selected {
+  border-color: var(--orange); background: #fff8f0;
+}
+.user-select-card .usc-avatar { font-size: 26px; margin-bottom: 5px; }
+.user-select-card .usc-name { font-size: 12.5px; font-weight: 700; color: var(--navy); }
+.user-select-card .usc-role { font-size: 11px; color: var(--text-muted); margin-top: 2px; }
+.btn-login {
+  width: 100%; background: var(--orange); color: #fff; border: none;
+  padding: 11px; border-radius: 8px; font-size: 14px; font-weight: 700; cursor: pointer; margin-top: 6px;
+}
+.btn-login:hover { background: var(--orange-dark); }
+.login-admin-link { font-size: 12px; color: var(--light-blue); margin-top: 12px; cursor: pointer; }
+.login-admin-link:hover { text-decoration: underline; }
+
+/* ── NOTIFICATION BELL ── */
+.notif-wrap { position: relative; }
+.notif-badge {
+  position: absolute; top: -4px; right: -4px;
+  background: var(--danger); color: #fff; font-size: 9px;
+  font-weight: 800; border-radius: 50%; width: 16px; height: 16px;
+  display: flex; align-items: center; justify-content: center;
+}
+.notif-panel {
+  display: none; position: absolute; top: 42px; right: -10px;
+  width: 300px; background: #fff; border-radius: 10px;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.25); z-index: 250; overflow: hidden;
+}
+.notif-panel.open { display: block; }
+.notif-header { background: var(--navy); color: #fff; padding: 10px 14px; font-size: 13px; font-weight: 700; display: flex; justify-content: space-between; align-items: center; }
+.notif-item { padding: 11px 14px; border-bottom: 1px solid #f0f0f0; font-size: 12.5px; cursor: pointer; }
+.notif-item:hover { background: #fafbff; }
+.notif-item .ni-title { font-weight: 600; color: var(--navy); margin-bottom: 2px; }
+.notif-item .ni-time { font-size: 11px; color: var(--text-muted); }
+.notif-item.unread { border-left: 3px solid var(--orange); }
+.notif-empty { padding: 18px; text-align: center; color: var(--text-muted); font-size: 13px; }
+
+/* ── STAR RATINGS ── */
+.stars { display: inline-flex; gap: 3px; }
+.star { font-size: 18px; cursor: pointer; color: #d1d5db; transition: color 0.15s; }
+.star.filled, .star:hover { color: var(--gold); }
+.star-display { color: var(--gold); font-size: 14px; }
+.reviews-list { display: flex; flex-direction: column; gap: 12px; }
+.review-card {
+  background: #fff; border-radius: 10px; padding: 16px 18px;
+  box-shadow: var(--card-shadow);
+}
+.review-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px; }
+.reviewer-name { font-weight: 700; font-size: 13.5px; color: var(--navy); }
+.review-date { font-size: 11px; color: var(--text-muted); }
+.review-body { font-size: 13px; color: var(--text-dark); line-height: 1.6; margin-top: 6px; }
+
+/* ── CALENDAR ── */
+.calendar-wrap { background: #fff; border-radius: 10px; box-shadow: var(--card-shadow); overflow: hidden; }
+.cal-header { background: var(--navy); color: #fff; padding: 12px 16px; display: flex; align-items: center; justify-content: space-between; }
+.cal-nav-btn { background: none; border: 1px solid rgba(255,255,255,0.3); color: #fff; border-radius: 4px; padding: 4px 10px; cursor: pointer; font-size: 14px; }
+.cal-nav-btn:hover { background: rgba(255,255,255,0.15); }
+.cal-month-title { font-weight: 700; font-size: 15px; }
+.cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); }
+.cal-day-header { background: var(--navy-mid); color: rgba(255,255,255,0.7); text-align: center; padding: 7px 0; font-size: 11px; font-weight: 700; text-transform: uppercase; }
+.cal-cell { min-height: 72px; padding: 5px; border: 1px solid #f0f0f0; vertical-align: top; position: relative; }
+.cal-cell.other-month { background: #f9fafb; }
+.cal-cell.today { background: #fffbeb; }
+.cal-date { font-size: 12px; font-weight: 700; color: var(--text-muted); margin-bottom: 3px; }
+.cal-cell.today .cal-date { color: var(--orange); }
+.cal-event { background: var(--light-blue); color: #fff; font-size: 10px; border-radius: 3px; padding: 2px 5px; margin-bottom: 2px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; cursor: pointer; }
+.cal-event.online { background: var(--light-blue); }
+.cal-event.inperson { background: #2e7d32; }
+
+/* ── CERTIFICATE ── */
+#certModal .modal-box { width: 640px; }
+.certificate {
+  background: linear-gradient(135deg, #fefbe8 0%, #fff9e6 50%, #fefbe8 100%);
+  border: 8px solid var(--gold); border-radius: 8px; padding: 36px 40px;
+  text-align: center; position: relative; margin: 10px;
+}
+.cert-border {
+  position: absolute; inset: 8px;
+  border: 2px solid rgba(255,215,0,0.4); border-radius: 4px;
+  pointer-events: none;
+}
+.cert-logo { font-size: 32px; color: var(--gold); font-family: Georgia, serif; margin-bottom: 4px; }
+.cert-title { font-size: 22px; font-weight: 800; color: var(--navy); margin: 10px 0 4px; letter-spacing: 1px; }
+.cert-subtitle { font-size: 13px; color: var(--text-muted); margin-bottom: 16px; }
+.cert-recipient { font-size: 26px; font-style: italic; color: var(--navy-mid); margin: 10px 0; font-family: Georgia, serif; }
+.cert-body { font-size: 13px; color: var(--text-dark); line-height: 1.8; max-width: 420px; margin: 0 auto 16px; }
+.cert-course { font-size: 14px; font-weight: 700; color: var(--orange); margin: 8px 0; }
+.cert-footer { display: flex; justify-content: space-between; margin-top: 20px; padding-top: 16px; border-top: 1px solid rgba(255,215,0,0.4); }
+.cert-sig { text-align: center; }
+.cert-sig-line { border-top: 1px solid #999; width: 120px; margin: 0 auto 4px; padding-top: 4px; }
+.cert-sig-name { font-size: 11px; color: var(--text-muted); }
+
+/* ── ADMIN PROGRESS EDITOR ── */
+.progress-editor { display: flex; align-items: center; gap: 8px; }
+.progress-input { width: 60px; border: 1px solid #d1d5db; border-radius: 4px; padding: 3px 6px; font-size: 12px; }
+.btn-save-progress { background: var(--orange); color: #fff; border: none; padding: 3px 9px; border-radius: 4px; font-size: 11px; cursor: pointer; font-weight: 600; }
+
+/* ── USER SWITCHER BANNER (admin) ── */
+.student-switcher { display: flex; gap: 8px; margin-bottom: 14px; flex-wrap: wrap; }
+.student-pill {
+  padding: 5px 14px; border-radius: 20px; border: 2px solid transparent;
+  background: #fff; font-size: 12px; font-weight: 600; cursor: pointer;
+  box-shadow: var(--card-shadow); color: var(--navy);
+}
+.student-pill.active { border-color: var(--orange); background: #fff8f0; color: var(--orange); }
+
+/* Responsive */
+@media (max-width: 900px) {
+  .layout { grid-template-columns: 200px 1fr; }
+  .sidebar-right { display: none; }
+}
+@media (max-width: 640px) {
+  .layout { grid-template-columns: 1fr; }
+  .sidebar-left { display: none; }
+  .form-row { grid-template-columns: 1fr; }
+}
+@media print {
+  body > *:not(#certModal) { display: none !important; }
+  #certModal { display: block !important; position: static !important; background: none !important; }
+  #certModal .modal-box { box-shadow: none !important; width: 100% !important; }
+  #certModal .modal-header, #certModal .modal-body > div:last-child { display: none !important; }
+  .certificate { border: 6px solid var(--gold) !important; }
+}
+</style>
+</head>
+<body>
+
+<!-- LOGIN SCREEN -->
+<div id="loginScreen">
+  <div class="login-box">
+    <div class="login-logo">القاعدة النورانيّة</div>
+    <div class="login-subtitle">Al-Qaida Al-Nooraniyah Learning Management System</div>
+    <div class="login-title">Select Your Account</div>
+    <div class="user-select-grid" id="loginUserGrid"></div>
+    <div style="margin:10px 0 6px;font-size:12px;color:var(--text-muted)">— or —</div>
+    <div class="user-select-card" id="adminLoginCard" onclick="selectLoginUser('admin')" style="border-color:var(--navy);margin-bottom:12px">
+      <div class="usc-avatar">🛡️</div>
+      <div class="usc-name">Administrator</div>
+      <div class="usc-role">Full system access</div>
+    </div>
+    <button class="btn-login" onclick="doLogin()">Enter System →</button>
+  </div>
+</div>
+
+<!-- TOP NAV -->
+<nav class="topnav">
+  <div class="topnav-left">
+    <div class="dropdown" id="accountDropdown">
+      <button class="account-btn" onclick="toggleDropdown()">
+        <span>👤</span> My Account <span>▾</span>
+      </button>
+      <div class="dropdown-menu" id="accountMenu">
+        <a href="#" onclick="navigate('student-profile');closeDropdown()">👤 Profile</a>
+        <a href="#" onclick="navigate('student-profile');closeDropdown()">⚙️ Account Settings</a>
+        <div class="sep"></div>
+        <a href="#" onclick="logout();closeDropdown()">🚪 Log Out</a>
+      </div>
+    </div>
+    <div class="notif-wrap" id="notifWrap">
+      <button class="nav-icon-btn" title="Notifications" onclick="toggleNotif(event)">🔔</button>
+      <div class="notif-badge" id="notifBadge">3</div>
+      <div class="notif-panel" id="notifPanel">
+        <div class="notif-header"><span>Notifications</span><span style="cursor:pointer;font-size:11px;opacity:0.7" onclick="markAllRead()">Mark all read</span></div>
+        <div id="notifList"></div>
+      </div>
+    </div>
+    <button class="nav-icon-btn" title="Language">🌐</button>
+    <button class="nav-icon-btn" title="Payments">💳</button>
+    <button class="role-toggle" id="roleToggleBtn" onclick="toggleRole()">Switch to Admin ▶</button>
+  </div>
+  <div class="topnav-right">
+    <div class="arabic-logo" onclick="navigate('student-home')">القاعدة النورانيّة</div>
+  </div>
+</nav>
+
+<!-- MAIN LAYOUT -->
+<div class="layout">
+
+  <!-- LEFT SIDEBAR -->
+  <aside class="sidebar-left" id="sidebarLeft">
+    <!-- Profile menu (student) -->
+    <div class="sidebar-profile-menu student-only" id="profileMenuStudent">
+      <a href="#" onclick="navigate('student-profile')" class="active"><span class="icon">👤</span> Profile</a>
+      <a href="#" onclick="navigate('student-profile')"><span class="icon">⚙️</span> Account Settings</a>
+      <a href="#" onclick="logout()"><span class="icon">🚪</span> Log Out</a>
+    </div>
+    <!-- Profile menu (admin) -->
+    <div class="sidebar-profile-menu admin-only" id="profileMenuAdmin">
+      <a href="#" onclick="navigate('admin-dashboard')"><span class="icon">📊</span> Dashboard</a>
+      <a href="#" onclick="navigate('admin-courses')"><span class="icon">📚</span> Manage Courses</a>
+      <a href="#" onclick="navigate('admin-students')"><span class="icon">👥</span> Students</a>
+      <a href="#" onclick="navigate('admin-attendance')"><span class="icon">✅</span> Attendance</a>
+      <a href="#" onclick="navigate('admin-tests')"><span class="icon">📝</span> Tests & Scores</a>
+      <a href="#" onclick="navigate('admin-accreditation')"><span class="icon">🎓</span> Accreditation</a>
+      <a href="#" onclick="navigate('admin-progress')"><span class="icon">📈</span> Progress Editor</a>
+      <a href="#" onclick="navigate('calendar')"><span class="icon">📅</span> Calendar</a>
+    </div>
+
+    <div class="sidebar-section-title">Last Courses</div>
+    <div class="last-courses-list" id="lastCoursesList"></div>
+  </aside>
+
+  <!-- CENTER CONTENT -->
+  <main class="center-content" id="centerContent">
+
+    <!-- ===== STUDENT HOME ===== -->
+    <div class="page active" id="page-student-home">
+      <div class="action-bar" onclick="navigate('student-courses')">🔍 Search Options</div>
+      <div class="section-header">List Of Courses</div>
+      <div class="page-body">
+        <div id="homeCountdown"></div>
+        <div id="homeActiveCourse"></div>
+        <div class="mb-16">
+          <div class="flex-between mb-16">
+            <span class="fw-700" style="font-size:14px;color:var(--navy)">My Enrolled Courses</span>
+            <button class="btn-orange btn-sm" onclick="navigate('student-courses')">Browse All Courses</button>
+          </div>
+          <div id="enrolledCoursesList"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== STUDENT COURSES ===== -->
+    <div class="page" id="page-student-courses">
+      <div class="action-bar">🔍 Search Options</div>
+      <div class="section-header">List Of Courses</div>
+      <div class="page-body">
+        <div class="filter-bar">
+          <input type="text" id="searchText" placeholder="Search course name or coach..." oninput="renderCourseGrid()">
+          <select id="filterType" onchange="renderCourseGrid()">
+            <option value="">All Types</option>
+            <option value="Online">Online</option>
+            <option value="In-Person">In-Person</option>
+          </select>
+          <select id="filterClassification" onchange="renderCourseGrid()">
+            <option value="">All Classifications</option>
+            <option value="Hafs">Hafs</option>
+            <option value="Warsh">Warsh</option>
+            <option value="Qaloon">Qaloon</option>
+          </select>
+          <select id="filterLocation" onchange="renderCourseGrid()">
+            <option value="">All Locations</option>
+          </select>
+          <button class="btn-search" onclick="renderCourseGrid()">Search</button>
+        </div>
+        <div class="courses-grid" id="coursesGrid"></div>
+      </div>
+    </div>
+
+    <!-- ===== STUDENT COURSE DETAIL ===== -->
+    <div class="page" id="page-student-course-detail">
+      <div class="action-bar">📖 Course Detail</div>
+      <div class="section-header" id="courseDetailHeader">Course Detail</div>
+      <div class="page-body" id="courseDetailBody"></div>
+    </div>
+
+    <!-- ===== STUDENT TESTS ===== -->
+    <div class="page" id="page-student-tests">
+      <div class="action-bar">📝 My Tests</div>
+      <div class="section-header">Test Results</div>
+      <div class="page-body">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>#</th><th>Course</th><th>Test Date</th><th>Score</th><th>Result</th>
+            </tr>
+          </thead>
+          <tbody id="testsTableBody"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ===== STUDENT PURCHASES ===== -->
+    <div class="page" id="page-student-purchases">
+      <div class="action-bar">💳 My Purchases</div>
+      <div class="section-header">Purchase History</div>
+      <div class="page-body" id="purchasesBody"></div>
+    </div>
+
+    <!-- ===== STUDENT TRANSACTIONS ===== -->
+    <div class="page" id="page-student-transactions">
+      <div class="action-bar">📋 My Transactions</div>
+      <div class="section-header">Transaction Log</div>
+      <div class="page-body">
+        <table class="data-table">
+          <thead>
+            <tr><th>#</th><th>Date</th><th>Description</th><th>Amount</th><th>Status</th></tr>
+          </thead>
+          <tbody id="transactionsTableBody"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ===== STUDENT PROFILE ===== -->
+    <div class="page" id="page-student-profile">
+      <div class="action-bar">👤 My Profile</div>
+      <div class="section-header">Edit Profile</div>
+      <div class="page-body">
+        <div class="form-card">
+          <div class="form-title">Personal Information</div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>First Name</label>
+              <input type="text" id="profileFirstName">
+            </div>
+            <div class="form-group">
+              <label>Last Name</label>
+              <input type="text" id="profileLastName">
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Email Address</label>
+              <input type="email" id="profileEmail">
+            </div>
+            <div class="form-group">
+              <label>Phone Number</label>
+              <input type="text" id="profilePhone">
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>City / Country</label>
+              <input type="text" id="profileLocation">
+            </div>
+            <div class="form-group">
+              <label>Preferred Classification</label>
+              <select id="profileClassification">
+                <option>Hafs On The Authority Of Asim</option>
+                <option>Warsh On The Authority Of Nafi</option>
+                <option>Qaloon On The Authority Of Nafi</option>
+              </select>
+            </div>
+          </div>
+          <button class="btn-orange" onclick="saveProfile()">Save Changes</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== STUDENT REQUEST TEST ===== -->
+    <div class="page" id="page-student-request-test">
+      <div class="action-bar">🎓 Request Nooraniyah Test</div>
+      <div class="section-header">Submit Test Request</div>
+      <div class="page-body">
+        <div class="form-card">
+          <div class="form-title">Nooraniyah Accreditation Test Request</div>
+          <div class="form-group">
+            <label>Select Course</label>
+            <select id="reqTestCourse"></select>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Preferred Date</label>
+              <input type="date" id="reqTestDate">
+            </div>
+            <div class="form-group">
+              <label>Level</label>
+              <select id="reqTestLevel">
+                <option>Level 1 - Basic</option>
+                <option>Level 2 - Intermediate</option>
+                <option>Level 3 - Advanced</option>
+                <option>Teacher Certification</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Additional Notes</label>
+            <textarea id="reqTestNotes" rows="3" placeholder="Any special requests or notes..."></textarea>
+          </div>
+          <button class="btn-orange" onclick="submitTestRequest()">Submit Request</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== ADMIN DASHBOARD ===== -->
+    <div class="page" id="page-admin-dashboard">
+      <div class="action-bar">📊 Admin Dashboard</div>
+      <div class="section-header">Overview</div>
+      <div class="page-body">
+        <div class="stats-grid" id="adminStats"></div>
+        <div class="flex-between mb-16">
+          <span class="fw-700" style="font-size:14px;color:var(--navy)">Recent Enrollments</span>
+        </div>
+        <table class="data-table mb-16">
+          <thead><tr><th>Student</th><th>Course</th><th>Date</th><th>Status</th></tr></thead>
+          <tbody id="recentEnrollmentsBody"></tbody>
+        </table>
+        <div class="fw-700 mb-16" style="font-size:14px;color:var(--navy)">Upcoming Sessions</div>
+        <div id="upcomingSessionsList"></div>
+      </div>
+    </div>
+
+    <!-- ===== ADMIN COURSES ===== -->
+    <div class="page" id="page-admin-courses">
+      <div class="action-bar flex-between">
+        <span>📚 Course Management</span>
+        <button class="btn-sm" style="background:#fff;color:var(--navy);font-weight:700;" onclick="openCourseModal(null)">+ New Course</button>
+      </div>
+      <div class="section-header">All Courses</div>
+      <div class="page-body">
+        <table class="data-table">
+          <thead>
+            <tr><th>#</th><th>Course Name</th><th>Coach</th><th>Type</th><th>Location</th><th>Classification</th><th>Students</th><th>Actions</th></tr>
+          </thead>
+          <tbody id="adminCoursesTableBody"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ===== ADMIN STUDENTS ===== -->
+    <div class="page" id="page-admin-students">
+      <div class="action-bar">👥 Student Management</div>
+      <div class="section-header">All Students & Progress</div>
+      <div class="page-body">
+        <div class="form-group mb-16" style="max-width:300px">
+          <label>Filter by Course</label>
+          <select id="adminStudentFilter" onchange="renderAdminStudents()">
+            <option value="">All Courses</option>
+          </select>
+        </div>
+        <div id="adminStudentsList"></div>
+      </div>
+    </div>
+
+    <!-- ===== ADMIN ATTENDANCE ===== -->
+    <div class="page" id="page-admin-attendance">
+      <div class="action-bar">✅ Attendance Tracking</div>
+      <div class="section-header">Session Attendance</div>
+      <div class="page-body">
+        <div class="form-group mb-16" style="max-width:300px">
+          <label>Select Course</label>
+          <select id="attendanceCourseFilter" onchange="renderAttendance()">
+            <option value="">Select a course...</option>
+          </select>
+        </div>
+        <div class="attendance-grid-wrap">
+          <div id="attendanceContent"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== ADMIN TESTS ===== -->
+    <div class="page" id="page-admin-tests">
+      <div class="action-bar">📝 Test Management</div>
+      <div class="section-header">Record & View Test Scores</div>
+      <div class="page-body">
+        <div class="form-card mb-16">
+          <div class="form-title">Record New Score</div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Student</label>
+              <select id="testStudentSel"></select>
+            </div>
+            <div class="form-group">
+              <label>Course</label>
+              <select id="testCourseSel"></select>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Score (%)</label>
+              <input type="number" id="testScore" min="0" max="100" placeholder="0-100">
+            </div>
+            <div class="form-group">
+              <label>Test Date</label>
+              <input type="date" id="testDate">
+            </div>
+          </div>
+          <button class="btn-orange" onclick="recordTestScore()">Save Score</button>
+        </div>
+        <table class="data-table">
+          <thead><tr><th>#</th><th>Student</th><th>Course</th><th>Date</th><th>Score</th><th>Result</th></tr></thead>
+          <tbody id="adminTestsBody"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ===== ADMIN ACCREDITATION ===== -->
+    <div class="page" id="page-admin-accreditation">
+      <div class="action-bar">🎓 Accreditation Services</div>
+      <div class="section-header">Manage Accreditation</div>
+      <div class="page-body">
+        <div class="stats-grid" style="grid-template-columns:repeat(3,1fr)">
+          <div class="stat-card green"><div class="stat-value" id="accPassCount">0</div><div class="stat-label">Students Passed</div></div>
+          <div class="stat-card"><div class="stat-value" id="accPendingCount">0</div><div class="stat-label">Tests Pending</div></div>
+          <div class="stat-card gold"><div class="stat-value" id="accCertCount">0</div><div class="stat-label">Certificates Issued</div></div>
+        </div>
+        <div class="form-card mt-10">
+          <div class="form-title">Test Requests</div>
+          <table class="data-table">
+            <thead><tr><th>Student</th><th>Course</th><th>Requested Date</th><th>Level</th><th>Status</th><th>Action</th></tr></thead>
+            <tbody id="accreditationBody"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== STUDENT REVIEWS ===== -->
+    <div class="page" id="page-student-reviews">
+      <div class="action-bar">⭐ Course Reviews</div>
+      <div class="section-header">Reviews & Ratings</div>
+      <div class="page-body">
+        <div class="form-card mb-16">
+          <div class="form-title">Write a Review</div>
+          <div class="form-group">
+            <label>Course</label>
+            <select id="reviewCourseSel"></select>
+          </div>
+          <div class="form-group">
+            <label>Your Rating</label>
+            <div class="stars" id="reviewStars">
+              <span class="star" data-v="1" onclick="setRating(1)">★</span>
+              <span class="star" data-v="2" onclick="setRating(2)">★</span>
+              <span class="star" data-v="3" onclick="setRating(3)">★</span>
+              <span class="star" data-v="4" onclick="setRating(4)">★</span>
+              <span class="star" data-v="5" onclick="setRating(5)">★</span>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Your Review</label>
+            <textarea id="reviewText" rows="3" placeholder="Share your experience with this course..."></textarea>
+          </div>
+          <button class="btn-orange" onclick="submitReview()">Submit Review</button>
+        </div>
+        <div class="fw-700 mb-16" style="font-size:14px;color:var(--navy)">All Reviews</div>
+        <div class="reviews-list" id="reviewsList"></div>
+      </div>
+    </div>
+
+    <!-- ===== CALENDAR ===== -->
+    <div class="page" id="page-calendar">
+      <div class="action-bar">📅 Session Calendar</div>
+      <div class="section-header">Upcoming Sessions</div>
+      <div class="page-body">
+        <div class="calendar-wrap mb-16" id="calendarWrap"></div>
+        <div class="fw-700 mb-16" style="font-size:14px;color:var(--navy)">This Month's Sessions</div>
+        <div id="calendarEventList"></div>
+      </div>
+    </div>
+
+    <!-- ===== ADMIN PROGRESS EDITOR ===== -->
+    <div class="page" id="page-admin-progress">
+      <div class="action-bar flex-between">
+        <span>📈 Progress Management</span>
+        <button class="btn-sm" style="background:#fff;color:var(--navy);font-weight:700" onclick="exportStudentData()">⬇ Export CSV</button>
+      </div>
+      <div class="section-header">Edit Student Progress</div>
+      <div class="page-body">
+        <div class="mb-16">
+          <div class="fw-700" style="font-size:13px;color:var(--text-muted);margin-bottom:8px">Viewing as student:</div>
+          <div class="student-switcher" id="progressStudentSwitcher"></div>
+        </div>
+        <div id="progressEditorContent"></div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- RIGHT SIDEBAR -->
+  <aside class="sidebar-right" id="sidebarRight">
+    <div class="profile-card">
+      <div class="avatar-circle" id="avatarCircle">👤</div>
+      <div class="profile-welcome">Welcome, Our Customer...</div>
+      <div class="profile-name" id="profileNameDisplay">Ahmed Al-Rashid</div>
+      <div style="margin-top:8px">
+        <span class="enroll-status enroll-active">● Active</span>
+      </div>
+    </div>
+    <nav class="right-nav student-only" id="rightNavStudent">
+      <a href="#" onclick="navigate('student-home')" class="active"><span class="nav-icon">🏠</span> Home</a>
+      <a href="#" onclick="navigate('student-profile')"><span class="nav-icon">✏️</span> Edit Profile</a>
+      <a href="#" onclick="navigate('admin-accreditation')"><span class="nav-icon">🎓</span> Accreditation Services</a>
+      <a href="#" onclick="navigate('student-tests')"><span class="nav-icon">📝</span> My Tests</a>
+      <a href="#" onclick="navigate('student-purchases')"><span class="nav-icon">💰</span> My Purchases</a>
+      <a href="#" onclick="navigate('student-transactions')"><span class="nav-icon">📋</span> My Transactions</a>
+      <div class="sep"></div>
+      <a href="#" onclick="navigate('student-reviews')"><span class="nav-icon">⭐</span> Reviews</a>
+      <a href="#" onclick="navigate('student-request-test')"><span class="nav-icon">📤</span> Request Nooraniyah Test</a>
+      <a href="#" onclick="navigate('calendar')"><span class="nav-icon">📅</span> Session Calendar</a>
+    </nav>
+    <nav class="right-nav admin-only" id="rightNavAdmin">
+      <a href="#" onclick="navigate('admin-dashboard')" class="active"><span class="nav-icon">📊</span> Dashboard</a>
+      <a href="#" onclick="navigate('admin-courses')"><span class="nav-icon">📚</span> Courses</a>
+      <a href="#" onclick="navigate('admin-students')"><span class="nav-icon">👥</span> Students</a>
+      <a href="#" onclick="navigate('admin-attendance')"><span class="nav-icon">✅</span> Attendance</a>
+      <a href="#" onclick="navigate('admin-tests')"><span class="nav-icon">📝</span> Tests</a>
+      <a href="#" onclick="navigate('admin-accreditation')"><span class="nav-icon">🎓</span> Accreditation</a>
+      <a href="#" onclick="navigate('admin-progress')"><span class="nav-icon">📈</span> Progress Editor</a>
+      <a href="#" onclick="navigate('calendar')"><span class="nav-icon">📅</span> Calendar</a>
+    </nav>
+  </aside>
+
+</div>
+
+<!-- COURSE MODAL -->
+<div class="modal-overlay" id="courseModal">
+  <div class="modal-box">
+    <div class="modal-header">
+      <span id="courseModalTitle">Create New Course</span>
+      <button class="modal-close" onclick="closeCourseModal()">✕</button>
+    </div>
+    <div class="modal-body">
+      <input type="hidden" id="editCourseId">
+      <div class="form-row">
+        <div class="form-group">
+          <label>Course Name</label>
+          <input type="text" id="mCourseName" placeholder="e.g. Noorani Qaida Course">
+        </div>
+        <div class="form-group">
+          <label>Coach Name</label>
+          <input type="text" id="mCoachName" placeholder="e.g. Mohammed Farouk Al-Ra'i">
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Course Type</label>
+          <select id="mCourseType">
+            <option>Online</option>
+            <option>In-Person</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Classification</label>
+          <select id="mClassification">
+            <option>Hafs</option>
+            <option>Warsh</option>
+            <option>Qaloon</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Location / City</label>
+          <input type="text" id="mLocation" placeholder="e.g. Brussels, Belgium">
+        </div>
+        <div class="form-group">
+          <label>Max Students</label>
+          <input type="number" id="mMaxStudents" value="20" min="1">
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Start Date</label>
+          <input type="date" id="mStartDate">
+        </div>
+        <div class="form-group">
+          <label>Next Session (Date & Time)</label>
+          <input type="datetime-local" id="mNextSession">
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Course Description</label>
+        <textarea id="mDescription" rows="3" placeholder="Describe the course content..."></textarea>
+      </div>
+      <div style="display:flex;gap:10px;margin-top:6px">
+        <button class="btn-orange" onclick="saveCourse()">Save Course</button>
+        <button class="btn-primary" onclick="closeCourseModal()">Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CERTIFICATE MODAL -->
+<div class="modal-overlay" id="certModal">
+  <div class="modal-box">
+    <div class="modal-header">
+      <span>🎓 Certificate of Completion</span>
+      <button class="modal-close" onclick="document.getElementById('certModal').classList.remove('open')">✕</button>
+    </div>
+    <div class="modal-body" style="padding:6px">
+      <div class="certificate" id="certContent">
+        <div class="cert-border"></div>
+        <div class="cert-logo">القاعدة النورانيّة</div>
+        <div style="font-size:12px;color:var(--text-muted);margin-bottom:8px">Al-Qaida Al-Nooraniyah Institute</div>
+        <div class="cert-title">CERTIFICATE OF COMPLETION</div>
+        <div class="cert-subtitle">This is to certify that</div>
+        <div class="cert-recipient" id="certStudentName">Ahmed Al-Rashid</div>
+        <div class="cert-body">has successfully completed the course</div>
+        <div class="cert-course" id="certCourseName">Noorani Qaida Course</div>
+        <div class="cert-body" id="certDetails">with a passing score, demonstrating proficiency in Quranic recitation according to the Hafs narration method.</div>
+        <div class="cert-footer">
+          <div class="cert-sig"><div class="cert-sig-line"></div><div class="cert-sig-name">Course Coach</div></div>
+          <div style="text-align:center;font-size:20px;color:var(--gold)">✦</div>
+          <div class="cert-sig"><div class="cert-sig-line"></div><div class="cert-sig-name">Institute Director</div></div>
+        </div>
+        <div style="font-size:10px;color:var(--text-muted);margin-top:14px" id="certDate"></div>
+      </div>
+      <div style="text-align:center;margin:10px 0">
+        <button class="btn-orange" onclick="window.print()">🖨 Print Certificate</button>
+        <button class="btn-primary" style="margin-left:8px" onclick="document.getElementById('certModal').classList.remove('open')">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<!-- CHAT WIDGET -->
+<div class="chat-widget">
+  <div class="chat-popup" id="chatPopup">
+    <strong style="font-size:14px;color:var(--navy)">Support Chat</strong>
+    <div class="chat-offline mt-10">🔴 We Are Offline</div>
+    <p style="font-size:12px;color:var(--text-muted)">Leave a message and we'll get back to you.</p>
+    <textarea style="width:100%;margin-top:8px;border:1px solid #d1d5db;border-radius:4px;padding:6px;font-size:12px" rows="3" placeholder="Type your message..."></textarea>
+    <button class="btn-orange btn-sm" style="margin-top:6px;width:100%">Send Message</button>
+  </div>
+  <button class="chat-btn" onclick="toggleChat()">💬 Chat</button>
+</div>
+
+<script>
+// ════════════════════════════════
+//  DATA LAYER & SEED DATA
+// ════════════════════════════════
+
+const DB = {
+  get: k => { try { return JSON.parse(localStorage.getItem('lms_'+k)) || null; } catch(e) { return null; } },
+  set: (k,v) => localStorage.setItem('lms_'+k, JSON.stringify(v)),
+};
+
+function initData() {
+  if (DB.get('initialized')) return;
+
+  const courses = [
+    { id: 'c1', name: 'Al-Qaida Al-Nooraniyah Course – Online – For Teacher Preparation No. 3930', coach: 'Mohammed Farouk Al-Ra\'i', type: 'Online', classification: 'Hafs', location: 'Online (Global)', maxStudents: 30, startDate: '2025-01-15', nextSession: nextSessionDate(14, 7, 30), description: 'A comprehensive teacher preparation course based on the Nooraniyah method. Students learn correct Quranic pronunciation and teaching techniques under the guidance of certified coaches.', active: true, courseNo: 3930 },
+    { id: 'c2', name: 'Noorani Qaida Course In Brussels, Number 3927', coach: 'Mohammed Farouk Al-Ra\'i', type: 'In-Person', classification: 'Hafs', location: 'Singel, Brussels, Belgium', maxStudents: 15, startDate: '2025-02-01', nextSession: nextSessionDate(2, 10, 0), description: 'In-person Noorani Qaida classes in Brussels, Belgium. Suitable for all ages. Focus on correct Arabic letter pronunciation using the Hafs narration.', active: true, courseNo: 3927 },
+    { id: 'c3', name: 'Noorani Qaida Course In Indonesia, Number 3926', coach: 'Mohammed Farouk Al-Ra\'i', type: 'Online', classification: 'Warsh', location: 'Surabaya, Indonesia', maxStudents: 25, startDate: '2025-01-20', nextSession: nextSessionDate(7, 16, 0), description: 'Online Noorani Qaida classes connecting students in Indonesia with certified Quran teachers. Warsh narration focus.', active: true, courseNo: 3926 },
+    { id: 'c4', name: 'Al-Qaida Al-Nooraniyah Course In Luxembourg, Number 3925', coach: 'Mohammed Farouk Al-Ra\'i', type: 'In-Person', classification: 'Qaloon', location: 'Luxembourg City, Luxembourg', maxStudents: 12, startDate: '2025-03-01', nextSession: nextSessionDate(4, 9, 0), description: 'In-person Quranic reading course in Luxembourg City using Qaloon narration. Ideal for beginners and intermediate learners.', active: true, courseNo: 3925 },
+  ];
+
+  const students = [
+    { id: 's1', firstName: 'Ahmed', lastName: 'Al-Rashid', email: 'ahmed@example.com', phone: '+32 478 123 456', location: 'Brussels, Belgium', classification: 'Hafs On The Authority Of Asim', avatar: '🧑' },
+    { id: 's2', firstName: 'Fatima', lastName: 'Al-Zahra', email: 'fatima@example.com', phone: '+62 812 345 6789', location: 'Surabaya, Indonesia', classification: 'Warsh On The Authority Of Nafi', avatar: '👩' },
+    { id: 's3', firstName: 'Yusuf', lastName: 'Hassan', email: 'yusuf@example.com', phone: '+352 691 234 567', location: 'Luxembourg City, Luxembourg', classification: 'Qaloon On The Authority Of Nafi', avatar: '🧔' },
+  ];
+
+  const enrollments = [
+    { id: 'e1', studentId: 's1', courseId: 'c1', progress: 65, enrolledDate: '2025-01-15', attendance: [true,true,false,true,true,true,false,true] },
+    { id: 'e2', studentId: 's1', courseId: 'c2', progress: 40, enrolledDate: '2025-02-01', attendance: [true,true,true,false,true] },
+    { id: 'e3', studentId: 's2', courseId: 'c3', progress: 80, enrolledDate: '2025-01-20', attendance: [true,true,true,true,false,true,true,true,true] },
+    { id: 'e4', studentId: 's3', courseId: 'c4', progress: 30, enrolledDate: '2025-03-01', attendance: [true,false,true,true] },
+    { id: 'e5', studentId: 's2', courseId: 'c1', progress: 55, enrolledDate: '2025-01-15', attendance: [true,false,true,true,true,false,true] },
+  ];
+
+  const tests = [
+    { id: 't1', studentId: 's1', courseId: 'c1', score: 88, date: '2025-02-20' },
+    { id: 't2', studentId: 's1', courseId: 'c2', score: 72, date: '2025-03-10' },
+    { id: 't3', studentId: 's2', courseId: 'c3', score: 95, date: '2025-02-28' },
+    { id: 't4', studentId: 's3', courseId: 'c4', score: 55, date: '2025-03-20' },
+    { id: 't5', studentId: 's2', courseId: 'c1', score: 91, date: '2025-03-05' },
+  ];
+
+  const transactions = [
+    { id: 'tr1', studentId: 's1', description: 'Enrollment – Course No. 3930', amount: 120, currency: 'EUR', date: '2025-01-14', status: 'Paid' },
+    { id: 'tr2', studentId: 's1', description: 'Enrollment – Course No. 3927', amount: 80, currency: 'EUR', date: '2025-01-31', status: 'Paid' },
+    { id: 'tr3', studentId: 's2', description: 'Enrollment – Course No. 3926', amount: 60, currency: 'USD', date: '2025-01-19', status: 'Paid' },
+    { id: 'tr4', studentId: 's2', description: 'Enrollment – Course No. 3930', amount: 120, currency: 'USD', date: '2025-01-14', status: 'Paid' },
+    { id: 'tr5', studentId: 's3', description: 'Enrollment – Course No. 3925', amount: 90, currency: 'EUR', date: '2025-02-28', status: 'Paid' },
+  ];
+
+  const testRequests = [
+    { id: 'req1', studentId: 's1', courseId: 'c1', requestedDate: '2025-04-10', level: 'Level 2 - Intermediate', notes: '', status: 'Pending' },
+    { id: 'req2', studentId: 's2', courseId: 'c3', requestedDate: '2025-04-05', level: 'Level 3 - Advanced', notes: 'Ready for certification', status: 'Approved' },
+  ];
+
+  DB.set('courses', courses);
+  DB.set('students', students);
+  DB.set('enrollments', enrollments);
+  DB.set('tests', tests);
+  DB.set('transactions', transactions);
+  DB.set('testRequests', testRequests);
+  DB.set('role', 'student');
+  DB.set('currentUserId', 's1');
+  DB.set('initialized', true);
+}
+
+function nextSessionDate(daysFromNow, hour, minute) {
+  const d = new Date();
+  d.setDate(d.getDate() + daysFromNow);
+  d.setHours(hour, minute, 0, 0);
+  return d.toISOString();
+}
+
+// ════════════════════════════════
+//  HELPERS
+// ════════════════════════════════
+function getCourses() { return DB.get('courses') || []; }
+function getStudents() { return DB.get('students') || []; }
+function getEnrollments() { return DB.get('enrollments') || []; }
+function getTests() { return DB.get('tests') || []; }
+function getTransactions() { return DB.get('transactions') || []; }
+function getTestRequests() { return DB.get('testRequests') || []; }
+function getCurrentUserId() { return DB.get('currentUserId') || 's1'; }
+function getCurrentUser() { return getStudents().find(s => s.id === getCurrentUserId()) || getStudents()[0]; }
+function getRole() { return DB.get('role') || 'student'; }
+
+function courseById(id) { return getCourses().find(c => c.id === id); }
+function studentById(id) { return getStudents().find(s => s.id === id); }
+
+function classTag(cls) {
+  const map = { Hafs: 'tag-hafs', Warsh: 'tag-warsh', Qaloon: 'tag-qaloon' };
+  return `<span class="tag ${map[cls]||'tag-hafs'}">${cls}</span>`;
+}
+function typeBadge(t) {
+  return t === 'Online'
+    ? '<span class="badge-online">Online Course</span>'
+    : '<span class="badge-inperson">In-Person</span>';
+}
+function scoreBadge(s) {
+  if (s === null || s === undefined) return '<span class="score-badge score-pending">Pending</span>';
+  if (s >= 70) return `<span class="score-badge score-pass">Pass (${s}%)</span>`;
+  return `<span class="score-badge score-fail">Fail (${s}%)</span>`;
+}
+function fmtDate(d) {
+  if (!d) return '-';
+  return new Date(d).toLocaleDateString('en-GB', { day:'2-digit', month:'short', year:'numeric' });
+}
+function pad(n) { return String(n).padStart(2,'0'); }
+
+// ════════════════════════════════
+//  ROUTER
+// ════════════════════════════════
+let currentPage = 'student-home';
+let countdownInterval = null;
+
+function navigate(pageId) {
+  // Check role gating
+  const role = getRole();
+  if (pageId.startsWith('admin-') && role !== 'admin') { showToast('Please switch to Admin mode first'); return; }
+
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  const target = document.getElementById('page-' + pageId);
+  if (!target) return;
+  target.classList.add('active');
+  currentPage = pageId;
+
+  // Update active links
+  document.querySelectorAll('.right-nav a, .sidebar-profile-menu a').forEach(a => {
+    a.classList.remove('active');
+    if (a.getAttribute('onclick') && a.getAttribute('onclick').includes(pageId)) {
+      a.classList.add('active');
+    }
+  });
+
+  // Render page content
+  if (pageId === 'student-home') renderStudentHome();
+  if (pageId === 'student-courses') renderCourseGrid();
+  if (pageId === 'student-tests') renderStudentTests();
+  if (pageId === 'student-purchases') renderPurchases();
+  if (pageId === 'student-transactions') renderTransactions();
+  if (pageId === 'student-profile') loadProfileForm();
+  if (pageId === 'student-request-test') loadRequestTest();
+  if (pageId === 'admin-dashboard') renderAdminDashboard();
+  if (pageId === 'admin-courses') renderAdminCourses();
+  if (pageId === 'admin-students') renderAdminStudents();
+  if (pageId === 'admin-attendance') renderAttendanceSelects();
+  if (pageId === 'admin-tests') renderAdminTests();
+  if (pageId === 'admin-accreditation') renderAccreditation();
+  if (pageId === 'student-reviews') loadReviewsPage();
+  if (pageId === 'calendar') loadCalendar();
+  if (pageId === 'admin-progress') loadProgressEditor();
+}
+
+// ════════════════════════════════
+//  ROLE SWITCHER
+// ════════════════════════════════
+function toggleRole() {
+  const current = getRole();
+  const next = current === 'student' ? 'admin' : 'student';
+  DB.set('role', next);
+  applyRole();
+  navigate(next === 'admin' ? 'admin-dashboard' : 'student-home');
+}
+function applyRole() {
+  const role = getRole();
+  document.body.classList.toggle('admin-mode', role === 'admin');
+  const btn = document.getElementById('roleToggleBtn');
+  btn.textContent = role === 'admin' ? '◀ Switch to Student' : 'Switch to Admin ▶';
+  renderSidebar();
+}
+
+// ════════════════════════════════
+//  SIDEBAR
+// ════════════════════════════════
+function renderSidebar() {
+  const courses = getCourses();
+  const uid = getCurrentUserId();
+  const enrollments = getEnrollments().filter(e => e.studentId === uid);
+  const enrolledCourseIds = enrollments.map(e => e.courseId);
+  const myCourses = courses.filter(c => enrolledCourseIds.includes(c.id));
+
+  // Show all courses in last-courses sidebar (enrolled first, then rest)
+  const displayCourses = [...myCourses, ...courses.filter(c => !enrolledCourseIds.includes(c.id))].slice(0, 6);
+
+  const el = document.getElementById('lastCoursesList');
+  el.innerHTML = displayCourses.map(c => `
+    <div class="last-course-item" onclick="viewCourseDetail('${c.id}')">
+      <div class="lc-title">${c.name}</div>
+      <div class="lc-coach">${c.coach}</div>
+      <div class="lc-location">${c.location}</div>
+      ${typeBadge(c.type)}
+    </div>
+  `).join('');
+
+  // Profile name
+  const user = getCurrentUser();
+  if (user) {
+    document.getElementById('profileNameDisplay').textContent = user.firstName + ' ' + user.lastName;
+    document.getElementById('avatarCircle').textContent = user.avatar || '👤';
+  }
+}
+
+// ════════════════════════════════
+//  STUDENT HOME
+// ════════════════════════════════
+function renderStudentHome() {
+  const uid = getCurrentUserId();
+  const enrollments = getEnrollments().filter(e => e.studentId === uid);
+  const courses = getCourses();
+
+  // Get first enrolled course for countdown
+  const firstEnroll = enrollments[0];
+  const activeCourse = firstEnroll ? courseById(firstEnroll.courseId) : courses[0];
+
+  // Countdown
+  startCountdown(activeCourse, 'homeCountdown');
+
+  // Active course detail
+  if (activeCourse) {
+    document.getElementById('homeActiveCourse').innerHTML = `
+      <div class="course-detail-card mb-16">
+        <div class="course-detail-card-header">${activeCourse.name}</div>
+        <div class="course-detail-card-body">
+          <div class="detail-row"><span class="detail-label">Coach</span><span class="detail-value">${activeCourse.coach}</span></div>
+          <div class="detail-row"><span class="detail-label">Classification</span><span class="detail-value">${classTag(activeCourse.classification)}</span></div>
+          <div class="detail-row"><span class="detail-label">Type</span><span class="detail-value">${typeBadge(activeCourse.type)}</span></div>
+          <div class="detail-row"><span class="detail-label">Location</span><span class="detail-value">${activeCourse.location}</span></div>
+          ${firstEnroll ? `
+          <div style="margin-top:10px">
+            <div style="font-size:12px;color:var(--text-muted);margin-bottom:4px">Progress: ${firstEnroll.progress}%</div>
+            <div class="progress-bar-wrap"><div class="progress-bar-fill" style="width:${firstEnroll.progress}%"></div></div>
+          </div>` : ''}
+        </div>
+      </div>
+    `;
+  }
+
+  // Enrolled courses
+  const el = document.getElementById('enrolledCoursesList');
+  if (!enrollments.length) {
+    el.innerHTML = '<p class="text-muted text-center" style="padding:20px">No enrolled courses yet. <a href="#" onclick="navigate(\'student-courses\')" style="color:var(--orange)">Browse courses →</a></p>';
+    return;
+  }
+  el.innerHTML = enrollments.map(e => {
+    const c = courseById(e.courseId);
+    if (!c) return '';
+    return `
+      <div class="course-card mb-16" style="display:flex;align-items:stretch;border-radius:8px;overflow:hidden;box-shadow:var(--card-shadow)">
+        <div style="background:var(--navy);width:8px;flex-shrink:0"></div>
+        <div style="flex:1;padding:14px 16px">
+          <div style="font-weight:700;color:var(--navy);margin-bottom:6px;font-size:13.5px">${c.name}</div>
+          <div style="font-size:12px;color:var(--text-muted);margin-bottom:2px">Coach: ${c.coach}</div>
+          <div style="font-size:12px;color:var(--text-muted);margin-bottom:8px">${c.location}</div>
+          <div style="font-size:12px;color:var(--text-muted);margin-bottom:4px">Progress: <strong style="color:var(--navy)">${e.progress}%</strong></div>
+          <div class="progress-bar-wrap"><div class="progress-bar-fill" style="width:${e.progress}%"></div></div>
+        </div>
+        <div style="padding:14px 14px;display:flex;flex-direction:column;justify-content:center;gap:6px;flex-shrink:0">
+          ${typeBadge(c.type)}
+          <button class="btn-view" onclick="viewCourseDetail('${c.id}')">View</button>
+        </div>
+      </div>
+    `;
+  }).join('');
+}
+
+// ════════════════════════════════
+//  COUNTDOWN
+// ════════════════════════════════
+function startCountdown(course, containerId) {
+  if (countdownInterval) { clearInterval(countdownInterval); countdownInterval = null; }
+  const el = document.getElementById(containerId);
+  if (!el || !course || !course.nextSession) {
+    if (el) el.innerHTML = '';
+    return;
+  }
+  function tick() {
+    const now = new Date();
+    const target = new Date(course.nextSession);
+    const diff = target - now;
+    if (diff <= 0) {
+      el.innerHTML = `<div class="countdown-card"><div class="countdown-title">Session is Live Now!</div></div>`;
+      clearInterval(countdownInterval);
+      return;
+    }
+    const days = Math.floor(diff / 86400000);
+    const hours = Math.floor((diff % 86400000) / 3600000);
+    const mins = Math.floor((diff % 3600000) / 60000);
+    const secs = Math.floor((diff % 60000) / 1000);
+    el.innerHTML = `
+      <div class="countdown-card">
+        <div class="countdown-title">Time Remaining Until The Start Of The Session</div>
+        <div class="countdown-grid">
+          <div class="countdown-cell"><div class="countdown-label">Day</div><div class="countdown-value">${pad(days)}</div></div>
+          <div class="countdown-cell"><div class="countdown-label">Hour</div><div class="countdown-value">${pad(hours)}</div></div>
+          <div class="countdown-cell"><div class="countdown-label">Minutes</div><div class="countdown-value">${pad(mins)}</div></div>
+          <div class="countdown-cell"><div class="countdown-label">Seconds</div><div class="countdown-value">${pad(secs)}</div></div>
+        </div>
+        <div style="margin-top:12px;font-size:12px;color:rgba(255,255,255,0.6)">${course.name}</div>
+      </div>`;
+  }
+  tick();
+  countdownInterval = setInterval(tick, 1000);
+}
+
+// ════════════════════════════════
+//  COURSE GRID
+// ════════════════════════════════
+function renderCourseGrid() {
+  const courses = getCourses();
+  const uid = getCurrentUserId();
+  const enrolledIds = getEnrollments().filter(e => e.studentId === uid).map(e => e.courseId);
+
+  // Populate location filter
+  const locSel = document.getElementById('filterLocation');
+  const locs = [...new Set(courses.map(c => c.location))];
+  const curLoc = locSel.value;
+  locSel.innerHTML = '<option value="">All Locations</option>' + locs.map(l => `<option value="${l}" ${l===curLoc?'selected':''}>${l}</option>`).join('');
+
+  const text = (document.getElementById('searchText')?.value || '').toLowerCase();
+  const type = document.getElementById('filterType')?.value || '';
+  const cls = document.getElementById('filterClassification')?.value || '';
+  const loc = locSel.value;
+
+  const filtered = courses.filter(c => {
+    if (text && !c.name.toLowerCase().includes(text) && !c.coach.toLowerCase().includes(text)) return false;
+    if (type && c.type !== type) return false;
+    if (cls && c.classification !== cls) return false;
+    if (loc && c.location !== loc) return false;
+    return true;
+  });
+
+  const grid = document.getElementById('coursesGrid');
+  if (!filtered.length) {
+    grid.innerHTML = '<p class="text-muted" style="padding:20px">No courses found.</p>';
+    return;
+  }
+  grid.innerHTML = filtered.map(c => {
+    const isEnrolled = enrolledIds.includes(c.id);
+    const enroll = getEnrollments().find(e => e.studentId === uid && e.courseId === c.id);
+    return `
+      <div class="course-card">
+        <div class="course-card-header">${c.name}</div>
+        <div class="course-card-body">
+          <div class="course-meta"><strong>Coach:</strong> ${c.coach}</div>
+          <div class="course-meta"><strong>Location:</strong> ${c.location}</div>
+          <div class="course-meta"><strong>Start Date:</strong> ${fmtDate(c.startDate)}</div>
+          <div class="course-meta">${classTag(c.classification)} ${typeBadge(c.type)}</div>
+          ${isEnrolled && enroll ? `<div style="margin-top:8px"><div style="font-size:11px;color:var(--text-muted);margin-bottom:3px">Progress: ${enroll.progress}%</div><div class="progress-bar-wrap"><div class="progress-bar-fill" style="width:${enroll.progress}%"></div></div></div>` : ''}
+        </div>
+        <div class="course-card-footer">
+          <button class="btn-enroll ${isEnrolled?'enrolled':''}" onclick="${isEnrolled?'':'enrollInCourse(\''+c.id+'\')'}">${isEnrolled?'✓ Enrolled':'Enroll Now'}</button>
+          <button class="btn-view" onclick="viewCourseDetail('${c.id}')">Details</button>
+        </div>
+      </div>
+    `;
+  }).join('');
+}
+
+function enrollInCourse(courseId) {
+  const uid = getCurrentUserId();
+  const enrollments = getEnrollments();
+  if (enrollments.find(e => e.studentId === uid && e.courseId === courseId)) {
+    showToast('Already enrolled in this course'); return;
+  }
+  enrollments.push({ id: 'e' + Date.now(), studentId: uid, courseId, progress: 0, enrolledDate: new Date().toISOString().slice(0,10), attendance: [] });
+  DB.set('enrollments', enrollments);
+  showToast('Successfully enrolled!');
+  renderCourseGrid();
+  renderSidebar();
+}
+
+function viewCourseDetail(courseId) {
+  const c = courseById(courseId);
+  if (!c) return;
+  const uid = getCurrentUserId();
+  const enroll = getEnrollments().find(e => e.studentId === uid && e.courseId === courseId);
+  const isEnrolled = !!enroll;
+  const tests = getTests().filter(t => t.studentId === uid && t.courseId === courseId);
+  const lastTest = tests[tests.length - 1];
+
+  document.getElementById('courseDetailHeader').textContent = c.name;
+  document.getElementById('courseDetailBody').innerHTML = `
+    <div id="detailCountdown"></div>
+    <div class="course-detail-card">
+      <div class="course-detail-card-header">${c.name}</div>
+      <div class="course-detail-card-body">
+        <div class="detail-row"><span class="detail-label">Coach</span><span class="detail-value">${c.coach}</span></div>
+        <div class="detail-row"><span class="detail-label">Course Type</span><span class="detail-value">${typeBadge(c.type)}</span></div>
+        <div class="detail-row"><span class="detail-label">Classification</span><span class="detail-value">${classTag(c.classification)}</span></div>
+        <div class="detail-row"><span class="detail-label">Location</span><span class="detail-value">${c.location}</span></div>
+        <div class="detail-row"><span class="detail-label">Start Date</span><span class="detail-value">${fmtDate(c.startDate)}</span></div>
+        <div class="detail-row"><span class="detail-label">Max Students</span><span class="detail-value">${c.maxStudents}</span></div>
+        <div class="detail-row"><span class="detail-label">Description</span><span class="detail-value" style="max-width:420px;line-height:1.6">${c.description}</span></div>
+        ${isEnrolled ? `
+        <div class="detail-row"><span class="detail-label">Your Progress</span>
+          <span class="detail-value" style="flex:1">
+            <div class="progress-bar-wrap" style="max-width:220px"><div class="progress-bar-fill" style="width:${enroll.progress}%"></div></div>
+            <span style="font-size:12px;color:var(--text-muted);margin-top:3px;display:block">${enroll.progress}% complete</span>
+          </span>
+        </div>
+        <div class="detail-row"><span class="detail-label">Last Test Score</span><span class="detail-value">${lastTest ? scoreBadge(lastTest.score) : scoreBadge(null)}</span></div>` : ''}
+        <div style="margin-top:16px;display:flex;gap:10px">
+          ${!isEnrolled ? `<button class="btn-orange" onclick="enrollInCourse('${c.id}');viewCourseDetail('${c.id}')">Enroll Now</button>` : `<span class="enroll-status enroll-active">✓ Enrolled</span>`}
+          <button class="btn-primary" onclick="navigate('student-courses')">← Back to Courses</button>
+        </div>
+      </div>
+    </div>
+  `;
+
+  navigate('student-course-detail');
+  startCountdown(c, 'detailCountdown');
+}
+
+// ════════════════════════════════
+//  STUDENT TESTS
+// ════════════════════════════════
+function renderStudentTests() {
+  const uid = getCurrentUserId();
+  const tests = getTests().filter(t => t.studentId === uid);
+  const tbody = document.getElementById('testsTableBody');
+  if (!tests.length) {
+    tbody.innerHTML = '<tr><td colspan="5" class="text-center text-muted" style="padding:20px">No test records yet.</td></tr>';
+    return;
+  }
+  tbody.innerHTML = tests.map((t, i) => {
+    const c = courseById(t.courseId);
+    return `<tr>
+      <td>${i+1}</td>
+      <td style="max-width:200px">${c ? c.name : t.courseId}</td>
+      <td>${fmtDate(t.date)}</td>
+      <td style="font-weight:700">${t.score}%</td>
+      <td>${scoreBadge(t.score)}</td>
+    </tr>`;
+  }).join('');
+}
+
+// ════════════════════════════════
+//  PURCHASES
+// ════════════════════════════════
+function renderPurchases() {
+  const uid = getCurrentUserId();
+  const txns = getTransactions().filter(t => t.studentId === uid);
+  const el = document.getElementById('purchasesBody');
+  if (!txns.length) {
+    el.innerHTML = '<p class="text-muted text-center" style="padding:20px">No purchases found.</p>';
+    return;
+  }
+  el.innerHTML = txns.map(t => `
+    <div class="purchase-card">
+      <div class="purchase-icon">📚</div>
+      <div class="purchase-info">
+        <div class="purchase-title">${t.description}</div>
+        <div class="purchase-date">${fmtDate(t.date)}</div>
+      </div>
+      <div style="text-align:right">
+        <div class="purchase-amount">${t.amount} ${t.currency}</div>
+        <span class="score-badge score-pass" style="margin-top:4px">${t.status}</span>
+      </div>
+    </div>
+  `).join('');
+}
+
+// ════════════════════════════════
+//  TRANSACTIONS
+// ════════════════════════════════
+function renderTransactions() {
+  const uid = getCurrentUserId();
+  const txns = getTransactions().filter(t => t.studentId === uid);
+  const tbody = document.getElementById('transactionsTableBody');
+  if (!txns.length) {
+    tbody.innerHTML = '<tr><td colspan="5" class="text-center text-muted" style="padding:20px">No transactions.</td></tr>';
+    return;
+  }
+  tbody.innerHTML = txns.map((t, i) => `
+    <tr>
+      <td>${i+1}</td>
+      <td>${fmtDate(t.date)}</td>
+      <td>${t.description}</td>
+      <td style="font-weight:700;color:var(--navy)">${t.amount} ${t.currency}</td>
+      <td><span class="score-badge score-pass">${t.status}</span></td>
+    </tr>
+  `).join('');
+}
+
+// ════════════════════════════════
+//  PROFILE
+// ════════════════════════════════
+function loadProfileForm() {
+  const user = getCurrentUser();
+  if (!user) return;
+  document.getElementById('profileFirstName').value = user.firstName;
+  document.getElementById('profileLastName').value = user.lastName;
+  document.getElementById('profileEmail').value = user.email;
+  document.getElementById('profilePhone').value = user.phone;
+  document.getElementById('profileLocation').value = user.location;
+  document.getElementById('profileClassification').value = user.classification;
+}
+function saveProfile() {
+  const students = getStudents();
+  const uid = getCurrentUserId();
+  const idx = students.findIndex(s => s.id === uid);
+  if (idx === -1) return;
+  students[idx].firstName = document.getElementById('profileFirstName').value;
+  students[idx].lastName = document.getElementById('profileLastName').value;
+  students[idx].email = document.getElementById('profileEmail').value;
+  students[idx].phone = document.getElementById('profilePhone').value;
+  students[idx].location = document.getElementById('profileLocation').value;
+  students[idx].classification = document.getElementById('profileClassification').value;
+  DB.set('students', students);
+  renderSidebar();
+  showToast('Profile saved successfully!');
+}
+
+// ════════════════════════════════
+//  REQUEST TEST
+// ════════════════════════════════
+function loadRequestTest() {
+  const uid = getCurrentUserId();
+  const enrolledIds = getEnrollments().filter(e => e.studentId === uid).map(e => e.courseId);
+  const courses = getCourses().filter(c => enrolledIds.includes(c.id));
+  const sel = document.getElementById('reqTestCourse');
+  sel.innerHTML = courses.map(c => `<option value="${c.id}">${c.name}</option>`).join('');
+  const today = new Date().toISOString().slice(0,10);
+  document.getElementById('reqTestDate').value = today;
+}
+function submitTestRequest() {
+  const uid = getCurrentUserId();
+  const courseId = document.getElementById('reqTestCourse').value;
+  const date = document.getElementById('reqTestDate').value;
+  const level = document.getElementById('reqTestLevel').value;
+  const notes = document.getElementById('reqTestNotes').value;
+  const reqs = getTestRequests();
+  reqs.push({ id: 'req' + Date.now(), studentId: uid, courseId, requestedDate: date, level, notes, status: 'Pending' });
+  DB.set('testRequests', reqs);
+  showToast('Test request submitted!');
+  document.getElementById('reqTestNotes').value = '';
+}
+
+// ════════════════════════════════
+//  ADMIN DASHBOARD
+// ════════════════════════════════
+function renderAdminDashboard() {
+  const courses = getCourses();
+  const students = getStudents();
+  const enrollments = getEnrollments();
+  const tests = getTests();
+
+  // Stats
+  document.getElementById('adminStats').innerHTML = `
+    <div class="stat-card"><div class="stat-value">${courses.length}</div><div class="stat-label">Total Courses</div></div>
+    <div class="stat-card blue"><div class="stat-value">${students.length}</div><div class="stat-label">Total Students</div></div>
+    <div class="stat-card green"><div class="stat-value">${enrollments.length}</div><div class="stat-label">Active Enrollments</div></div>
+    <div class="stat-card gold"><div class="stat-value">${tests.length}</div><div class="stat-label">Tests Recorded</div></div>
+  `;
+
+  // Recent enrollments
+  const recent = [...enrollments].sort((a,b) => b.enrolledDate > a.enrolledDate ? 1 : -1).slice(0,8);
+  document.getElementById('recentEnrollmentsBody').innerHTML = recent.map(e => {
+    const s = studentById(e.studentId);
+    const c = courseById(e.courseId);
+    return `<tr>
+      <td>${s ? s.firstName + ' ' + s.lastName : e.studentId}</td>
+      <td style="max-width:180px;font-size:12px">${c ? c.name : e.courseId}</td>
+      <td>${fmtDate(e.enrolledDate)}</td>
+      <td><span class="enroll-status enroll-active">Active</span></td>
+    </tr>`;
+  }).join('');
+
+  // Upcoming sessions
+  const sorted = [...courses].sort((a,b) => new Date(a.nextSession) - new Date(b.nextSession));
+  document.getElementById('upcomingSessionsList').innerHTML = sorted.map(c => {
+    const d = new Date(c.nextSession);
+    return `<div class="purchase-card" style="margin-bottom:10px">
+      <div class="purchase-icon" style="background:var(--light-blue)">📅</div>
+      <div class="purchase-info">
+        <div class="purchase-title" style="font-size:13px">${c.name}</div>
+        <div class="purchase-date">${c.coach} · ${c.location}</div>
+      </div>
+      <div style="text-align:right">
+        <div style="font-size:13px;font-weight:700;color:var(--navy)">${d.toLocaleDateString('en-GB', {day:'2-digit',month:'short'})}</div>
+        <div style="font-size:12px;color:var(--text-muted)">${d.toLocaleTimeString('en-GB', {hour:'2-digit',minute:'2-digit'})}</div>
+        ${typeBadge(c.type)}
+      </div>
+    </div>`;
+  }).join('');
+}
+
+// ════════════════════════════════
+//  ADMIN COURSES
+// ════════════════════════════════
+function renderAdminCourses() {
+  const courses = getCourses();
+  const enrollments = getEnrollments();
+  const tbody = document.getElementById('adminCoursesTableBody');
+  tbody.innerHTML = courses.map((c, i) => {
+    const enrolled = enrollments.filter(e => e.courseId === c.id).length;
+    return `<tr>
+      <td>${i+1}</td>
+      <td style="max-width:200px;font-size:12.5px;font-weight:600">${c.name}</td>
+      <td style="font-size:12px">${c.coach}</td>
+      <td>${typeBadge(c.type)}</td>
+      <td style="font-size:12px">${c.location}</td>
+      <td>${classTag(c.classification)}</td>
+      <td style="text-align:center">${enrolled}/${c.maxStudents}</td>
+      <td><div class="action-btns">
+        <button class="btn-edit btn-sm" onclick="openCourseModal('${c.id}')">Edit</button>
+        <button class="btn-danger btn-sm" onclick="deleteCourse('${c.id}')">Delete</button>
+      </div></td>
+    </tr>`;
+  }).join('');
+}
+
+function openCourseModal(courseId) {
+  const modal = document.getElementById('courseModal');
+  const isEdit = !!courseId;
+  document.getElementById('courseModalTitle').textContent = isEdit ? 'Edit Course' : 'Create New Course';
+  document.getElementById('editCourseId').value = courseId || '';
+  if (isEdit) {
+    const c = courseById(courseId);
+    if (!c) return;
+    document.getElementById('mCourseName').value = c.name;
+    document.getElementById('mCoachName').value = c.coach;
+    document.getElementById('mCourseType').value = c.type;
+    document.getElementById('mClassification').value = c.classification;
+    document.getElementById('mLocation').value = c.location;
+    document.getElementById('mMaxStudents').value = c.maxStudents;
+    document.getElementById('mStartDate').value = c.startDate;
+    document.getElementById('mNextSession').value = c.nextSession ? c.nextSession.slice(0,16) : '';
+    document.getElementById('mDescription').value = c.description || '';
+  } else {
+    ['mCourseName','mCoachName','mLocation','mDescription'].forEach(id => document.getElementById(id).value = '');
+    document.getElementById('mMaxStudents').value = 20;
+    document.getElementById('mStartDate').value = '';
+    document.getElementById('mNextSession').value = '';
+  }
+  modal.classList.add('open');
+}
+function closeCourseModal() {
+  document.getElementById('courseModal').classList.remove('open');
+}
+function saveCourse() {
+  const courseId = document.getElementById('editCourseId').value;
+  const name = document.getElementById('mCourseName').value.trim();
+  if (!name) { showToast('Course name is required'); return; }
+  const courses = getCourses();
+  const ns = document.getElementById('mNextSession').value;
+  const obj = {
+    id: courseId || 'c' + Date.now(),
+    name,
+    coach: document.getElementById('mCoachName').value,
+    type: document.getElementById('mCourseType').value,
+    classification: document.getElementById('mClassification').value,
+    location: document.getElementById('mLocation').value,
+    maxStudents: parseInt(document.getElementById('mMaxStudents').value) || 20,
+    startDate: document.getElementById('mStartDate').value,
+    nextSession: ns ? new Date(ns).toISOString() : nextSessionDate(7, 10, 0),
+    description: document.getElementById('mDescription').value,
+    active: true,
+  };
+  if (courseId) {
+    const idx = courses.findIndex(c => c.id === courseId);
+    if (idx !== -1) courses[idx] = obj;
+  } else {
+    courses.push(obj);
+  }
+  DB.set('courses', courses);
+  closeCourseModal();
+  renderAdminCourses();
+  renderSidebar();
+  showToast(courseId ? 'Course updated!' : 'Course created!');
+}
+function deleteCourse(courseId) {
+  if (!confirm('Delete this course? This cannot be undone.')) return;
+  const courses = getCourses().filter(c => c.id !== courseId);
+  DB.set('courses', courses);
+  renderAdminCourses();
+  renderSidebar();
+  showToast('Course deleted.');
+}
+
+// ════════════════════════════════
+//  ADMIN STUDENTS
+// ════════════════════════════════
+function renderAdminStudents() {
+  const courses = getCourses();
+  const filterSel = document.getElementById('adminStudentFilter');
+  filterSel.innerHTML = '<option value="">All Courses</option>' + courses.map(c => `<option value="${c.id}">${c.name.slice(0,50)}</option>`).join('');
+
+  const filterCourse = filterSel.value;
+  const enrollments = getEnrollments();
+  const students = getStudents();
+
+  const relevant = filterCourse
+    ? enrollments.filter(e => e.courseId === filterCourse)
+    : enrollments;
+
+  const el = document.getElementById('adminStudentsList');
+  if (!relevant.length) {
+    el.innerHTML = '<p class="text-muted text-center" style="padding:20px">No students found.</p>';
+    return;
+  }
+
+  el.innerHTML = `<table class="data-table"><thead>
+    <tr><th>#</th><th>Student</th><th>Email</th><th>Course</th><th>Progress</th><th>Enrolled</th><th>Attendance</th></tr>
+  </thead><tbody>` + relevant.map((e, i) => {
+    const s = studentById(e.studentId);
+    const c = courseById(e.courseId);
+    const attended = (e.attendance || []).filter(Boolean).length;
+    const total = (e.attendance || []).length;
+    return `<tr>
+      <td>${i+1}</td>
+      <td style="font-weight:600">${s ? s.firstName + ' ' + s.lastName : e.studentId}</td>
+      <td style="font-size:12px;color:var(--text-muted)">${s ? s.email : ''}</td>
+      <td style="font-size:12px;max-width:160px">${c ? c.name.slice(0,40)+'...' : e.courseId}</td>
+      <td style="min-width:120px">
+        <div style="font-size:11px;color:var(--text-muted);margin-bottom:3px">${e.progress}%</div>
+        <div class="progress-bar-wrap"><div class="progress-bar-fill" style="width:${e.progress}%"></div></div>
+      </td>
+      <td style="font-size:12px">${fmtDate(e.enrolledDate)}</td>
+      <td style="font-size:12px">${attended}/${total} sessions</td>
+    </tr>`;
+  }).join('') + '</tbody></table>';
+}
+
+// ════════════════════════════════
+//  ATTENDANCE
+// ════════════════════════════════
+function renderAttendanceSelects() {
+  const sel = document.getElementById('attendanceCourseFilter');
+  const courses = getCourses();
+  sel.innerHTML = '<option value="">Select a course...</option>' + courses.map(c => `<option value="${c.id}">${c.name.slice(0,55)}</option>`).join('');
+  document.getElementById('attendanceContent').innerHTML = '';
+}
+function renderAttendance() {
+  const courseId = document.getElementById('attendanceCourseFilter').value;
+  const el = document.getElementById('attendanceContent');
+  if (!courseId) { el.innerHTML = ''; return; }
+  const enrollments = getEnrollments().filter(e => e.courseId === courseId);
+  if (!enrollments.length) { el.innerHTML = '<p class="text-muted" style="padding:20px">No enrolled students.</p>'; return; }
+  const maxSessions = Math.max(...enrollments.map(e => (e.attendance || []).length), 5);
+  const sessions = Array.from({length: maxSessions}, (_, i) => `Session ${i+1}`);
+
+  el.innerHTML = `<table class="data-table attendance-tbl"><thead>
+    <tr><th>Student</th>${sessions.map(s=>`<th style="text-align:center;font-size:11px">${s}</th>`).join('')}</tr>
+  </thead><tbody>` + enrollments.map(e => {
+    const s = studentById(e.studentId);
+    return `<tr><td style="font-weight:600;white-space:nowrap">${s ? s.firstName+' '+s.lastName : e.studentId}</td>` +
+      sessions.map((_, si) => {
+        const checked = (e.attendance || [])[si] ? 'checked' : '';
+        return `<td style="text-align:center"><input type="checkbox" class="att-check" ${checked} onchange="toggleAttendance('${e.id}',${si},this.checked)"></td>`;
+      }).join('') + '</tr>';
+  }).join('') + '</tbody></table>';
+}
+function toggleAttendance(enrollId, sessionIdx, checked) {
+  const enrollments = getEnrollments();
+  const e = enrollments.find(x => x.id === enrollId);
+  if (!e) return;
+  while (e.attendance.length <= sessionIdx) e.attendance.push(false);
+  e.attendance[sessionIdx] = checked;
+  DB.set('enrollments', enrollments);
+}
+
+// ════════════════════════════════
+//  ADMIN TESTS
+// ════════════════════════════════
+function renderAdminTests() {
+  const students = getStudents();
+  const courses = getCourses();
+  const selS = document.getElementById('testStudentSel');
+  const selC = document.getElementById('testCourseSel');
+  selS.innerHTML = students.map(s => `<option value="${s.id}">${s.firstName} ${s.lastName}</option>`).join('');
+  selC.innerHTML = courses.map(c => `<option value="${c.id}">${c.name.slice(0,50)}</option>`).join('');
+  document.getElementById('testDate').value = new Date().toISOString().slice(0,10);
+  renderAdminTestsTable();
+}
+function renderAdminTestsTable() {
+  const tests = getTests();
+  const tbody = document.getElementById('adminTestsBody');
+  tbody.innerHTML = tests.map((t, i) => {
+    const s = studentById(t.studentId);
+    const c = courseById(t.courseId);
+    return `<tr>
+      <td>${i+1}</td>
+      <td style="font-weight:600">${s ? s.firstName+' '+s.lastName : t.studentId}</td>
+      <td style="font-size:12px;max-width:160px">${c ? c.name.slice(0,45)+'...' : t.courseId}</td>
+      <td>${fmtDate(t.date)}</td>
+      <td style="font-weight:700">${t.score}%</td>
+      <td>${scoreBadge(t.score)}</td>
+    </tr>`;
+  }).join('');
+}
+function recordTestScore() {
+  const studentId = document.getElementById('testStudentSel').value;
+  const courseId = document.getElementById('testCourseSel').value;
+  const score = parseInt(document.getElementById('testScore').value);
+  const date = document.getElementById('testDate').value;
+  if (isNaN(score) || score < 0 || score > 100) { showToast('Enter a valid score (0-100)'); return; }
+  const tests = getTests();
+  tests.push({ id: 't' + Date.now(), studentId, courseId, score, date });
+  DB.set('tests', tests);
+  renderAdminTestsTable();
+  document.getElementById('testScore').value = '';
+  showToast('Score recorded!');
+}
+
+// ════════════════════════════════
+//  ACCREDITATION
+// ════════════════════════════════
+function renderAccreditation() {
+  const tests = getTests();
+  const reqs = getTestRequests();
+  const passed = tests.filter(t => t.score >= 70).length;
+  document.getElementById('accPassCount').textContent = passed;
+  document.getElementById('accPendingCount').textContent = reqs.filter(r => r.status === 'Pending').length;
+  document.getElementById('accCertCount').textContent = reqs.filter(r => r.status === 'Approved').length;
+
+  const tbody = document.getElementById('accreditationBody');
+  if (!reqs.length) {
+    tbody.innerHTML = '<tr><td colspan="6" class="text-center text-muted" style="padding:20px">No test requests yet.</td></tr>';
+    return;
+  }
+  tbody.innerHTML = reqs.map(r => {
+    const s = studentById(r.studentId);
+    const c = courseById(r.courseId);
+    const badge = r.status === 'Approved' ? '<span class="score-badge score-pass">Approved</span>' :
+                  r.status === 'Rejected' ? '<span class="score-badge score-fail">Rejected</span>' :
+                  '<span class="score-badge score-pending">Pending</span>';
+    return `<tr>
+      <td style="font-weight:600">${s ? s.firstName+' '+s.lastName : r.studentId}</td>
+      <td style="font-size:12px;max-width:140px">${c ? c.name.slice(0,40)+'...' : r.courseId}</td>
+      <td>${fmtDate(r.requestedDate)}</td>
+      <td style="font-size:12px">${r.level}</td>
+      <td>${badge}</td>
+      <td><div class="action-btns">
+        <button class="btn-edit btn-sm" onclick="updateReqStatus('${r.id}','Approved')">Approve</button>
+        <button class="btn-danger btn-sm" onclick="updateReqStatus('${r.id}','Rejected')">Reject</button>
+      </div></td>
+    </tr>`;
+  }).join('');
+}
+function updateReqStatus(reqId, status) {
+  const reqs = getTestRequests();
+  const r = reqs.find(x => x.id === reqId);
+  if (r) { r.status = status; DB.set('testRequests', reqs); renderAccreditation(); showToast(`Request ${status.toLowerCase()}!`); }
+}
+
+// ════════════════════════════════
+//  DROPDOWN / UI
+// ════════════════════════════════
+function toggleDropdown() {
+  document.getElementById('accountMenu').classList.toggle('open');
+}
+function closeDropdown() {
+  document.getElementById('accountMenu').classList.remove('open');
+}
+document.addEventListener('click', e => {
+  if (!document.getElementById('accountDropdown').contains(e.target)) closeDropdown();
+});
+
+function toggleChat() {
+  document.getElementById('chatPopup').classList.toggle('open');
+}
+
+function logout() {
+  loginSelection = null;
+  document.querySelectorAll('.user-select-card').forEach(c => c.classList.remove('selected'));
+  document.getElementById('loginScreen').classList.remove('hidden');
+  showToast('Logged out successfully');
+}
+
+// ════════════════════════════════
+//  TOAST
+// ════════════════════════════════
+let toastTimer;
+function showToast(msg) {
+  const el = document.getElementById('toast');
+  el.textContent = msg;
+  el.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => el.classList.remove('show'), 3000);
+}
+
+// ════════════════════════════════
+//  LOGIN
+// ════════════════════════════════
+let loginSelection = null;
+
+function renderLoginScreen() {
+  const students = getStudents();
+  const grid = document.getElementById('loginUserGrid');
+  grid.innerHTML = students.map(s => `
+    <div class="user-select-card" id="loginCard_${s.id}" onclick="selectLoginUser('${s.id}')">
+      <div class="usc-avatar">${s.avatar || '👤'}</div>
+      <div class="usc-name">${s.firstName} ${s.lastName}</div>
+      <div class="usc-role">Student</div>
+    </div>
+  `).join('');
+}
+
+function selectLoginUser(id) {
+  loginSelection = id;
+  document.querySelectorAll('.user-select-card').forEach(c => c.classList.remove('selected'));
+  const target = id === 'admin' ? document.getElementById('adminLoginCard') : document.getElementById('loginCard_' + id);
+  if (target) target.classList.add('selected');
+}
+
+function doLogin() {
+  if (!loginSelection) { showToast('Please select an account'); return; }
+  if (loginSelection === 'admin') {
+    DB.set('role', 'admin');
+    DB.set('currentUserId', 's1');
+  } else {
+    DB.set('role', 'student');
+    DB.set('currentUserId', loginSelection);
+  }
+  document.getElementById('loginScreen').classList.add('hidden');
+  applyRole();
+  renderSidebar();
+  renderNotifications();
+  navigate(getRole() === 'admin' ? 'admin-dashboard' : 'student-home');
+}
+
+// ════════════════════════════════
+//  NOTIFICATIONS
+// ════════════════════════════════
+function getNotifications() { return DB.get('notifications') || []; }
+
+function seedNotifications() {
+  if (DB.get('notifSeeded')) return;
+  DB.set('notifications', [
+    { id: 'n1', title: 'New session scheduled', body: 'Your Brussels course has a new session on Saturday.', time: '2h ago', read: false },
+    { id: 'n2', title: 'Test result available', body: 'Your score for Course No. 3930 has been recorded.', time: '1d ago', read: false },
+    { id: 'n3', title: 'Enrollment confirmed', body: 'You are now enrolled in Noorani Qaida Indonesia.', time: '3d ago', read: true },
+    { id: 'n4', title: 'Test request approved', body: 'Your Nooraniyah test request has been approved.', time: '5d ago', read: true },
+  ]);
+  DB.set('notifSeeded', true);
+}
+
+function renderNotifications() {
+  const notifs = getNotifications();
+  const unread = notifs.filter(n => !n.read).length;
+  const badge = document.getElementById('notifBadge');
+  badge.textContent = unread;
+  badge.style.display = unread ? 'flex' : 'none';
+  const list = document.getElementById('notifList');
+  if (!notifs.length) {
+    list.innerHTML = '<div class="notif-empty">No notifications</div>';
+    return;
+  }
+  list.innerHTML = notifs.map(n => `
+    <div class="notif-item ${n.read ? '' : 'unread'}" onclick="readNotif('${n.id}')">
+      <div class="ni-title">${n.title}</div>
+      <div style="font-size:12px;color:var(--text-dark);margin:2px 0">${n.body}</div>
+      <div class="ni-time">${n.time}</div>
+    </div>
+  `).join('');
+}
+
+function toggleNotif(e) {
+  e.stopPropagation();
+  const panel = document.getElementById('notifPanel');
+  panel.classList.toggle('open');
+}
+
+function readNotif(id) {
+  const notifs = getNotifications();
+  const n = notifs.find(x => x.id === id);
+  if (n) { n.read = true; DB.set('notifications', notifs); renderNotifications(); }
+}
+
+function markAllRead() {
+  const notifs = getNotifications().map(n => ({...n, read: true}));
+  DB.set('notifications', notifs);
+  renderNotifications();
+}
+
+document.addEventListener('click', e => {
+  const wrap = document.getElementById('notifWrap');
+  if (wrap && !wrap.contains(e.target)) {
+    document.getElementById('notifPanel').classList.remove('open');
+  }
+});
+
+// ════════════════════════════════
+//  REVIEWS
+// ════════════════════════════════
+function getReviews() { return DB.get('reviews') || []; }
+let currentRating = 0;
+
+function seedReviews() {
+  if (DB.get('reviewsSeeded')) return;
+  DB.set('reviews', [
+    { id: 'rv1', studentId: 's1', courseId: 'c1', rating: 5, text: 'Excellent course! The teacher is very patient and explains every letter clearly. Highly recommended for beginners and advanced students alike.', date: '2025-03-01' },
+    { id: 'rv2', studentId: 's2', courseId: 'c3', rating: 4, text: 'Very good online course. The connection is stable and the curriculum is well-structured. Looking forward to completing the full program.', date: '2025-03-10' },
+    { id: 'rv3', studentId: 's3', courseId: 'c4', rating: 5, text: 'The in-person experience in Luxembourg is wonderful. Small class size means individual attention. My Quranic reading has improved significantly.', date: '2025-03-18' },
+  ]);
+  DB.set('reviewsSeeded', true);
+}
+
+function loadReviewsPage() {
+  const uid = getCurrentUserId();
+  const enrolledIds = getEnrollments().filter(e => e.studentId === uid).map(e => e.courseId);
+  const courses = getCourses().filter(c => enrolledIds.includes(c.id));
+  const sel = document.getElementById('reviewCourseSel');
+  sel.innerHTML = courses.map(c => `<option value="${c.id}">${c.name.slice(0,60)}</option>`).join('');
+  currentRating = 0;
+  updateStarDisplay(0);
+  renderReviewsList();
+}
+
+function setRating(val) {
+  currentRating = val;
+  updateStarDisplay(val);
+}
+
+function updateStarDisplay(val) {
+  document.querySelectorAll('#reviewStars .star').forEach(s => {
+    s.classList.toggle('filled', parseInt(s.dataset.v) <= val);
+  });
+}
+
+function submitReview() {
+  const uid = getCurrentUserId();
+  const courseId = document.getElementById('reviewCourseSel').value;
+  const text = document.getElementById('reviewText').value.trim();
+  if (!currentRating) { showToast('Please select a star rating'); return; }
+  if (!text) { showToast('Please write a review'); return; }
+  const reviews = getReviews();
+  reviews.unshift({ id: 'rv' + Date.now(), studentId: uid, courseId, rating: currentRating, text, date: new Date().toISOString().slice(0,10) });
+  DB.set('reviews', reviews);
+  document.getElementById('reviewText').value = '';
+  currentRating = 0;
+  updateStarDisplay(0);
+  renderReviewsList();
+  showToast('Review submitted!');
+}
+
+function renderReviewsList() {
+  const reviews = getReviews();
+  const el = document.getElementById('reviewsList');
+  if (!reviews.length) {
+    el.innerHTML = '<p class="text-muted text-center" style="padding:20px">No reviews yet. Be the first!</p>';
+    return;
+  }
+  el.innerHTML = reviews.map(r => {
+    const s = studentById(r.studentId);
+    const c = courseById(r.courseId);
+    const stars = '★'.repeat(r.rating) + '☆'.repeat(5 - r.rating);
+    return `<div class="review-card">
+      <div class="review-header">
+        <div>
+          <div class="reviewer-name">${s ? s.firstName + ' ' + s.lastName : 'Student'}</div>
+          <div style="font-size:11px;color:var(--text-muted)">${c ? c.name.slice(0,50) : ''}</div>
+        </div>
+        <div style="text-align:right">
+          <div class="star-display">${stars}</div>
+          <div class="review-date">${fmtDate(r.date)}</div>
+        </div>
+      </div>
+      <div class="review-body">${r.text}</div>
+    </div>`;
+  }).join('');
+}
+
+// ════════════════════════════════
+//  CALENDAR
+// ════════════════════════════════
+let calYear, calMonth;
+
+function loadCalendar() {
+  const now = new Date();
+  calYear = now.getFullYear();
+  calMonth = now.getMonth();
+  renderCalendar();
+}
+
+function renderCalendar() {
+  const courses = getCourses();
+  const uid = getCurrentUserId();
+  const role = getRole();
+  const enrolledIds = role === 'admin' ? courses.map(c => c.id) : getEnrollments().filter(e => e.studentId === uid).map(e => e.courseId);
+  const myCourses = courses.filter(c => enrolledIds.includes(c.id));
+
+  // Build event map: { 'YYYY-MM-DD': [course, ...] }
+  const eventMap = {};
+  myCourses.forEach(c => {
+    if (!c.nextSession) return;
+    const d = new Date(c.nextSession);
+    const key = d.toISOString().slice(0,10);
+    if (!eventMap[key]) eventMap[key] = [];
+    eventMap[key].push(c);
+  });
+
+  const monthNames = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+  const dayNames = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+  const today = new Date();
+  const todayKey = today.toISOString().slice(0,10);
+
+  const firstDay = new Date(calYear, calMonth, 1).getDay();
+  const daysInMonth = new Date(calYear, calMonth + 1, 0).getDate();
+  const daysInPrev = new Date(calYear, calMonth, 0).getDate();
+
+  let cells = '';
+  // Previous month padding
+  for (let i = firstDay - 1; i >= 0; i--) {
+    cells += `<div class="cal-cell other-month"><div class="cal-date">${daysInPrev - i}</div></div>`;
+  }
+  // Current month
+  for (let d = 1; d <= daysInMonth; d++) {
+    const key = `${calYear}-${String(calMonth+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
+    const isToday = key === todayKey;
+    const events = eventMap[key] || [];
+    const evHtml = events.map(c => `<div class="cal-event ${c.type === 'Online' ? 'online' : 'inperson'}" title="${c.name}">${c.name.slice(0,18)}</div>`).join('');
+    cells += `<div class="cal-cell ${isToday?'today':''}"><div class="cal-date">${d}</div>${evHtml}</div>`;
+  }
+  // Fill remaining cells
+  const totalCells = Math.ceil((firstDay + daysInMonth) / 7) * 7;
+  for (let d = 1; d <= totalCells - firstDay - daysInMonth; d++) {
+    cells += `<div class="cal-cell other-month"><div class="cal-date">${d}</div></div>`;
+  }
+
+  document.getElementById('calendarWrap').innerHTML = `
+    <div class="cal-header">
+      <button class="cal-nav-btn" onclick="calNav(-1)">‹</button>
+      <div class="cal-month-title">${monthNames[calMonth]} ${calYear}</div>
+      <button class="cal-nav-btn" onclick="calNav(1)">›</button>
+    </div>
+    <div class="cal-grid">
+      ${dayNames.map(d => `<div class="cal-day-header">${d}</div>`).join('')}
+      ${cells}
+    </div>`;
+
+  // Event list
+  const allEvents = myCourses.map(c => {
+    const d = c.nextSession ? new Date(c.nextSession) : null;
+    return { course: c, date: d };
+  }).filter(e => e.date && e.date.getMonth() === calMonth && e.date.getFullYear() === calYear)
+    .sort((a,b) => a.date - b.date);
+
+  const evList = document.getElementById('calendarEventList');
+  if (!allEvents.length) {
+    evList.innerHTML = '<p class="text-muted" style="padding:10px 0">No sessions scheduled this month.</p>';
+    return;
+  }
+  evList.innerHTML = allEvents.map(e => `
+    <div class="purchase-card" style="margin-bottom:10px">
+      <div class="purchase-icon" style="background:${e.course.type==='Online'?'var(--light-blue)':'#2e7d32'}">${e.course.type==='Online'?'🌐':'📍'}</div>
+      <div class="purchase-info">
+        <div class="purchase-title">${e.course.name.slice(0,55)}</div>
+        <div class="purchase-date">${e.course.coach} · ${e.course.location}</div>
+      </div>
+      <div style="text-align:right">
+        <div style="font-weight:700;color:var(--navy);font-size:13px">${e.date.toLocaleDateString('en-GB',{day:'2-digit',month:'short'})}</div>
+        <div style="font-size:12px;color:var(--text-muted)">${e.date.toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'})}</div>
+        ${typeBadge(e.course.type)}
+      </div>
+    </div>`).join('');
+}
+
+function calNav(dir) {
+  calMonth += dir;
+  if (calMonth > 11) { calMonth = 0; calYear++; }
+  if (calMonth < 0) { calMonth = 11; calYear--; }
+  renderCalendar();
+}
+
+// ════════════════════════════════
+//  CERTIFICATE
+// ════════════════════════════════
+function openCertificate(studentId, courseId) {
+  const s = studentById(studentId);
+  const c = courseById(courseId);
+  const tests = getTests().filter(t => t.studentId === studentId && t.courseId === courseId);
+  const best = tests.length ? Math.max(...tests.map(t => t.score)) : null;
+  if (!best || best < 70) { showToast('Student must pass (≥70%) to generate certificate'); return; }
+  document.getElementById('certStudentName').textContent = s ? s.firstName + ' ' + s.lastName : studentId;
+  document.getElementById('certCourseName').textContent = c ? c.name : courseId;
+  document.getElementById('certDetails').textContent = `with a score of ${best}%, demonstrating proficiency in Quranic recitation according to the ${c ? c.classification : ''} narration method.`;
+  document.getElementById('certDate').textContent = `Issued on ${new Date().toLocaleDateString('en-GB', {day:'2-digit',month:'long',year:'numeric'})} · Course No. ${c && c.courseNo ? c.courseNo : ''}`;
+  document.getElementById('certModal').classList.add('open');
+}
+
+// ════════════════════════════════
+//  ADMIN PROGRESS EDITOR
+// ════════════════════════════════
+let progressViewStudent = null;
+
+function loadProgressEditor() {
+  const students = getStudents();
+  if (!progressViewStudent) progressViewStudent = students[0]?.id;
+  const switcher = document.getElementById('progressStudentSwitcher');
+  switcher.innerHTML = students.map(s => `
+    <div class="student-pill ${progressViewStudent === s.id ? 'active' : ''}" onclick="switchProgressStudent('${s.id}')">
+      ${s.avatar || '👤'} ${s.firstName} ${s.lastName}
+    </div>`).join('');
+  renderProgressEditor();
+}
+
+function switchProgressStudent(id) {
+  progressViewStudent = id;
+  loadProgressEditor();
+}
+
+function renderProgressEditor() {
+  const uid = progressViewStudent;
+  const enrollments = getEnrollments().filter(e => e.studentId === uid);
+  const el = document.getElementById('progressEditorContent');
+  if (!enrollments.length) {
+    el.innerHTML = '<p class="text-muted" style="padding:10px">No enrollments for this student.</p>';
+    return;
+  }
+  el.innerHTML = `<table class="data-table">
+    <thead><tr><th>Course</th><th>Current Progress</th><th>Edit Progress</th><th>Certificate</th></tr></thead>
+    <tbody>` + enrollments.map(e => {
+    const c = courseById(e.courseId);
+    return `<tr>
+      <td style="font-size:12.5px;max-width:200px;font-weight:600">${c ? c.name.slice(0,50) : e.courseId}</td>
+      <td style="min-width:130px">
+        <div style="font-size:11px;color:var(--text-muted);margin-bottom:3px">${e.progress}%</div>
+        <div class="progress-bar-wrap"><div class="progress-bar-fill" style="width:${e.progress}%"></div></div>
+      </td>
+      <td>
+        <div class="progress-editor">
+          <input type="number" class="progress-input" id="pi_${e.id}" value="${e.progress}" min="0" max="100">
+          <button class="btn-save-progress" onclick="saveProgress('${e.id}')">Save</button>
+        </div>
+      </td>
+      <td>
+        <button class="btn-edit btn-sm" onclick="openCertificate('${uid}','${e.courseId}')">🎓 Certificate</button>
+      </td>
+    </tr>`;
+  }).join('') + '</tbody></table>';
+}
+
+function saveProgress(enrollId) {
+  const val = parseInt(document.getElementById('pi_' + enrollId).value);
+  if (isNaN(val) || val < 0 || val > 100) { showToast('Enter 0–100'); return; }
+  const enrollments = getEnrollments();
+  const e = enrollments.find(x => x.id === enrollId);
+  if (!e) return;
+  e.progress = val;
+  DB.set('enrollments', enrollments);
+  renderProgressEditor();
+  showToast('Progress updated!');
+}
+
+function exportStudentData() {
+  const enrollments = getEnrollments();
+  const tests = getTests();
+  let csv = 'Student,Email,Course,Progress,Enrolled Date,Best Score,Pass/Fail\n';
+  enrollments.forEach(e => {
+    const s = studentById(e.studentId);
+    const c = courseById(e.courseId);
+    const t = tests.filter(x => x.studentId === e.studentId && x.courseId === e.courseId);
+    const best = t.length ? Math.max(...t.map(x => x.score)) : '';
+    const pass = best !== '' ? (best >= 70 ? 'Pass' : 'Fail') : 'N/A';
+    csv += `"${s ? s.firstName+' '+s.lastName : e.studentId}","${s ? s.email : ''}","${c ? c.name : e.courseId}",${e.progress}%,${e.enrolledDate},${best},${pass}\n`;
+  });
+  const blob = new Blob([csv], {type: 'text/csv'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'student_data_' + new Date().toISOString().slice(0,10) + '.csv';
+  a.click();
+  showToast('CSV exported!');
+}
+
+// ════════════════════════════════
+//  INIT
+// ════════════════════════════════
+initData();
+seedNotifications();
+seedReviews();
+renderLoginScreen();
+</script>
+</body>
+</html>
