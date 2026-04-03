@@ -2103,8 +2103,10 @@ body.admin-mode .student-only { display: none; }
         <label>Collection ID</label>
         <input type="text" id="bpCollectionId" placeholder="e.g. abc123" style="width:100%;border:1px solid #d1d5db;border-radius:5px;padding:8px 11px;font-size:13px">
       </div>
-      <div style="display:flex;gap:10px;margin-top:6px">
+      <div id="bpTestResult" style="display:none;border-radius:6px;padding:9px 12px;font-size:12.5px;margin-top:10px"></div>
+      <div style="display:flex;gap:10px;margin-top:10px;flex-wrap:wrap">
         <button class="btn-orange" onclick="saveBillplzSettings()">Save Settings</button>
+        <button class="btn-primary" onclick="testBillplzConnection()">🔍 Test Connection</button>
         <button class="btn-primary" onclick="document.getElementById('billplzSettingsModal').classList.remove('open')">Cancel</button>
       </div>
     </div>
@@ -3679,6 +3681,50 @@ function saveBillplzSettings() {
   DB.set('billplzSettings', { apiKey, collectionId });
   document.getElementById('billplzSettingsModal').classList.remove('open');
   showToast('Billplz settings saved!');
+}
+
+async function testBillplzConnection() {
+  const apiKey = document.getElementById('bpApiKey').value.trim();
+  const collectionId = document.getElementById('bpCollectionId').value.trim();
+  const resultEl = document.getElementById('bpTestResult');
+
+  if (!apiKey || !collectionId) {
+    resultEl.style.display = 'block';
+    resultEl.style.background = '#fef3c7'; resultEl.style.color = '#92400e';
+    resultEl.textContent = '⚠ Please enter both API Key and Collection ID first.';
+    return;
+  }
+
+  resultEl.style.display = 'block';
+  resultEl.style.background = '#f0f2f8'; resultEl.style.color = '#1a237e';
+  resultEl.textContent = '⏳ Testing connection…';
+
+  try {
+    // Test 1: Verify API key by fetching collection details
+    const resp = await fetch(`https://www.billplz.com/api/v3/collections/${collectionId}`, {
+      headers: { 'Authorization': 'Basic ' + btoa(apiKey + ':') }
+    });
+    const data = await resp.json();
+
+    if (resp.ok) {
+      resultEl.style.background = '#dcfce7'; resultEl.style.color = '#166534';
+      resultEl.innerHTML = `✅ <strong>Connection successful!</strong><br>
+        Collection: <strong>${data.title || collectionId}</strong><br>
+        Status: ${data.status || 'Active'} · Currency: ${data.primary_currency || 'MYR'}`;
+    } else if (resp.status === 401) {
+      resultEl.style.background = '#fee2e2'; resultEl.style.color = '#991b1b';
+      resultEl.textContent = '❌ Invalid API Key — authentication failed. Please check your key.';
+    } else if (resp.status === 404) {
+      resultEl.style.background = '#fee2e2'; resultEl.style.color = '#991b1b';
+      resultEl.textContent = '❌ Collection ID not found. Please check your Collection ID.';
+    } else {
+      resultEl.style.background = '#fee2e2'; resultEl.style.color = '#991b1b';
+      resultEl.textContent = `❌ Error ${resp.status}: ${data.error && data.error.message ? data.error.message : 'Unknown error'}`;
+    }
+  } catch (e) {
+    resultEl.style.background = '#fef3c7'; resultEl.style.color = '#92400e';
+    resultEl.textContent = '⚠ Network error — could not reach Billplz. Check your internet connection.';
+  }
 }
 
 // ════════════════════════════════
