@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>ATAK Webapp — Handover Presentation</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --accent: #13b5d9;
+    --accent-dark: #0b7a93;
+    --ink: #0f172a;
+    --ink2: #334155;
+    --ink3: #64748b;
+    --line: #e2e8f0;
+    --bg: #f8fafc;
+    --white: #ffffff;
+    --ok: #10b981;
+    --warn: #f59e0b;
+    --bad: #ef4444;
+    --radius: 12px;
+  }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    background: #0f172a;
+    color: var(--ink);
+    height: 100vh;
+    overflow: hidden;
+    user-select: none;
+  }
+
+  /* ── slide container ── */
+  .deck { width: 100vw; height: 100vh; position: relative; }
+
+  .slide {
+    position: absolute; inset: 0;
+    display: flex; flex-direction: column;
+    opacity: 0; pointer-events: none;
+    transition: opacity 0.35s ease;
+  }
+  .slide.active { opacity: 1; pointer-events: all; }
+
+  /* ── slide layouts ── */
+  .slide-cover {
+    background: linear-gradient(135deg, #0f172a 0%, #1e3a5f 60%, #0b7a93 100%);
+    align-items: center; justify-content: center; text-align: center; gap: 20px; padding: 60px;
+  }
+  .slide-content {
+    background: var(--bg);
+    padding: 52px 60px 40px;
+  }
+  .slide-split {
+    background: var(--bg);
+    flex-direction: row;
+  }
+  .split-left  { flex: 1; padding: 52px 40px 40px 60px; display: flex; flex-direction: column; gap: 16px; }
+  .split-right { width: 42%; background: var(--white); padding: 52px 40px 40px; border-left: 1px solid var(--line); display: flex; flex-direction: column; gap: 14px; }
+
+  /* ── typography ── */
+  .eyebrow { font-size: 11px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--accent); margin-bottom: 4px; }
+  .title-xl { font-size: clamp(32px, 4vw, 52px); font-weight: 800; line-height: 1.1; color: var(--white); }
+  .title-lg { font-size: clamp(24px, 3vw, 36px); font-weight: 800; line-height: 1.2; color: var(--ink); }
+  .subtitle  { font-size: 16px; color: #94a3b8; margin-top: 6px; }
+  .body-text { font-size: 15px; color: var(--ink2); line-height: 1.6; }
+  .muted     { color: var(--ink3); font-size: 13px; }
+
+  /* ── components ── */
+  .chip {
+    display: inline-flex; align-items: center; gap: 5px;
+    padding: 4px 10px; border-radius: 20px; font-size: 12px; font-weight: 600;
+    background: #e0f7fc; color: var(--accent-dark);
+  }
+  .chip.green  { background: #d1fae5; color: #065f46; }
+  .chip.yellow { background: #fef3c7; color: #92400e; }
+  .chip.red    { background: #fee2e2; color: #991b1b; }
+
+  .card {
+    background: var(--white); border: 1px solid var(--line);
+    border-radius: var(--radius); padding: 18px 20px;
+  }
+  .card.accent-border { border-left: 4px solid var(--accent); }
+
+  .step-row {
+    display: flex; gap: 14px; align-items: flex-start;
+  }
+  .step-num {
+    width: 30px; height: 30px; border-radius: 50%; flex-shrink: 0;
+    background: var(--accent); color: white;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 13px; font-weight: 700; margin-top: 1px;
+  }
+  .step-body { flex: 1; }
+  .step-body strong { font-size: 14px; color: var(--ink); display: block; margin-bottom: 2px; }
+  .step-body span { font-size: 13px; color: var(--ink3); }
+
+  .flow-row {
+    display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
+  }
+  .flow-box {
+    padding: 8px 14px; background: var(--white); border: 1px solid var(--line);
+    border-radius: 8px; font-size: 13px; font-weight: 600; color: var(--ink);
+  }
+  .flow-arrow { color: var(--accent); font-size: 18px; font-weight: 700; }
+
+  table.info-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  table.info-table th { text-align: left; padding: 8px 10px; background: #f1f5f9; color: var(--ink3); font-weight: 600; border-bottom: 1px solid var(--line); }
+  table.info-table td { padding: 9px 10px; border-bottom: 1px solid var(--line); color: var(--ink2); vertical-align: top; }
+  table.info-table tr:last-child td { border-bottom: none; }
+  table.info-table code { background: #f1f5f9; padding: 1px 6px; border-radius: 4px; font-size: 12px; color: var(--accent-dark); }
+
+  .badge-row { display: flex; gap: 8px; flex-wrap: wrap; }
+  .badge { padding: 6px 14px; border-radius: 8px; font-size: 13px; font-weight: 600; background: #f1f5f9; color: var(--ink2); border: 1px solid var(--line); }
+
+  /* ── nav ── */
+  .nav {
+    position: fixed; bottom: 28px; left: 50%; transform: translateX(-50%);
+    display: flex; align-items: center; gap: 10px;
+    background: rgba(15,23,42,0.88); backdrop-filter: blur(8px);
+    padding: 8px 16px; border-radius: 40px;
+    z-index: 100;
+  }
+  .nav button {
+    width: 34px; height: 34px; border-radius: 50%; border: none; cursor: pointer;
+    background: rgba(255,255,255,0.12); color: white; font-size: 15px;
+    display: flex; align-items: center; justify-content: center;
+    transition: background 0.15s;
+  }
+  .nav button:hover { background: var(--accent); }
+  .nav button:disabled { opacity: 0.3; cursor: default; }
+  .nav .counter { color: rgba(255,255,255,0.6); font-size: 12px; min-width: 48px; text-align: center; }
+  .dots { display: flex; gap: 5px; }
+  .dot { width: 6px; height: 6px; border-radius: 50%; background: rgba(255,255,255,0.25); transition: background 0.2s; }
+  .dot.on { background: var(--accent); }
+
+  /* ── slide-specific ── */
+  .cover-logo {
+    width: 80px; height: 80px; border-radius: 20px;
+    background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 36px; margin-bottom: 8px;
+  }
+  .cover-pill {
+    padding: 6px 16px; border-radius: 20px;
+    background: rgba(19,181,217,0.2); border: 1px solid rgba(19,181,217,0.4);
+    color: #7dd3fc; font-size: 12px; font-weight: 600; letter-spacing: .06em;
+    text-transform: uppercase;
+  }
+
+  .section-header {
+    display: flex; align-items: center; gap: 10px; margin-bottom: 20px;
+  }
+  .section-icon {
+    width: 42px; height: 42px; border-radius: 10px;
+    background: #e0f7fc; color: var(--accent);
+    display: flex; align-items: center; justify-content: center; font-size: 20px; flex-shrink: 0;
+  }
+
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .three-col { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; }
+
+  .feature-card {
+    background: var(--white); border: 1px solid var(--line); border-radius: 10px;
+    padding: 16px; display: flex; flex-direction: column; gap: 6px;
+  }
+  .feature-card .icon { font-size: 22px; }
+  .feature-card strong { font-size: 13px; color: var(--ink); }
+  .feature-card span { font-size: 12px; color: var(--ink3); line-height: 1.4; }
+
+  .important-box {
+    background: #fef3c7; border: 1px solid #fcd34d; border-radius: 10px;
+    padding: 12px 16px; display: flex; gap: 10px; align-items: flex-start;
+    font-size: 13px; color: #78350f;
+  }
+
+  .green-box {
+    background: #d1fae5; border: 1px solid #6ee7b7; border-radius: 10px;
+    padding: 12px 16px; font-size: 13px; color: #065f46;
+  }
+</style>
+</head>
+<body>
+<div class="deck" id="deck">
+
+  <!-- ── SLIDE 1: COVER ───────────────────────────────────────────────────── -->
+  <div class="slide slide-cover active" id="s1">
+    <div class="cover-logo">🕌</div>
+    <div class="cover-pill">Handover Presentation</div>
+    <h1 class="title-xl">ATAK Webapp</h1>
+    <p style="font-size:20px;color:#7dd3fc;font-weight:600;">Akademi Tajwid Al-Khaadem</p>
+    <p class="subtitle">Portal Pengurusan Akademi — Panduan Serah Tugas</p>
+    <div style="margin-top:20px;display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
+      <span class="cover-pill">Pelajar &amp; Guru</span>
+      <span class="cover-pill">Pembayaran Billplz</span>
+      <span class="cover-pill">Sandaran Google Drive</span>
+    </div>
+    <p style="color:#475569;font-size:13px;margin-top:30px;">Gunakan ← → atau klik butang di bawah untuk navigasi</p>
+  </div>
+
+  <!-- ── SLIDE 2: OVERVIEW ────────────────────────────────────────────────── -->
+  <div class="slide slide-content" id="s2">
+    <div class="section-header">
+      <div class="section-icon">📋</div>
+      <div>
+        <div class="eyebrow">Slide 2 / 10</div>
+        <h2 class="title-lg">Apa itu ATAK Webapp?</h2>
+      </div>
+    </div>
+    <p class="body-text" style="margin-bottom:20px;">
+      Satu fail HTML tunggal yang mengandungi keseluruhan sistem pengurusan akademi. Tidak perlu pemasangan — buka sahaja dalam pelayar web.
+    </p>
+    <div class="three-col">
+      <div class="feature-card">
+        <span class="icon">👤</span>
+        <strong>Pengurusan Pelajar</strong>
+        <span>Tambah, sunting, dan pantau rekod pelajar serta kehadiran.</span>
+      </div>
+      <div class="feature-card">
+        <span class="icon">💳</span>
+        <strong>Pembayaran Billplz</strong>
+        <span>Terbitkan invois dan terima bayaran dalam talian melalui FPX, kad, e-dompet.</span>
+      </div>
+      <div class="feature-card">
+        <span class="icon">📚</span>
+        <strong>Portal Pelajar</strong>
+        <span>Pelajar log masuk untuk lihat kelas, tugasan, dan bayar yuran.</span>
+      </div>
+      <div class="feature-card">
+        <span class="icon">📊</span>
+        <strong>Laporan &amp; Kemajuan</strong>
+        <span>Rekod bacaan harian, kehadiran, dan laporan perkembangan tajwid.</span>
+      </div>
+      <div class="feature-card">
+        <span class="icon">📁</span>
+        <strong>Sandaran Data</strong>
+        <span>Eksport semua data ke Google Drive. Import semula pada mana-mana peranti.</span>
+      </div>
+      <div class="feature-card">
+        <span class="icon">🔒</span>
+        <strong>Kawalan Akaun</strong>
+        <span>Admin cipta akaun untuk setiap pelajar dan guru. Tiada pendaftaran sendiri.</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── SLIDE 3: ACCESS & LOGIN ──────────────────────────────────────────── -->
+  <div class="slide slide-split" id="s3">
+    <div class="split-left">
+      <div class="section-header">
+        <div class="section-icon">🔑</div>
+        <div>
+          <div class="eyebrow">Slide 3 / 10</div>
+          <h2 class="title-lg">Cara Akses &amp; Log Masuk</h2>
+        </div>
+      </div>
+      <p class="body-text">Buka fail <code style="background:#e0f7fc;padding:2px 7px;border-radius:5px;font-size:14px;color:var(--accent-dark);">ATAK Webapp _Standalone_.html</code> dalam pelayar web (Chrome/Safari/Edge).</p>
+      <div class="important-box">
+        ⚠️ <div>Data disimpan dalam <strong>localStorage</strong> pelayar semasa. Jika tukar pelayar atau peranti, import fail sandaran terlebih dahulu.</div>
+      </div>
+      <div class="card accent-border" style="margin-top:4px;">
+        <p class="muted" style="margin-bottom:8px;font-weight:600;">Dua tab log masuk:</p>
+        <div style="display:flex;gap:10px;">
+          <div style="flex:1;padding:10px;background:#f8fafc;border-radius:8px;font-size:13px;">
+            <strong style="display:block;margin-bottom:4px;">Pelajar / Ibu Bapa</strong>
+            <span style="color:var(--ink3);">Gunakan username &amp; kata laluan yang diberi oleh admin</span>
+          </div>
+          <div style="flex:1;padding:10px;background:#f8fafc;border-radius:8px;font-size:13px;">
+            <strong style="display:block;margin-bottom:4px;">Admin / Guru</strong>
+            <span style="color:var(--ink3);">Gunakan akaun admin atau guru</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="split-right">
+      <p style="font-weight:700;font-size:14px;color:var(--ink);margin-bottom:4px;">Akaun Lalai</p>
+      <table class="info-table">
+        <thead><tr><th>Peranan</th><th>Username</th><th>Kata Laluan</th></tr></thead>
+        <tbody>
+          <tr><td>Admin</td><td><code>admin</code></td><td><code>admin123</code></td></tr>
+        </tbody>
+      </table>
+      <div class="important-box" style="margin-top:4px;">
+        ⚠️ <div>Tukar kata laluan admin setelah pertama kali log masuk. Tambah akaun pelajar/guru dari panel admin.</div>
+      </div>
+      <div style="margin-top:8px;">
+        <p style="font-weight:700;font-size:13px;color:var(--ink);margin-bottom:8px;">Akaun dibuat oleh admin untuk:</p>
+        <div class="step-row">
+          <div class="step-num">1</div>
+          <div class="step-body"><strong>Guru</strong><span>Admin → ⚙ Tetapan → Pengurusan Akaun → pilih peranan Guru</span></div>
+        </div>
+        <div class="step-row" style="margin-top:10px;">
+          <div class="step-num">2</div>
+          <div class="step-body"><strong>Pelajar</strong><span>Admin → Pelajar → 👤 Daftar Pelajar Baru (wizard 3 langkah)</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── SLIDE 4: ADMIN PANEL ─────────────────────────────────────────────── -->
+  <div class="slide slide-content" id="s4">
+    <div class="section-header">
+      <div class="section-icon">⚙️</div>
+      <div>
+        <div class="eyebrow">Slide 4 / 10</div>
+        <h2 class="title-lg">Panel Admin — Bahagian Utama</h2>
+      </div>
+    </div>
+    <div class="two-col">
+      <div class="card accent-border">
+        <p style="font-weight:700;font-size:13px;margin-bottom:10px;">Tab dalam Urus (ManageView)</p>
+        <table class="info-table">
+          <thead><tr><th>Tab</th><th>Fungsi</th></tr></thead>
+          <tbody>
+            <tr><td>Pelajar</td><td>Senarai, tambah, sunting rekod pelajar</td></tr>
+            <tr><td>Guru</td><td>Senarai dan maklumat guru</td></tr>
+            <tr><td>Kelas</td><td>Jadual dan maklumat kelas</td></tr>
+            <tr><td>Yuran</td><td>Status bayaran, terbitkan invois</td></tr>
+            <tr><td>⚙ Tetapan</td><td>Billplz, akaun pengguna, sandaran data</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="card accent-border">
+        <p style="font-weight:700;font-size:13px;margin-bottom:10px;">⚙ Tetapan — Sub-bahagian</p>
+        <div style="display:flex;flex-direction:column;gap:10px;">
+          <div class="step-row">
+            <div class="step-num" style="background:#7c3aed;">💳</div>
+            <div class="step-body"><strong>Tetapan Billplz</strong><span>URL Cloudflare Worker + ID Koleksi untuk pembayaran dalam talian</span></div>
+          </div>
+          <div class="step-row">
+            <div class="step-num" style="background:#0891b2;">👤</div>
+            <div class="step-body"><strong>Pengurusan Akaun</strong><span>Cipta / padam akaun login pelajar dan guru</span></div>
+          </div>
+          <div class="step-row">
+            <div class="step-num" style="background:#059669;">💾</div>
+            <div class="step-body"><strong>Sandaran Data</strong><span>Eksport ke JSON → simpan ke Google Drive. Import untuk pulihkan data.</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── SLIDE 5: NEW STUDENT FLOW ────────────────────────────────────────── -->
+  <div class="slide slide-split" id="s5">
+    <div class="split-left">
+      <div class="section-header">
+        <div class="section-icon">👤</div>
+        <div>
+          <div class="eyebrow">Slide 5 / 10</div>
+          <h2 class="title-lg">Proses: Daftar Pelajar Baru</h2>
+        </div>
+      </div>
+      <p class="body-text">Admin → tab <strong>Pelajar</strong> → klik <strong>👤 Daftar Pelajar Baru</strong></p>
+      <p class="muted" style="margin-top:4px;margin-bottom:16px;">Wizard 3 langkah — semua selesai dalam satu modal.</p>
+      <div style="display:flex;flex-direction:column;gap:12px;">
+        <div class="step-row">
+          <div class="step-num">1</div>
+          <div class="step-body">
+            <strong>Maklumat Pelajar</strong>
+            <span>Nama penuh, kelas, umur, nama penjaga, no. telefon penjaga</span>
+          </div>
+        </div>
+        <div class="step-row">
+          <div class="step-num">2</div>
+          <div class="step-body">
+            <strong>Akaun Login</strong>
+            <span>ID pengguna (username) dan kata laluan — untuk pelajar log masuk</span>
+          </div>
+        </div>
+        <div class="step-row">
+          <div class="step-num">3</div>
+          <div class="step-body">
+            <strong>Invois Pertama</strong>
+            <span>Keterangan, jumlah (RM), tarikh akhir — atau langkau untuk buat kemudian</span>
+          </div>
+        </div>
+      </div>
+      <div class="green-box" style="margin-top:16px;">
+        ✅ Klik <strong>Daftarkan</strong> — rekod pelajar, akaun login dan invois pertama dibuat sekaligus.
+      </div>
+    </div>
+    <div class="split-right">
+      <p style="font-weight:700;font-size:14px;color:var(--ink);margin-bottom:12px;">Apa yang dibuat secara automatik</p>
+      <div style="display:flex;flex-direction:column;gap:10px;">
+        <div class="card" style="border-left:3px solid var(--ok);">
+          <p style="font-size:12px;font-weight:700;color:var(--ok);margin-bottom:3px;">REKOD PELAJAR</p>
+          <p style="font-size:12px;color:var(--ink3);">Nama, kelas, penjaga disimpan dalam senarai pelajar. Avatar auto-jana dari inisial nama.</p>
+        </div>
+        <div class="card" style="border-left:3px solid var(--accent);">
+          <p style="font-size:12px;font-weight:700;color:var(--accent-dark);margin-bottom:3px;">AKAUN LOGIN</p>
+          <p style="font-size:12px;color:var(--ink3);">Username &amp; kata laluan disimpan. Pelajar boleh log masuk serta-merta.</p>
+        </div>
+        <div class="card" style="border-left:3px solid #7c3aed;">
+          <p style="font-size:12px;font-weight:700;color:#7c3aed;margin-bottom:3px;">INVOIS (jika tidak dilangkau)</p>
+          <p style="font-size:12px;color:var(--ink3);">Invois terus muncul dalam tab Pembayaran pelajar berkenaan.</p>
+        </div>
+      </div>
+      <div class="important-box" style="margin-top:10px;">
+        ⚠️ <div>Berikan username &amp; kata laluan kepada pelajar / ibu bapa selepas daftar.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── SLIDE 6: INVOICE FLOW ─────────────────────────────────────────────── -->
+  <div class="slide slide-content" id="s6">
+    <div class="section-header">
+      <div class="section-icon">🧾</div>
+      <div>
+        <div class="eyebrow">Slide 6 / 10</div>
+        <h2 class="title-lg">Proses: Terbitkan Invois Yuran</h2>
+      </div>
+    </div>
+    <p class="body-text" style="margin-bottom:20px;">Gunakan ini setiap bulan untuk bil yuran atau caj khas kepada pelajar sedia ada.</p>
+    <div class="flow-row" style="margin-bottom:24px;justify-content:center;">
+      <div class="flow-box">Admin log masuk</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-box">Tab <strong>Yuran</strong></div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-box">+ Invois baru</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-box">Pilih pelajar</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-box">Isi butiran</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-box" style="background:#d1fae5;border-color:#6ee7b7;">Terbitkan ✓</div>
+    </div>
+    <div class="two-col">
+      <div class="card accent-border">
+        <p style="font-weight:700;font-size:13px;margin-bottom:10px;">Medan invois yang perlu diisi</p>
+        <table class="info-table">
+          <thead><tr><th>Medan</th><th>Contoh</th></tr></thead>
+          <tbody>
+            <tr><td>Pelajar</td><td>Pilih dari senarai akaun pelajar</td></tr>
+            <tr><td>Keterangan</td><td>Yuran bulanan Mei 2026</td></tr>
+            <tr><td>Jumlah (RM)</td><td>180</td></tr>
+            <tr><td>Tarikh akhir</td><td>25/05/2026</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="card" style="border-left:4px solid var(--ok);">
+        <p style="font-weight:700;font-size:13px;margin-bottom:10px;">Selepas invois diterbitkan</p>
+        <div style="display:flex;flex-direction:column;gap:8px;">
+          <div class="step-row">
+            <div class="step-num" style="background:var(--ok);width:24px;height:24px;font-size:11px;">✓</div>
+            <div class="step-body"><span>Invois muncul dalam tab <strong>Pembayaran</strong> pelajar berkenaan</span></div>
+          </div>
+          <div class="step-row">
+            <div class="step-num" style="background:var(--ok);width:24px;height:24px;font-size:11px;">✓</div>
+            <div class="step-body"><span>Pelajar klik <strong>💳 Bayar via Billplz</strong> untuk bayar dalam talian</span></div>
+          </div>
+          <div class="step-row">
+            <div class="step-num" style="background:var(--ok);width:24px;height:24px;font-size:11px;">✓</div>
+            <div class="step-body"><span>Admin tandakan <strong>Lunas</strong> di tab Yuran setelah bayaran disahkan</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── SLIDE 7: PAYMENT FLOW ────────────────────────────────────────────── -->
+  <div class="slide slide-split" id="s7">
+    <div class="split-left">
+      <div class="section-header">
+        <div class="section-icon">💳</div>
+        <div>
+          <div class="eyebrow">Slide 7 / 10</div>
+          <h2 class="title-lg">Aliran Pembayaran Billplz</h2>
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:10px;">
+        <div class="step-row">
+          <div class="step-num">1</div>
+          <div class="step-body"><strong>Pelajar log masuk → tab Pembayaran</strong><span>Invois yang diterbitkan admin muncul di sini</span></div>
+        </div>
+        <div class="step-row">
+          <div class="step-num">2</div>
+          <div class="step-body"><strong>Klik 💳 Bayar via Billplz</strong><span>Sistem hantar permintaan ke Cloudflare Worker → Billplz API</span></div>
+        </div>
+        <div class="step-row">
+          <div class="step-num">3</div>
+          <div class="step-body"><strong>Tab baru dibuka — halaman Billplz</strong><span>Pelajar pilih FPX / kad kredit / e-dompet dan selesaikan bayaran</span></div>
+        </div>
+        <div class="step-row">
+          <div class="step-num">4</div>
+          <div class="step-body"><strong>Status invois → pending</strong><span>Pautan 🔗 tersedia untuk buka semula halaman Billplz</span></div>
+        </div>
+        <div class="step-row">
+          <div class="step-num">5</div>
+          <div class="step-body"><strong>Admin sahkan &amp; tandakan Lunas</strong><span>Yuran tab → tick pelajar → klik ✓ Lunas</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="split-right">
+      <p style="font-weight:700;font-size:14px;margin-bottom:12px;">Keperluan Billplz</p>
+      <div style="display:flex;flex-direction:column;gap:10px;">
+        <div class="card" style="border-left:3px solid #7c3aed;">
+          <p style="font-size:12px;font-weight:700;color:#7c3aed;margin-bottom:4px;">CLOUDFLARE WORKER</p>
+          <p style="font-size:12px;color:var(--ink3);">Proxy CORS yang telah dideploy:</p>
+          <code style="font-size:11px;color:var(--accent-dark);word-break:break-all;">https://billplz-proxy.mraazi.workers.dev</code>
+        </div>
+        <div class="card" style="border-left:3px solid var(--accent);">
+          <p style="font-size:12px;font-weight:700;color:var(--accent-dark);margin-bottom:4px;">KONFIGURASI (Admin → ⚙ Tetapan)</p>
+          <table class="info-table" style="font-size:11px;">
+            <tr><td style="color:var(--ink3);">URL Worker</td><td><code>https://billplz-proxy.mraazi.workers.dev</code></td></tr>
+            <tr><td style="color:var(--ink3);">ID Koleksi</td><td><code>aou6h6qp</code></td></tr>
+          </table>
+        </div>
+        <div class="important-box">
+          ⚠️ <div>Worker mesti dikonfigurasi sebelum pelajar boleh membayar. Semak ⚙ Tetapan → Billplz.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── SLIDE 8: DATA BACKUP ─────────────────────────────────────────────── -->
+  <div class="slide slide-content" id="s8">
+    <div class="section-header">
+      <div class="section-icon">💾</div>
+      <div>
+        <div class="eyebrow">Slide 8 / 10</div>
+        <h2 class="title-lg">Sandaran Data — Google Drive</h2>
+      </div>
+    </div>
+    <p class="body-text" style="margin-bottom:20px;">Semua data disimpan dalam <strong>localStorage pelayar</strong>. Eksport secara berkala dan simpan ke Google Drive sebagai sandaran.</p>
+    <div class="two-col">
+      <div>
+        <p style="font-weight:700;font-size:13px;margin-bottom:12px;">💾 Cara Eksport</p>
+        <div style="display:flex;flex-direction:column;gap:10px;">
+          <div class="step-row">
+            <div class="step-num">1</div>
+            <div class="step-body"><strong>Admin → ⚙ Tetapan → Sandaran Data</strong><span>Tatal ke bahagian bawah tetapan</span></div>
+          </div>
+          <div class="step-row">
+            <div class="step-num">2</div>
+            <div class="step-body"><strong>Klik 💾 Eksport Data</strong><span>Fail <code>atak-data-YYYY-MM-DD.json</code> akan dimuat turun</span></div>
+          </div>
+          <div class="step-row">
+            <div class="step-num">3</div>
+            <div class="step-body"><strong>Simpan ke Google Drive</strong><span>Seret fail ke folder Google Drive anda</span></div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <p style="font-weight:700;font-size:13px;margin-bottom:12px;">📂 Cara Import (Pulih Data)</p>
+        <div style="display:flex;flex-direction:column;gap:10px;">
+          <div class="step-row">
+            <div class="step-num">1</div>
+            <div class="step-body"><strong>Muat turun fail JSON dari Google Drive</strong><span>Pilih fail sandaran terkini</span></div>
+          </div>
+          <div class="step-row">
+            <div class="step-num">2</div>
+            <div class="step-body"><strong>Admin → ⚙ Tetapan → 📂 Import Data</strong><span>Pilih fail JSON yang dimuat turun</span></div>
+          </div>
+          <div class="step-row">
+            <div class="step-num">3</div>
+            <div class="step-body"><strong>Data dipulihkan serta-merta</strong><span>Tiada muat semula halaman diperlukan</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div style="margin-top:16px;">
+      <p style="font-weight:700;font-size:13px;margin-bottom:8px;">Data yang disimpan dalam fail eksport:</p>
+      <div class="badge-row">
+        <div class="badge">👤 Pelajar</div>
+        <div class="badge">👩‍🏫 Guru</div>
+        <div class="badge">💰 Pembayaran</div>
+        <div class="badge">🧾 Yuran</div>
+        <div class="badge">🔐 Akaun Login</div>
+        <div class="badge">⚙️ Tetapan Billplz</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── SLIDE 9: QUICK REFERENCE ─────────────────────────────────────────── -->
+  <div class="slide slide-content" id="s9">
+    <div class="section-header">
+      <div class="section-icon">📌</div>
+      <div>
+        <div class="eyebrow">Slide 9 / 10</div>
+        <h2 class="title-lg">Rujukan Pantas — Tugas Admin</h2>
+      </div>
+    </div>
+    <div class="two-col">
+      <table class="info-table" style="background:white;border-radius:10px;overflow:hidden;border:1px solid var(--line);">
+        <thead><tr><th>Bila</th><th>Tindakan</th><th>Di mana</th></tr></thead>
+        <tbody>
+          <tr><td><span class="chip">Pelajar baru</span></td><td>Wizard pendaftaran</td><td>Pelajar → 👤 Daftar Pelajar Baru</td></tr>
+          <tr><td><span class="chip yellow">Setiap bulan</span></td><td>Terbitkan invois yuran</td><td>Yuran → + Invois baru</td></tr>
+          <tr><td><span class="chip green">Bayaran masuk</span></td><td>Tandakan Lunas</td><td>Yuran → tick → ✓ Lunas</td></tr>
+          <tr><td><span class="chip">Selepas sesi</span></td><td>Eksport sandaran</td><td>⚙ Tetapan → 💾 Eksport Data</td></tr>
+          <tr><td><span class="chip yellow">Peranti baru</span></td><td>Import data</td><td>⚙ Tetapan → 📂 Import Data</td></tr>
+          <tr><td><span class="chip red">Lupa kata laluan</span></td><td>Padam &amp; cipta semula akaun</td><td>⚙ Tetapan → Pengurusan Akaun</td></tr>
+        </tbody>
+      </table>
+      <div style="display:flex;flex-direction:column;gap:10px;">
+        <p style="font-weight:700;font-size:13px;">Akaun Penting</p>
+        <table class="info-table" style="background:white;border-radius:10px;overflow:hidden;border:1px solid var(--line);">
+          <thead><tr><th>Peranan</th><th>Username</th><th>Tab Log Masuk</th></tr></thead>
+          <tbody>
+            <tr><td>Admin</td><td><code>admin</code></td><td>Admin / Guru</td></tr>
+            <tr><td>Guru</td><td>Dibuat oleh admin</td><td>Admin / Guru</td></tr>
+            <tr><td>Pelajar</td><td>Dibuat semasa daftar</td><td>Pelajar / Ibu Bapa</td></tr>
+          </tbody>
+        </table>
+        <div class="important-box">
+          ⚠️ <div><strong>Penting:</strong> Sentiasa eksport data selepas membuat perubahan. Data TIDAK disimpan di pelayan — hanya dalam pelayar semasa.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── SLIDE 10: CLOSING ─────────────────────────────────────────────────── -->
+  <div class="slide slide-cover" id="s10">
+    <div class="cover-logo">✅</div>
+    <div class="cover-pill">Handover Complete</div>
+    <h1 class="title-xl" style="font-size:clamp(28px,3.5vw,44px);">Sistem Sedia Digunakan</h1>
+    <p style="color:#7dd3fc;font-size:16px;max-width:520px;line-height:1.6;">
+      ATAK Webapp telah dikonfigurasi sepenuhnya dengan integrasi Billplz, pengurusan akaun, dan sandaran data.
+    </p>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;max-width:480px;margin-top:10px;text-align:left;">
+      <div style="background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.15);border-radius:10px;padding:14px 16px;">
+        <p style="color:#7dd3fc;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;margin-bottom:4px;">Cloudflare Worker</p>
+        <p style="color:white;font-size:12px;word-break:break-all;">billplz-proxy.mraazi.workers.dev</p>
+      </div>
+      <div style="background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.15);border-radius:10px;padding:14px 16px;">
+        <p style="color:#7dd3fc;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;margin-bottom:4px;">Fail Utama</p>
+        <p style="color:white;font-size:12px;">ATAK Webapp _Standalone_.html</p>
+      </div>
+      <div style="background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.15);border-radius:10px;padding:14px 16px;">
+        <p style="color:#7dd3fc;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;margin-bottom:4px;">Log Masuk Admin</p>
+        <p style="color:white;font-size:12px;">admin / admin123</p>
+      </div>
+      <div style="background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.15);border-radius:10px;padding:14px 16px;">
+        <p style="color:#7dd3fc;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;margin-bottom:4px;">Sandaran</p>
+        <p style="color:white;font-size:12px;">⚙ Tetapan → 💾 Eksport Data</p>
+      </div>
+    </div>
+    <p style="color:#475569;font-size:13px;margin-top:24px;">Akademi Tajwid Al-Khaadem • 2026</p>
+  </div>
+
+</div>
+
+<!-- ── NAVIGATION ──────────────────────────────────────────────────────────── -->
+<div class="nav" id="nav">
+  <button id="prev" onclick="go(-1)" disabled>←</button>
+  <div class="dots" id="dots"></div>
+  <span class="counter" id="counter">1 / 10</span>
+  <button id="next" onclick="go(1)">→</button>
+</div>
+
+<script>
+  const TOTAL = 10;
+  let cur = 1;
+
+  const dotsEl = document.getElementById('dots');
+  for (let i = 0; i < TOTAL; i++) {
+    const d = document.createElement('div');
+    d.className = 'dot' + (i === 0 ? ' on' : '');
+    d.onclick = () => jump(i + 1);
+    d.style.cursor = 'pointer';
+    dotsEl.appendChild(d);
+  }
+
+  function jump(n) {
+    document.getElementById('s' + cur).classList.remove('active');
+    cur = Math.max(1, Math.min(TOTAL, n));
+    document.getElementById('s' + cur).classList.add('active');
+    document.getElementById('counter').textContent = cur + ' / ' + TOTAL;
+    document.getElementById('prev').disabled = cur === 1;
+    document.getElementById('next').disabled = cur === TOTAL;
+    document.querySelectorAll('.dot').forEach((d, i) => d.classList.toggle('on', i === cur - 1));
+  }
+
+  function go(dir) { jump(cur + dir); }
+
+  document.addEventListener('keydown', e => {
+    if (e.key === 'ArrowRight' || e.key === 'ArrowDown') go(1);
+    if (e.key === 'ArrowLeft'  || e.key === 'ArrowUp')   go(-1);
+  });
+</script>
+</body>
+</html>
